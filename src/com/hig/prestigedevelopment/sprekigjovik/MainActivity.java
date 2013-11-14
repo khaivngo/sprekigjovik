@@ -79,7 +79,9 @@ public class MainActivity extends FragmentActivity {
 			fragment.setArguments(args);
 			
 			switch(position){
+				case 0: fragment = new ChallengeMenu();
 				case 1: fragment = new DynamicMenu();
+				case 2: fragment = new TeamMenu();
 			}
 			return fragment;
 		}
@@ -143,11 +145,35 @@ public class MainActivity extends FragmentActivity {
 		@Override
 	    public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	            Bundle savedInstanceState) {
-	        EditText v = new EditText(getActivity());
-	        v.setText("Hello Fragment!");
-	        return v;
+			View view = inflater.inflate(R.layout.fragment_dynamicmenu_main,
+			        container, false);
+	        return view;
 	    }
 		
 	}
+	
+	public static class ChallengeMenu extends Fragment {
+		
+		@Override
+	    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	            Bundle savedInstanceState) {
+			View view = inflater.inflate(R.layout.fragment_challengemenu_main,
+			        container, false);
+	        return view;
+	    }
+		
+	}
+
+	public static class TeamMenu extends Fragment {
+	
+	@Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.fragment_teammenu_main,
+		        container, false);
+        return view;
+    }
+	
+}
 
 }
