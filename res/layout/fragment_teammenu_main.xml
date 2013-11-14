@@ -11,20 +11,5 @@
             android:onClick="checkIn"
             android:text="11111111" />
 
-        <Button
-            android:id="@+id/openMap"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/checkIn"
-            android:onClick="openMap"
-            android:text="22222222" />
-        
-        <Button
-            android:id="@+id/openLog"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/openMap"
-            android:onClick="openLog"
-            android:text="33333333" />
 
 </LinearLayout>

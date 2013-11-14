@@ -7,16 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity {
 
@@ -54,8 +50,9 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.main_activity_actions, menu);
+	    return true;
 	}
 
 	/**
@@ -74,9 +71,9 @@ public class MainActivity extends FragmentActivity {
 			Fragment fragment = null;
 			
 			switch(position){
-				case 0: fragment = new ChallengeMenu();
-				case 1: fragment = new DynamicMenu();
-				case 2: fragment = new TeamMenu();
+				case 0: return new ChallengeMenu();
+				case 1: return new DynamicMenu();
+				case 2: return new TeamMenu();
 			}
 			return fragment;
 		}

@@ -6,5 +6,6 @@
     <string name="title_section1">Challenges</string>
     <string name="title_section2">Dynamic View</string>
     <string name="title_section3">Teams</string>
+    <string name="action_maps">Open map</string>
 
 </resources>
