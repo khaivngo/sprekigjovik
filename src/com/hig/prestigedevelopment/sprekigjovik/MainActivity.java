@@ -77,11 +77,10 @@ public class MainActivity extends FragmentActivity {
 			Bundle args = new Bundle();
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
-			Fragment newFragment = new DynamicMenu();
-			if(position == 0){
-				fragment = new DynamicMenu();
-			}
 			
+			switch(position){
+				case 1: fragment = new DynamicMenu();
+			}
 			return fragment;
 		}
 
