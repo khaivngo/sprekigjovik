@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity {
@@ -76,6 +77,11 @@ public class MainActivity extends FragmentActivity {
 			Bundle args = new Bundle();
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
+			Fragment newFragment = new DynamicMenu();
+			if(position == 0){
+				fragment = new DynamicMenu();
+			}
+			
 			return fragment;
 		}
 
@@ -131,6 +137,18 @@ public class MainActivity extends FragmentActivity {
 					ARG_SECTION_NUMBER)));
 			return rootView;
 		}
+	}
+	
+	public static class DynamicMenu extends Fragment {
+		
+		@Override
+	    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	            Bundle savedInstanceState) {
+	        EditText v = new EditText(getActivity());
+	        v.setText("Hello Fragment!");
+	        return v;
+	    }
+		
 	}
 
 }
