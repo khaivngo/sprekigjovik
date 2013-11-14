@@ -48,7 +48,7 @@ public class MainActivity extends FragmentActivity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-
+		mViewPager.setCurrentItem(1);
 	}
 
 	@Override
@@ -70,13 +70,8 @@ public class MainActivity extends FragmentActivity {
 
 		@Override
 		public Fragment getItem(int position) {
-			// getItem is called to instantiate the fragment for the given page.
-			// Return a DummySectionFragment (defined as a static inner class
-			// below) with the page number as its lone argument.
-			Fragment fragment = new DummySectionFragment();
-			Bundle args = new Bundle();
-			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
-			fragment.setArguments(args);
+			
+			Fragment fragment = null;
 			
 			switch(position){
 				case 0: fragment = new ChallengeMenu();
@@ -106,39 +101,6 @@ public class MainActivity extends FragmentActivity {
 			return null;
 		}
 	}
-
-	/**
-	 * A dummy fragment representing a section of the app, but that simply
-	 * displays dummy text.
-	 */
-	public static class DummySectionFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
-		public DummySectionFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main_dummy,
-					container, false);
-			
-			if(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)) == "1"){
-				TextView tv = (TextView) rootView.findViewById(R.id.section_label);
-				tv.setText("Dette er challenges");
-			}
-			
-			TextView dummyTextView = (TextView) rootView
-					.findViewById(R.id.section_label);
-			dummyTextView.setText(Integer.toString(getArguments().getInt(
-					ARG_SECTION_NUMBER)));
-			return rootView;
-		}
-	}
 	
 	public static class DynamicMenu extends Fragment {
 		
@@ -149,7 +111,6 @@ public class MainActivity extends FragmentActivity {
 			        container, false);
 	        return view;
 	    }
-		
 	}
 	
 	public static class ChallengeMenu extends Fragment {
@@ -161,19 +122,16 @@ public class MainActivity extends FragmentActivity {
 			        container, false);
 	        return view;
 	    }
-		
 	}
 
 	public static class TeamMenu extends Fragment {
 	
-	@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_teammenu_main,
-		        container, false);
-        return view;
-    }
-	
-}
-
+		@Override
+	    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	            Bundle savedInstanceState) {
+			View view = inflater.inflate(R.layout.fragment_teammenu_main,
+			        container, false);
+	        return view;
+	    }
+	}
 }
