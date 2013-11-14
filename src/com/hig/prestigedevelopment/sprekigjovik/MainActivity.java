@@ -119,6 +119,12 @@ public class MainActivity extends FragmentActivity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main_dummy,
 					container, false);
+			
+			if(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)) == "1"){
+				TextView tv = (TextView) rootView.findViewById(R.id.section_label);
+				tv.setText("Dette er challenges");
+			}
+			
 			TextView dummyTextView = (TextView) rootView
 					.findViewById(R.id.section_label);
 			dummyTextView.setText(Integer.toString(getArguments().getInt(
