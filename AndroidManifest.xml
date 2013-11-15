@@ -23,13 +23,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.hig.prestigedevelopment.sprekigjovik.Profile"
+            android:name="com.hig.prestigedevelopment.sprekigjovik.Login"
             android:label="@string/title_activity_profile"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
             android:name="com.hig.prestigedevelopment.sprekigjovik.Maps"
-            android:label="@string/title_activity_maps" >
+            android:label="@string/title_activity_maps" 
+            android:parentActivityName="MainActivity" >
+        </activity>
+        <activity
+            android:name="com.hig.prestigedevelopment.sprekigjovik.Profile"
+            android:label="@string/title_activity_profile" 
+            android:parentActivityName="MainActivity" >
         </activity>
     </application>
 

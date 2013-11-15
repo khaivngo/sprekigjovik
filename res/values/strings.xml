@@ -10,5 +10,9 @@
     <string name="action_profile">Profile</string>
     <string name="title_activity_maps">Maps</string>
     <string name="hello_world">Hello world!</string>
+    <string name="log_out">Log Out</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="error_register">Error registering new user, please try again</string>
+    <string name="successful_register">Registration successful</string>
 
 </resources>

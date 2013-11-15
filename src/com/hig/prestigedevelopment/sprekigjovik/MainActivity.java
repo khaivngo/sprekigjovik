@@ -58,7 +58,7 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	@Override
-	  public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 		
 		Intent intent;
 		
@@ -71,7 +71,6 @@ public class MainActivity extends FragmentActivity {
 	    	intent = new Intent(this, Maps.class);
 	    	startActivity(intent);
 	    	break;
-
 	    default:
 	      break;
 	    }
@@ -154,12 +153,5 @@ public class MainActivity extends FragmentActivity {
 			        container, false);
 	        return view;
 	    }
-	}
-	
-	public void openProfile(View view) {
-		
-		Intent intent = new Intent(this, Profile.class);
-		startActivity(intent);
-		
 	}
 }
