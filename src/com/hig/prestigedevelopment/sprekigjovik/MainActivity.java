@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 
@@ -37,6 +39,8 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+        CheckEnableGPS();
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
@@ -163,10 +167,21 @@ public class MainActivity extends FragmentActivity {
 		
 	}
 	
+//------------------GPS---------------------------------------------------------------------------------------------
 	
-    public void displayMap(View view)	{
-    	Intent intent = new Intent(this, DisplayMap.class);
-    	startActivity(intent);
-    }
+				//check whether GPS is enabled and if not prompts user to activate it.
+    private void CheckEnableGPS()	{
+        String provider = Settings.Secure.getString(getContentResolver(),
+          Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+           if(!provider.equals("")){
+               //GPS Enabled
+            Toast.makeText(getApplicationContext(), "GPS Enabled: " + provider,
+              Toast.LENGTH_LONG).show();
+           }else{
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+               startActivity(intent);
+           }
+
+       }
 	
 }

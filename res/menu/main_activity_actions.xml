@@ -5,13 +5,11 @@
        	android:orderInCategory="100"
         android:showAsAction="always"
         android:icon="@drawable/maps"
-        android:title="@string/action_maps"
-         />
+        android:title="@string/action_maps" />
     
     <item android:id="@+id/action_profile"
        	android:orderInCategory="100"
         android:showAsAction="always"
         android:icon="@drawable/profile"
-        android:title="@string/action_profile"
-         />
+        android:title="@string/action_profile"/>
 </menu>

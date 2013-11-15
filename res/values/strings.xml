@@ -10,5 +10,9 @@
     <string name="action_profile">Profile</string>
     <string name="title_activity_maps">Maps</string>
     <string name="hello_world">Hello world!</string>
+    <string name="enable_gps">Would you like to enable GPS?</string>
+    <string name="no">I refuse</string>
+    <string name="yes">Gladly</string>
+    <string name="set_internet">Would you like to enable mobile data?</string>
 
 </resources>
