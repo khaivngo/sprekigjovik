@@ -12,6 +12,6 @@
        	android:orderInCategory="100"
         android:showAsAction="always"
         android:icon="@drawable/profile"
-        android:title="@string/action_maps"
+        android:title="@string/action_profile"
          />
 </menu>

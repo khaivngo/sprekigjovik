@@ -7,5 +7,8 @@
     <string name="title_section2">Dynamic View</string>
     <string name="title_section3">Teams</string>
     <string name="action_maps">Open map</string>
+    <string name="action_profile">Profile</string>
+    <string name="title_activity_maps">Maps</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

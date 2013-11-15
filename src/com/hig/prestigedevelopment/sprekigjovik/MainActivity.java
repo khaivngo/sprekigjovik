@@ -2,6 +2,7 @@ package com.hig.prestigedevelopment.sprekigjovik;
 
 import java.util.Locale;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -11,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -54,6 +56,28 @@ public class MainActivity extends FragmentActivity {
 	    inflater.inflate(R.menu.main_activity_actions, menu);
 	    return true;
 	}
+	
+	@Override
+	  public boolean onOptionsItemSelected(MenuItem item) {
+		
+		Intent intent;
+		
+	    switch (item.getItemId()) {
+	    case R.id.action_profile:
+	    	intent = new Intent(this, Profile.class);
+	    	startActivity(intent);
+	    	break;
+	    case R.id.action_maps:
+	    	intent = new Intent(this, Maps.class);
+	    	startActivity(intent);
+	    	break;
+
+	    default:
+	      break;
+	    }
+
+	    return true;
+	  } 
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -130,5 +154,12 @@ public class MainActivity extends FragmentActivity {
 			        container, false);
 	        return view;
 	    }
+	}
+	
+	public void openProfile(View view) {
+		
+		Intent intent = new Intent(this, Profile.class);
+		startActivity(intent);
+		
 	}
 }

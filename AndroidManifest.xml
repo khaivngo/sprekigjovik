@@ -10,7 +10,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/sprekigjovik"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -21,6 +21,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.hig.prestigedevelopment.sprekigjovik.Profile"
+            android:label="@string/title_activity_profile"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+        <activity
+            android:name="com.hig.prestigedevelopment.sprekigjovik.Maps"
+            android:label="@string/title_activity_maps" >
         </activity>
     </application>
 
