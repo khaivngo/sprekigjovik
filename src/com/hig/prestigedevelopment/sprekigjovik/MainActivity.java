@@ -2,6 +2,7 @@ package com.hig.prestigedevelopment.sprekigjovik;
 
 import java.util.Locale;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -131,4 +132,11 @@ public class MainActivity extends FragmentActivity {
 	        return view;
 	    }
 	}
+	
+	
+    public void displayMap(View view)	{
+    	Intent intent = new Intent(this, DisplayMap.class);
+    	startActivity(intent);
+    }
+	
 }
