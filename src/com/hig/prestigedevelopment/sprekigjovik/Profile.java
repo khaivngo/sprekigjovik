@@ -43,6 +43,14 @@ public class Profile extends Activity {
 	}
 	
 	@Override
+    public void onBackPressed() {
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+		
+        super.onBackPressed();   
+    }
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		
 		Intent intent;
@@ -71,7 +79,8 @@ public class Profile extends Activity {
 	public void logOut(View view) {
 		SharedPreferences sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
 		sharedPreferences.edit().clear().commit();
-		finish();
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
 	}
 
 }

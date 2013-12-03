@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/team_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:textSize="28sp"/>
+    <TextView
+        android:id="@+id/team_description"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="16sp" />
+    <Button
+	    android:id="@+id/join_team"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:onClick="joinTeam"
+	    android:padding="10dp"
+	    android:text="@string/join_team" />
+    <Button
+		android:id="@+id/view_members"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:onClick="viewMembers"
+		android:padding="10dp"	
+		android:text="@string/view_members" />
+    
+    <Button
+        android:id="@+id/teamHighscore"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="teamHighscore"
+        android:text="@string/team_highscore" />
+
+</LinearLayout>

@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="16" />
+        android:targetSdkVersion="17" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +21,29 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.hig.prestigedevelopment.sprekigjovik.Login"
+            android:label="@string/title_activity_profile"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+        <activity
+            android:name="com.hig.prestigedevelopment.sprekigjovik.Maps"
+            android:label="@string/title_activity_maps"
+            android:parentActivityName="MainActivity" >
+        </activity>
+        <activity
+            android:name="com.hig.prestigedevelopment.sprekigjovik.Profile"
+            android:label="@string/title_activity_profile"
+            android:parentActivityName="MainActivity" >
+        </activity>
+        <activity
+            android:name="com.hig.prestigedevelopment.sprekigjovik.DisplayTeam"
+            android:label="@string/title_activity_display_team" >
+        </activity>
+        <activity
+            android:name="com.hig.prestigedevelopment.sprekigjovik.TeamHighscore"
+            android:label="@string/title_activity_team_highscore" >
         </activity>
     </application>
 

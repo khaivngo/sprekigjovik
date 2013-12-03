@@ -3,16 +3,56 @@
 
     <string name="app_name">Sprek i Gjøvik</string>
     <string name="action_settings">Settings</string>
+
+    <!-- MainActivity -->
     <string name="title_section1">Challenges</string>
     <string name="title_section2">Dynamic View</string>
     <string name="title_section3">Teams</string>
+
+    <!-- Action Bar -->
     <string name="action_maps">Open map</string>
     <string name="action_profile">Profile</string>
+
+    <!-- Maps -->
     <string name="title_activity_maps">Maps</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="log_out">Log Out</string>
+
+    <!-- Profile -->
     <string name="title_activity_profile">Profile</string>
+    <string name="log_out">Log Out</string>
+
+    <!-- Login -->
     <string name="error_register">Error registering new user, please try again</string>
     <string name="successful_register">Registration successful</string>
+
+    <!-- Teams -->
+    <string name="your_team">Your Team</string>
+    <string name="all_teams">All Teams</string>
+    <string name="team_highscore">Team Highscores</string>
+    <string name="join_team">Join Team</string>
+    <string name="search_teams">Search for team</string>
+    <string name="select_team">Select Team</string>
+    <string name="title_activity_display_team">DisplayTeam</string>
+    <string name="view_members">Team Members</string>
+    <string name="join_team">Join Team</string>
+    <string name="join_successful">Join successful!</string>
+    <string name="title_activity_team_highscore">TeamHighscore</string>
+    <string name="hello_world">Hello world!</string>
+    
+    <!-- TEMP -->
+    <string name="app_name">Navigation Drawer Example</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_websearch">Web search</string>
+    <string name="app_not_available">Sorry, there\'s no web browser available</string>
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
 
 </resources>

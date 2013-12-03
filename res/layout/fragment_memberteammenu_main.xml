@@ -5,11 +5,11 @@
     android:orientation="vertical" >
     
     	<Button
-            android:id="@+id/joinTeam"
+            android:id="@+id/yourTeam"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:onClick="checkIn"
-            android:text="@string/join_team" />
+            android:onClick="viewTeam"
+            android:text="@string/your_team" />
     	
     	<Button
             android:id="@+id/allTeams"
@@ -17,4 +17,8 @@
             android:layout_height="wrap_content"
             android:onClick="allTeams"
             android:text="@string/all_teams" />
+    	
+    	
+
+
 </LinearLayout>

@@ -63,7 +63,8 @@ public class Login extends Activity {
 		setContentView(R.layout.activity_login);
 
 		db = openOrCreateDatabase("sprekIGjovik", MODE_PRIVATE,null);
-		db.execSQL("CREATE TABLE IF NOT EXISTS peeps(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT);");
+		db.execSQL("CREATE TABLE IF NOT EXISTS peeps(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, " +
+				"password TEXT, teamId INTEGER);");
 		Cursor cursor = db.rawQuery("SELECT * FROM peeps", null);
 		
 		while(cursor.moveToNext()){
