@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CourseData xmlns="http://www.orienteering.org/datastandard/3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" iofVersion="3.0" createTime="2013-10-18T11:18:38.818+02:00" creator="OCAD 11.3.10.1748">
+  <Event>
+    <Name>Event</Name>
+  </Event>
+  <RaceCourseData>
+    <Map>
+      <Scale>5000</Scale>
+      <!-- extent of ocad map-->
+      <MapPositionTopLeft x="-156.8" y="128.9" unit="mm"/>
+      <MapPositionBottomRight x="340.1" y="-167.6" unit="mm"/>
+    </Map>
+    <Control>
+      <Id>1</Id>
+      <Position lng="10.671766" lat="60.797149" />
+      <MapPosition x="-2.4" y="70.4" unit="mm" />
+    </Control>
+    <Control>
+      <Id>2</Id>
+      <Position lng="10.676271" lat="60.797796" />
+      <MapPosition x="46.3" y="86.1" unit="mm" />
+    </Control>
+    <Control>
+      <Id>3</Id>
+      <Position lng="10.675777" lat="60.794528" />
+      <MapPosition x="42.8" y="13.1" unit="mm" />
+    </Control>
+    <Control>
+      <Id>4</Id>
+      <Position lng="10.677858" lat="60.793925" />
+      <MapPosition x="65.8" y="0.3" unit="mm" />
+    </Control>
+    <Control>
+      <Id>5</Id>
+      <Position lng="10.667082" lat="60.790810" />
+      <MapPosition x="-49.8" y="-72.1" unit="mm" />
+    </Control>
+    <Control>
+      <Id>6</Id>
+      <Position lng="10.661453" lat="60.792476" />
+      <MapPosition x="-112.0" y="-36.5" unit="mm" />
+    </Control>
+    <Control>
+      <Id>7</Id>
+      <Position lng="10.669674" lat="60.793058" />
+      <MapPosition x="-22.8" y="-21.3" unit="mm" />
+    </Control>
+    <Control>
+      <Id>11</Id>
+      <Position lng="10.685185" lat="60.793269" />
+      <MapPosition x="145.9" y="-12.3" unit="mm" />
+    </Control>
+    <Control>
+      <Id>12</Id>
+      <Position lng="10.690588" lat="60.792518" />
+      <MapPosition x="205.1" y="-27.5" unit="mm" />
+    </Control>
+    <Control>
+      <Id>13</Id>
+      <Position lng="10.689552" lat="60.794982" />
+      <MapPosition x="192.4" y="27.1" unit="mm" />
+    </Control>
+    <Control>
+      <Id>14</Id>
+      <Position lng="10.689520" lat="60.796357" />
+      <MapPosition x="191.3" y="57.7" unit="mm" />
+    </Control>
+    <Control>
+      <Id>15</Id>
+      <Position lng="10.686478" lat="60.797662" />
+      <MapPosition x="157.4" y="85.9" unit="mm" />
+    </Control>
+    <Control>
+      <Id>21</Id>
+      <Position lng="10.666328" lat="60.795006" />
+      <MapPosition x="-60.4" y="21.2" unit="mm" />
+    </Control>
+    <Control>
+      <Id>22</Id>
+      <Position lng="10.667960" lat="60.795980" />
+      <MapPosition x="-43.1" y="43.3" unit="mm" />
+    </Control>
+    <Control>
+      <Id>23</Id>
+      <Position lng="10.675836" lat="60.799138" />
+      <MapPosition x="40.8" y="115.8" unit="mm" />
+    </Control>
+    <Control>
+      <Id>30</Id>
+      <Position lng="10.691870" lat="60.794231" />
+      <MapPosition x="218.1" y="11.0" unit="mm" />
+    </Control>
+    <Control>
+      <Id>31</Id>
+      <Position lng="10.687084" lat="60.794152" />
+      <MapPosition x="166.1" y="7.9" unit="mm" />
+    </Control>
+    <Control>
+      <Id>37</Id>
+      <Position lng="10.680915" lat="60.793652" />
+      <MapPosition x="99.2" y="-4.9" unit="mm" />
+    </Control>
+    <Control>
+      <Id>41</Id>
+      <Position lng="10.680501" lat="60.798851" />
+      <MapPosition x="91.7" y="110.8" unit="mm" />
+    </Control>
+    <Control>
+      <Id>42</Id>
+      <Position lng="10.698281" lat="60.798292" />
+      <MapPosition x="285.5" y="103.3" unit="mm" />
+    </Control>
+    <Control>
+      <Id>46</Id>
+      <Position lng="10.662968" lat="60.796467" />
+      <MapPosition x="-97.7" y="52.8" unit="mm" />
+    </Control>
+    <Control>
+      <Id>47</Id>
+      <Position lng="10.664888" lat="60.794479" />
+      <MapPosition x="-75.7" y="9.1" unit="mm" />
+    </Control>
+    <Control>
+      <Id>48</Id>
+      <Position lng="10.672168" lat="60.795409" />
+      <MapPosition x="3.0" y="31.8" unit="mm" />
+    </Control>
+    <Control>
+      <Id>49</Id>
+      <Position lng="10.674817" lat="60.793038" />
+      <MapPosition x="33.2" y="-20.3" unit="mm" />
+    </Control>
+
+  </RaceCourseData>
+</CourseData>

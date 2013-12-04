@@ -10,5 +10,12 @@
    		android:layout_width="fill_parent"  
    		android:layout_height="wrap_content"
    		android:text="@string/action_maps"/>
+        
+        <Button
+        android:id="@+id/openDyanicTour" 
+   		android:layout_width="fill_parent"  
+   		android:layout_height="wrap_content"
+   		android:text="@string/action_dynamicTour"
+        android:onClick="dynamicTour"/>
 
 </LinearLayout>

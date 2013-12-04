@@ -8,11 +8,35 @@
     <string name="title_section3">Teams</string>
     <string name="action_maps">Open map</string>
     <string name="action_profile">Profile</string>
+    <string name="action_dynamicTour">Set tour criteria</string>
     <string name="title_activity_maps">Maps</string>
+    <string name="title_activity_dynamictour">Maps</string>
     <string name="hello_world">Hello world!</string>
     <string name="enable_gps">Would you like to enable GPS?</string>
     <string name="no">I refuse</string>
     <string name="yes">Gladly</string>
     <string name="set_internet">Would you like to enable mobile data?</string>
+    <string name="poles_prompt">Choose number of poles</string>
+    <string name="choose_poles">Select the numbers of poles you wish to visit</string>
+    <string name="dialog_register_marker">What is code on pole?</string>
+    <string name="dialog_register">Submit</string>
+    <string name="dialog_cancel">Not there yet</string>
+    <string name="pole_hint">Code of pole</string>
+
+    <string-array name="poles_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <string name="title_activity_dynamic_tour">DynamicTour</string>
+    <string name="title_activity_on_click_listener">OnClickListener</string>
 
 </resources>
