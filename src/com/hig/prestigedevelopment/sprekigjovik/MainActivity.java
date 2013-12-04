@@ -239,12 +239,17 @@ public class MainActivity extends FragmentActivity {
 		dummyScores.add(new String[]{"3", "2", "391"});
 		dummyScores.add(new String[]{"2", "1", "112"});
 		
+		List<String[]> dummyChallenges = new ArrayList<String[]>();
+		dummyChallenges.add(new String[]{"Opp til toppen", "Ta alle postene opp til Gjøviktoppen.", "3"});
+		dummyChallenges.add(new String[]{"Langs Mjøsa", "Ta alle postene langs Mjøsa.", "2"});
+		dummyChallenges.add(new String[]{"Til sykehuset og tilbake", "Ta postene frem til sykehuset, og de samme postene tilbake.", "1"});
+		
 		db = openOrCreateDatabase("sprekIGjovik", MODE_PRIVATE,null);
 		db.execSQL("CREATE TABLE IF NOT EXISTS teams(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT);");
 		db.execSQL("CREATE TABLE IF NOT EXISTS peeps(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, " +
 				"password TEXT, teamId INTEGER);");
 		db.execSQL("CREATE TABLE IF NOT EXISTS highscores(id INTEGER PRIMARY KEY AUTOINCREMENT, userId INTEGER, " +
-				"challengeId INTEGER, score TEXT);");
+				"challengeId INTEGER, score INTEGER);");
 		
 		Cursor cursor = db.rawQuery("SELECT * FROM teams;" , null);
 		cursor.moveToFirst();
@@ -274,7 +279,21 @@ public class MainActivity extends FragmentActivity {
 				db.execSQL("INSERT INTO highscores(userId, challengeId, score) VALUES('"+ row[0]+ "','" + row[1] + 
 						"', '" + row[2] + "');");
 			}
-		}		
+		}
+		
+		db = openOrCreateDatabase("PoleDB", MODE_PRIVATE,null);
+		db.execSQL("CREATE TABLE IF NOT EXISTS challenges(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, difficulty INTEGER);");
+		
+		cursor = db.rawQuery("SELECT * FROM challenges;" , null);
+		cursor.moveToFirst();
+		
+		if(cursor==null || cursor.getCount()==0){
+			for(String[] row : dummyChallenges){
+				db.execSQL("INSERT INTO challenges(name, description, difficulty) VALUES('"+ row[0]+ "','" + row[1] + 
+						"', '" + row[2] + "');");
+			}
+		}
+		
 	}
 	/**
 	 * Static way to get context
@@ -292,7 +311,7 @@ public class MainActivity extends FragmentActivity {
 		Intent intent = new Intent(this, DisplayTeam.class);
 		SharedPreferences sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
 		String username = sharedPreferences.getString("UserName", "");
-		
+		db = openOrCreateDatabase("sprekIGjovik", MODE_PRIVATE,null);
 		Cursor cursor = db.rawQuery("SELECT name FROM teams WHERE id = (SELECT teamId FROM peeps WHERE username LIKE '" + username + "');", null);
 		cursor.moveToFirst();
 	   	intent.putExtra("team", cursor.getString(0)); 

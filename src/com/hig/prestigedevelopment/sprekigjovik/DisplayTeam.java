@@ -34,8 +34,10 @@ public class DisplayTeam extends Activity {
 		Bundle extras = getIntent().getExtras(); 
 	    teamName = extras.getString("team");
 	    
-	    if(isMember()){
-	    	hideJoin();
+	    if(!checkLogin()){		//Hides join button if user isn't logged in, enters if if it didn't hide
+	    	if(isMember()){		//Hides join button if user is member of team
+	    		hideJoin();
+	    	}
 	    }
 	    
 	    //Toast.makeText(getApplicationContext(), teamName, Toast.LENGTH_LONG).show();
@@ -123,8 +125,9 @@ public class DisplayTeam extends Activity {
 		cursor = db.rawQuery("SELECT teamId FROM peeps WHERE teamId='" + teamId + "' AND username LIKE '" + username + "';", null);
 		cursor.moveToFirst();
 		if(cursor != null && cursor.getCount() > 0){
-			Toast.makeText(getApplicationContext(), getResources().getString(R.string.join_successful), Toast.LENGTH_LONG).show();
 			hideJoin();
+			 Toast.makeText(DisplayTeam.this, getString(R.string.join_successful),
+					     Toast.LENGTH_SHORT).show();
 		}
 		
 	}
@@ -165,7 +168,23 @@ public class DisplayTeam extends Activity {
 	public void teamHighscore(View v){
 		
 		Intent intent = new Intent(this, TeamHighscore.class);
+		intent.putExtra("teamName", teamName);
 		startActivity(intent);
 	}
-
+	
+	/**
+	 * Hides the join button if user isn't logged in
+	 * @return True if button was hidden
+	 */
+	public Boolean checkLogin() {
+		SharedPreferences sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
+		String textValue = sharedPreferences.getString("UserName", "");
+		
+		if(textValue == "" || textValue == null){
+			Button button = (Button) findViewById(R.id.join_team);
+			button.setVisibility(View.GONE);
+			return true;
+		}
+		return false;
+	}
 }

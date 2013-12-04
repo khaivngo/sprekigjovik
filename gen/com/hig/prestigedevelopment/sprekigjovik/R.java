@@ -201,15 +201,17 @@ containing a value of this type.
         public static final int venus=0x7f020028;
     }
     public static final class id {
-        public static final int action_maps=0x7f05001f;
-        public static final int action_profile=0x7f050020;
-        public static final int action_settings=0x7f05001d;
-        public static final int action_websearch=0x7f05001e;
+        public static final int action_maps=0x7f050022;
+        public static final int action_profile=0x7f050023;
+        public static final int action_settings=0x7f050020;
+        public static final int action_websearch=0x7f050021;
         public static final int allTeams=0x7f050019;
+        public static final int cell_1=0x7f05001c;
+        public static final int cell_2=0x7f05001d;
+        public static final int cell_3=0x7f05001e;
         public static final int content_frame=0x7f050015;
         public static final int drawer_layout=0x7f050014;
         public static final int hybrid=0x7f050004;
-        public static final int image=0x7f05001b;
         public static final int joinTeam=0x7f05001a;
         public static final int join_team=0x7f050007;
         public static final int left_drawer=0x7f050016;
@@ -218,6 +220,7 @@ containing a value of this type.
         public static final int login_form=0x7f05000c;
         public static final int login_status=0x7f05000a;
         public static final int login_status_message=0x7f05000b;
+        public static final int my_table=0x7f05001b;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int pager=0x7f050011;
@@ -230,7 +233,7 @@ containing a value of this type.
         public static final int team_description=0x7f050006;
         public static final int team_name=0x7f050005;
         public static final int terrain=0x7f050003;
-        public static final int user_list=0x7f05001c;
+        public static final int user_list=0x7f05001f;
         public static final int username=0x7f05000d;
         public static final int view_members=0x7f050008;
         public static final int yourTeam=0x7f050018;
@@ -247,9 +250,10 @@ containing a value of this type.
         public static final int fragment_main_dummy=0x7f030008;
         public static final int fragment_memberteammenu_main=0x7f030009;
         public static final int fragment_teammenu_main=0x7f03000a;
-        public static final int team_highscore_fragment_planet=0x7f03000b;
+        public static final int team_highscore_fragment=0x7f03000b;
         public static final int team_highscore_list_item=0x7f03000c;
-        public static final int team_members=0x7f03000d;
+        public static final int team_highscore_row_item=0x7f03000d;
+        public static final int team_members=0x7f03000e;
     }
     public static final class menu {
         public static final int display_team=0x7f0a0000;
@@ -261,20 +265,18 @@ containing a value of this type.
         public static final int team_highscore=0x7f0a0006;
     }
     public static final class string {
-        public static final int action_forgot_password=0x7f060035;
+        public static final int action_forgot_password=0x7f060037;
         /**  Action Bar 
          */
         public static final int action_maps=0x7f06001a;
         public static final int action_profile=0x7f06001b;
         public static final int action_settings=0x7f060016;
-        public static final int action_sign_in_register=0x7f060033;
-        public static final int action_sign_in_short=0x7f060034;
-        public static final int action_websearch=0x7f06002e;
+        public static final int action_sign_in_register=0x7f060035;
+        public static final int action_sign_in_short=0x7f060036;
+        public static final int action_websearch=0x7f060030;
         public static final int all_teams=0x7f060022;
-        /**  TEMP 
-         */
         public static final int app_name=0x7f060015;
-        public static final int app_not_available=0x7f06002f;
+        public static final int app_not_available=0x7f060031;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -353,30 +355,34 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f06000e;
-        public static final int drawer_close=0x7f06002d;
-        public static final int drawer_open=0x7f06002c;
-        public static final int error_field_required=0x7f06003a;
-        public static final int error_incorrect_password=0x7f060039;
-        public static final int error_invalid_password=0x7f060038;
-        public static final int error_invalid_username=0x7f060037;
+        public static final int drawer_close=0x7f06002f;
+        /**  TEMP 
+         */
+        public static final int drawer_open=0x7f06002e;
+        public static final int error_field_required=0x7f06003c;
+        public static final int error_incorrect_password=0x7f06003b;
+        public static final int error_invalid_password=0x7f06003a;
+        public static final int error_invalid_username=0x7f060039;
         /**  Login 
          */
         public static final int error_register=0x7f06001f;
         public static final int hello_world=0x7f06002b;
+        public static final int highscore_name=0x7f06002c;
         public static final int join_successful=0x7f060029;
         public static final int join_team=0x7f060024;
         public static final int log_out=0x7f06001e;
-        public static final int login_progress_signing_in=0x7f060036;
-        public static final int prompt_password=0x7f060032;
+        public static final int login_progress_signing_in=0x7f060038;
+        public static final int prompt_password=0x7f060034;
         /**  Strings related to login 
          */
-        public static final int prompt_username=0x7f060031;
+        public static final int prompt_username=0x7f060033;
+        public static final int score=0x7f06002d;
         public static final int search_teams=0x7f060025;
         public static final int select_team=0x7f060026;
         public static final int successful_register=0x7f060020;
         public static final int team_highscore=0x7f060023;
         public static final int title_activity_display_team=0x7f060027;
-        public static final int title_activity_login=0x7f060030;
+        public static final int title_activity_login=0x7f060032;
         /**  Maps 
          */
         public static final int title_activity_maps=0x7f06001c;

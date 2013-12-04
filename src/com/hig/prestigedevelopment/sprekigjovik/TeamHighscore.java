@@ -16,17 +16,23 @@
 
 package com.hig.prestigedevelopment.sprekigjovik;
 
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,8 +41,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 /**
  * This example illustrates a common usage of the DrawerLayout widget
@@ -73,14 +81,21 @@ public class TeamHighscore extends Activity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mPlanetTitles;
-
+    
+    private SQLiteDatabase db;
+    private static Context context;
+    private static String teamName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
+        Intent intent = getIntent();
+        teamName = intent.getStringExtra("teamName");
+        
         setContentView(R.layout.activity_team_highscore);
-
+        
         mTitle = mDrawerTitle = getTitle();
-        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
+        mPlanetTitles = getChallengeNames();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -121,7 +136,8 @@ public class TeamHighscore extends Activity {
         }
     }
 
-    @Override
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		MenuInflater inflater = getMenuInflater();
@@ -159,9 +175,9 @@ public class TeamHighscore extends Activity {
 
     private void selectItem(int position) {
         // update the main content by replacing fragments
-        Fragment fragment = new PlanetFragment();
+        Fragment fragment = new ChallengeFragment();
         Bundle args = new Bundle();
-        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+        args.putInt(ChallengeFragment.ARG_HIGHSCORE_NUMBER, position);
         fragment.setArguments(args);
 
         FragmentManager fragmentManager = getFragmentManager();
@@ -201,25 +217,150 @@ public class TeamHighscore extends Activity {
     /**
      * Fragment that appears in the "content_frame", shows a planet
      */
-    public static class PlanetFragment extends Fragment {
-        public static final String ARG_PLANET_NUMBER = "planet_number";
+    public static class ChallengeFragment extends Fragment {
+        public static final String ARG_HIGHSCORE_NUMBER = "highscore_number";
 
-        public PlanetFragment() {
+        public ChallengeFragment() {
             // Empty constructor required for fragment subclasses
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.team_highscore_fragment_planet, container, false);
-            int i = getArguments().getInt(ARG_PLANET_NUMBER);
-            String planet = getResources().getStringArray(R.array.planets_array)[i];
+            View rootView = inflater.inflate(R.layout.team_highscore_fragment, container, false);
+            int i = getArguments().getInt(ARG_HIGHSCORE_NUMBER);
+            String title = getChallengeNames()[i];
 
-            int imageId = getResources().getIdentifier(planet.toLowerCase(Locale.getDefault()),
-                            "drawable", getActivity().getPackageName());
-            ((ImageView) rootView.findViewById(R.id.image)).setImageResource(imageId);
-            getActivity().setTitle(planet);
+            getActivity().setTitle(title);
+            Log.i("heei", i+ "");
+            String[] highscores = getHighscores(title);
+            TextView tv;
+            
+            //Adds first row, showing column-names
+            final TableLayout t = (TableLayout) rootView.findViewById(R.id.my_table);
+            final TableRow row = (TableRow) inflater.inflate(R.layout.team_highscore_row_item, null);
+            
+            tv = (TextView) row.findViewById(R.id.cell_1);
+            tv.setText("#");
+            
+            tv = (TextView) row.findViewById(R.id.cell_2);
+            tv.setText(getString(R.string.highscore_name));
+            
+            tv = (TextView) row.findViewById(R.id.cell_3);
+            tv.setText(getString(R.string.score));
+            t.addView(row);
+            
+            tv = new TextView(context);
+            tv.setBackgroundColor(Color.parseColor("#80808080"));
+            tv.setHeight(2);
+            t.addView(tv);
+            registerForContextMenu(row);
+            
+            //Adds highscore-data in rows
+            for(int j = 0; j < highscores.length; j++){
+            	String[] s = highscores[j].split(":");
+            	final TableLayout table = (TableLayout) rootView.findViewById(R.id.my_table);
+                final TableRow tr = (TableRow) inflater.inflate(R.layout.team_highscore_row_item, null);
+            	
+            	tv = (TextView) tr.findViewById(R.id.cell_1);
+                tv.setText(Integer.toString(j+1));
+                
+                tv = (TextView) tr.findViewById(R.id.cell_2);
+                tv.setText(s[0]);
+                
+                tv = (TextView) tr.findViewById(R.id.cell_3);
+                tv.setText(mod(Integer.parseInt(s[1])));
+                table.addView(tr);
+                
+                tv = new TextView(context);
+                tv.setBackgroundColor(Color.parseColor("#80808080"));
+                tv.setHeight(2);
+                table.addView(tv);
+
+                // If you use context menu it should be registered for each table row
+                registerForContextMenu(tr);
+            }
+
             return rootView;
         }
+        /**
+         * Converts seconds in integer, to format "xm ys" to display minutes and seconds as a string
+         * @param x seconds
+         * @return String displaying minutes and seconds
+         */
+        private String mod(int x){
+        	int result = x % 60;
+        	int mins = (result < 0) ? result + 60 : result;
+
+        	return x/60 + "m " + mins + "s";
+        }
+    }
+    
+    /**
+     * Static function to return highscorenames as a string-array.
+     * Has to be static for fragment-implementations
+     * @return string-array of highscore-names
+     */
+    public static String[] getChallengeNames() {
+    	List<String> names = new ArrayList<String>();
+    	
+    	String path = "/data/data/com.hig.prestigedevelopment.sprekigjovik/databases/";
+    	
+    	SQLiteDatabase sdb = SQLiteDatabase.openDatabase(path + "PoleDB", null, SQLiteDatabase.CREATE_IF_NECESSARY);
+    	Cursor cursor = sdb.rawQuery("SELECT name FROM challenges", null);
+    	
+    	while(cursor.moveToNext()){
+    		names.add(cursor.getString(0));
+    	}
+    	
+		return names.toArray(new String[names.size()]);
+	}
+    /**
+     * Static function to return highscores as a string array
+     * Has to be static for fragment-implementations
+     * @param i name of the highscore
+     * @return
+     */
+    public static String[] getHighscores(String title){
+    	List<String> highscores = new ArrayList<String>();
+    	String[] queryTitle = {title};
+    	String[] queryData = new String[2]; 	// 0 = challengeId, 1 = teamName	
+    	String path = "/data/data/com.hig.prestigedevelopment.sprekigjovik/databases/";
+    	
+    	SQLiteDatabase sdb = SQLiteDatabase.openDatabase(path + "PoleDB", null, SQLiteDatabase.CREATE_IF_NECESSARY);
+    	Cursor cursor = sdb.rawQuery("SELECT id FROM challenges WHERE name LIKE ?", queryTitle);
+    	cursor.moveToFirst();
+    	queryData[0] = cursor.getString(0);
+    	queryData[1] = teamName;
+    	
+    	sdb = SQLiteDatabase.openDatabase(path + "sprekIGjovik", null, SQLiteDatabase.CREATE_IF_NECESSARY);
+    	
+    	String query = "SELECT p.username, h.score FROM highscores h " +
+    			"INNER JOIN peeps p ON h.userId=p.id ";
+    	if(teamName != "" && teamName != null){		//Adds join on team if team is set
+    		query = query + "INNER JOIN teams t ON p.teamId=t.id ";
+    	}		
+    	query = query +	"WHERE h.challengeId LIKE ? ";
+    	
+    	if(teamName != "" && teamName != null){		//Adds team check if team is set
+    		query = query + "AND t.name LIKE ? ";
+    	}
+    	query = query + "ORDER BY h.score ASC ";
+ 
+    	cursor = sdb.rawQuery(query, queryData);
+    	
+    	while(cursor.moveToNext()){
+    		highscores.add(cursor.getString(0) + ":" + cursor.getString(1));
+    	}
+    	
+		return highscores.toArray(new String[highscores.size()]);
+    }
+
+    /**
+     * Static way to get context
+     * @return TeamHighscore.context
+     */
+    public static Context getContext() {
+    	return context;
     }
 }

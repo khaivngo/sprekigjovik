@@ -38,8 +38,12 @@ public class TeamMembersDialogFragment extends DialogFragment{
         });
         return builder.create();
     }
-    
+    /**
+     * Gets all teamnames from database
+     * @return String array with all teamnames
+     */
     public String[] getTeams() {
+    	
     	String teamId = null;
     	String path = "/data/data/com.hig.prestigedevelopment.sprekigjovik/databases/";
     	

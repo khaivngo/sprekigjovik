@@ -37,9 +37,10 @@
     <string name="join_successful">Join successful!</string>
     <string name="title_activity_team_highscore">TeamHighscore</string>
     <string name="hello_world">Hello world!</string>
+    <string name="highscore_name">Name</string>
+    <string name="score">Score</string>
     
     <!-- TEMP -->
-    <string name="app_name">Navigation Drawer Example</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Web search</string>
