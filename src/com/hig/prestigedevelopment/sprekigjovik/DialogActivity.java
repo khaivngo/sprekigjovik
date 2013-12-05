@@ -60,6 +60,8 @@ public class DialogActivity extends Activity {
 			    		
 			    String markerId = i.getStringExtra("markerId");		//getting data from intent
 			    													//query updating visited pole
+			    Log.d("MarkerID", markerId);
+			    
 			    myDB.execSQL("UPDATE sessionPole SET isVisited = "+visited+" WHERE poleID = "+markerId);
 			    					
 //--------------------TESTING------------------------------------------------------------------------------
@@ -75,19 +77,18 @@ public class DialogActivity extends Activity {
 				"OnClickListener : " + 
 		                "\nMarkerId: "+ markerId,
 					Toast.LENGTH_SHORT).show();
-//--------------------TESTING-----------------------------------------------------------------------------
-			  }
+			    
+			    DialogActivity.this.finish();
+			    
+//--------------------TESTING-----------------------------------------------------------------------------			
+			}
 		 
 			});
-//		
-//      	 Intent openHostActivity= new Intent(DialogActivity.this, Maps.class);
-//         openHostActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-//         startActivity(openHostActivity);
-	
-		}
+			
 
+		}
 	
-	
+
 	
 	
 	

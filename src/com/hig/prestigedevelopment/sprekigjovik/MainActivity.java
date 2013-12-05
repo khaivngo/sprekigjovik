@@ -292,7 +292,7 @@ public class MainActivity extends FragmentActivity {
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
 				     + " (name, longitude, latitude)"
-				     + " VALUES ('7','10.669674', '10.669674');");
+				     + " VALUES ('7','10.669674', '60.793058');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole

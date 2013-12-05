@@ -19,9 +19,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class Maps extends FragmentActivity {
 	
-	private SQLiteDatabase myDB = null;
-	String lastMarker = null;
+	private SQLiteDatabase poleDB = null;
+	private SQLiteDatabase sessionDB = null;
+	String currentMarker = null;
 	Cursor cursorResume = null;
+	Marker testMarker = null;
+	ArrayList<Marker> mMarkerArray = new ArrayList<Marker>();
+
+
 	
 	/**
      * author: http://stackoverflow.com/questions/15098243/android-app-keeps-crashing-when-using-googlemap-v2
@@ -43,15 +48,33 @@ public class Maps extends FragmentActivity {
         super.onResume();
         setUpMapIfNeeded();
         
-//       cursorResume = myDB.rawQuery("SELECT poleId, isVisited FROM sessionPole WHERE poleId = "+lastMarker, null);
-//        
-//        if(cursorResume.getString(1) == "1")	{
-//        	addMarker(lastMarker+1);
-//        	
-//        }
-//        
         
+      for(Marker m : mMarkerArray)	{
+  	   if(m.equals(testMarker))
+  		   m.remove();
+     }
         
+       
+//        
+//       sessionDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
+//       cursorResume = sessionDB.rawQuery("SELECT poleId, isVisited FROM sessionPole WHERE poleId = "+currentMarker, null);
+//       cursorResume.moveToFirst(); 
+//       
+//       if(cursorResume != null && cursorResume.getCount() > 0){
+//    	   Log.d("Inside first resume if", "heihew");
+//    	 
+//    	   if(cursorResume.getString(1) == null)
+//    		   Log.d("Pole visited", "pole null");
+//
+//    	   if()	{
+//        	   Log.d("Inside second resume if", "heihew");
+//
+
+//            
+//    		   nextPole();
+//    	   }
+//       }
+     
     }
     
 
@@ -72,15 +95,15 @@ public class Maps extends FragmentActivity {
      */
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
+       // if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
             // Check if we were successful in obtaining the map.
-            if (mMap != null) {
+         //   if (mMap != null) {
                 setUpMap();
-            }
-        }
+          //  }
+       // }
     }
 
     /**
@@ -91,12 +114,11 @@ public class Maps extends FragmentActivity {
     private void setUpMap() {
         
     	ArrayList<String> selection = new ArrayList<String>();		//storing retrieved strings about DB data.
-    	ArrayList<Marker> mMarkerArray = new ArrayList<Marker>();
     	Intent i = getIntent();										
     	selection = i.getStringArrayListExtra("selected");			//getting intent data
 
-        myDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
-        Cursor cursor = myDB.rawQuery("SELECT * FROM sessionPole", null);	//checking if database contains data
+        sessionDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
+		Cursor loopCursor = sessionDB.rawQuery("SELECT * FROM sessionPole", null);	//checking if database contains data
         
     	for(String s : selection)	{						//loops through all fetched poles
     		String[] parts = s.split(":");					//splits/explodes each string on :
@@ -108,20 +130,20 @@ public class Maps extends FragmentActivity {
     		String lat = parts[2];							//saving 3/3 of string
     		double doubleLat = Double.parseDouble(lat);		//converting string to double for LatLng constructor
     							
-    		if(cursor == null || cursor.getCount() == 0)	{	//checks if cursor contains any data -> table empty -> populate
-    			myDB.execSQL("INSERT INTO sessionPole(poleId) VALUES ("+ID+");");
-    			
+    		if(loopCursor == null || loopCursor.getCount() == 0)	{	//checks if cursor contains any data -> table empty -> populate
+    			sessionDB.execSQL("INSERT INTO sessionPole(poleId) VALUES ("+ID+");");
     			//TESTING
     			Log.d("Each list item ID: ", ID);
     			Log.d("Each list item LON: ",lon);
     			Log.d("Each list item LAT: ",lat);
     		}
-    											//for each item in array it add a marker on map
-        	Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(doubleLat, doubleLon))
-        				.title(ID)
-        				.snippet("Stolpe infoWindow"));
-        	mMarkerArray.add(marker);
+    		
     	}
+    	
+    	nextPole();
+    	
+									//for each item in array it add a marker on map
+
     	
     	mMap.setMyLocationEnabled(true);		//changed out authors implementation for showing location.
         										// is now able to locate users position.    
@@ -129,14 +151,53 @@ public class Maps extends FragmentActivity {
     											//listens for a infowindow click by user and redirects user
     											// to DialogActivity for pole code prompt, also passing
     											// marker title -> ID of pole
-    	 mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
-             @Override
-             public void onInfoWindowClick(Marker marker) {
- 			    Intent intent = new Intent(getApplicationContext(), DialogActivity.class);
- 			    intent.putExtra("markerId", marker.getTitle());
- 			    startActivity(intent);
-             }
-         });
+
+    }
+    
+    public void nextPole(){
+    	
+    	//ArrayList<Marker> mMarkerArray = new ArrayList<Marker>();
+		poleDB = openOrCreateDatabase("PoleDB", MODE_PRIVATE, null);		//database for poles
+        sessionDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
+        
+        Cursor visitedCursor = sessionDB.rawQuery("SELECT * FROM sessionPole WHERE isVisited is NULL LIMIT 1", null);
+      	visitedCursor.moveToFirst();
+
+    	if(visitedCursor != null && visitedCursor.getCount() > 0)	{
+    		
+    		String ID 	= visitedCursor.getString(1);
+    		currentMarker = ID;
+	    	    	
+	        Cursor poleCursor = poleDB.rawQuery("SELECT longitude, latitude FROM pole WHERE name LIKE "+ID, null);
+	        poleCursor.moveToFirst();
+
+	        if(poleCursor != null || poleCursor.getCount() > 0)	{
+
+	        	String LAN 	= poleCursor.getString(1);
+	    		double doubleLat = Double.parseDouble(LAN);		//converting string to double for LatLng constructor
+
+		    	String LON 	= poleCursor.getString(0);
+	    		double doubleLon = Double.parseDouble(LON);		//converting string to double for LatLng constructor
+	    		
+	    		Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(doubleLat, doubleLon))
+	        			.title(ID)
+	        			.snippet("Stolpe infoWindow"));
+	        	mMarkerArray.add(marker);
+	        	
+	        	Log.d("Current pole: ", ID);
+	        }
+    	
+    	}
+    	
+   	 mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+         @Override
+         public void onInfoWindowClick(Marker marker) {
+        	 	testMarker = marker;
+			    Intent intent = new Intent(getApplicationContext(), DialogActivity.class);
+			    intent.putExtra("markerId", testMarker.getTitle());
+			    startActivity(intent);
+         }
+     });
     }
     
     
