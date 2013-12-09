@@ -12,7 +12,10 @@ import android.util.Log;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -40,6 +43,7 @@ public class Maps extends FragmentActivity {
         setContentView(R.layout.activity_maps);
  
       setUpMapIfNeeded();
+      groundOverlay();
       
     }
 
@@ -47,14 +51,13 @@ public class Maps extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
-        
-        
+        nextPole();
+          
       for(Marker m : mMarkerArray)	{
   	   if(m.equals(testMarker))
   		   m.remove();
      }
         
-       
 //        
 //       sessionDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
 //       cursorResume = sessionDB.rawQuery("SELECT poleId, isVisited FROM sessionPole WHERE poleId = "+currentMarker, null);
@@ -139,7 +142,6 @@ public class Maps extends FragmentActivity {
     		}
     		
     	}
-    	
     	nextPole();
     	
 									//for each item in array it add a marker on map
@@ -151,7 +153,6 @@ public class Maps extends FragmentActivity {
     											//listens for a infowindow click by user and redirects user
     											// to DialogActivity for pole code prompt, also passing
     											// marker title -> ID of pole
-
     }
     
     public void nextPole(){
@@ -179,25 +180,44 @@ public class Maps extends FragmentActivity {
 		    	String LON 	= poleCursor.getString(0);
 	    		double doubleLon = Double.parseDouble(LON);		//converting string to double for LatLng constructor
 	    		
-	    		Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(doubleLat, doubleLon))
+	    		 testMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(doubleLat, doubleLon))
 	        			.title(ID)
 	        			.snippet("Stolpe infoWindow"));
-	        	mMarkerArray.add(marker);
+	        	mMarkerArray.add(testMarker);
 	        	
 	        	Log.d("Current pole: ", ID);
 	        }
     	
     	}
-    	
+    						
+    				//listen for when a user clicks on a markers infowindow
    	 mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
          @Override
          public void onInfoWindowClick(Marker marker) {
-        	 	testMarker = marker;
 			    Intent intent = new Intent(getApplicationContext(), DialogActivity.class);
 			    intent.putExtra("markerId", testMarker.getTitle());
 			    startActivity(intent);
          }
      });
+    }
+    
+    /**
+     * Display image over Google maps as ground overlay
+     * Image resource is fetched as resource from drawable
+     */
+    public void groundOverlay()	{
+    	
+    	LatLng northeast = new LatLng(60.798367, 10.70415);
+    	LatLng southwest = new LatLng(60.786517, 10.66005);
+    	
+        LatLngBounds bounds = new LatLngBounds(southwest, northeast);
+
+
+    	GroundOverlayOptions newarkMap = new GroundOverlayOptions()
+    	        .image(BitmapDescriptorFactory.fromResource(R.drawable.kart))
+    	        .positionFromBounds(bounds);
+    	mMap.addGroundOverlay(newarkMap);
+    	
     }
     
     
