@@ -112,6 +112,12 @@ public class Login extends Activity {
 		getMenuInflater().inflate(R.menu.profile, menu);
 		return true;
 	}
+	
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+	}
 
 	/**
 	 * Attempts to sign in or register the account specified by the login form.

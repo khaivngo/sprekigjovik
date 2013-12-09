@@ -188,8 +188,13 @@ public class TeamHighscore extends Activity {
 	    	startActivity(intent);
 	    	break;
 	    default:
-	      break;
+	    	break;
 	    }
+	    
+	    if (mDrawerToggle.onOptionsItemSelected(item)) {
+	         return true;
+	    }
+	    
 	    return true;
 	}	    
 
