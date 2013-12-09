@@ -1,8 +1,11 @@
 package com.hig.prestigedevelopment.sprekigjovik;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -29,6 +32,7 @@ public class Maps extends FragmentActivity {
 	Marker testMarker = null;
 	ArrayList<Marker> mMarkerArray = new ArrayList<Marker>();
 
+	private long start = 0;
 
 	
 	/**
@@ -143,20 +147,17 @@ public class Maps extends FragmentActivity {
     		
     	}
     	nextPole();
-    	
 									//for each item in array it add a marker on map
 
-    	
     	mMap.setMyLocationEnabled(true);		//changed out authors implementation for showing location.
         										// is now able to locate users position.    
-    											
-    											//listens for a infowindow click by user and redirects user
-    											// to DialogActivity for pole code prompt, also passing
-    											// marker title -> ID of pole
     }
     
+    /**
+     * Displaying next pole if there is any unvisited for the session
+     */
+    
     public void nextPole(){
-    	
     	//ArrayList<Marker> mMarkerArray = new ArrayList<Marker>();
 		poleDB = openOrCreateDatabase("PoleDB", MODE_PRIVATE, null);		//database for poles
         sessionDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
@@ -186,8 +187,12 @@ public class Maps extends FragmentActivity {
 	        	mMarkerArray.add(testMarker);
 	        	
 	        	Log.d("Current pole: ", ID);
+	        	isFinished();
 	        }
     	
+    	}
+    	else	{		//user is done with tour
+    		isFinished();
     	}
     						
     				//listen for when a user clicks on a markers infowindow
@@ -218,6 +223,28 @@ public class Maps extends FragmentActivity {
     	        .positionFromBounds(bounds);
     	mMap.addGroundOverlay(newarkMap);
     	
+    }
+    
+//    public void timeTaker()	{
+//    	SharedPreferences sharedPreferences = getSharedPreferences("time", Context.MODE_PRIVATE);
+//    	long startTime = sharedPreferences.getLong("StartTime", null);
+//    	
+//    }
+    
+    public void isFinished()	{
+    	SharedPreferences sharedPreferences = getSharedPreferences("time", Context.MODE_PRIVATE);
+    	String initialTime = sharedPreferences.getString("StartTime", "" );
+    	long startTime = Long.parseLong(initialTime);
+    	
+    	long currentTime = System.currentTimeMillis();
+    	long currentTimeToSeconds = TimeUnit.MILLISECONDS.toSeconds(currentTime);
+    	
+    	long totalTime = currentTimeToSeconds - startTime;
+    	
+    	String s = String.valueOf(totalTime);
+    	
+    	Log.d("Total time used: ", s);
+	  
     }
     
     

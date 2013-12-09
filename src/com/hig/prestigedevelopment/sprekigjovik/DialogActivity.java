@@ -1,7 +1,9 @@
 package com.hig.prestigedevelopment.sprekigjovik;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -63,9 +65,11 @@ public class DialogActivity extends Activity {
 			    Log.d("MarkerID", markerId);
 			    
 			    myDB.execSQL("UPDATE sessionPole SET isVisited = "+visited+" WHERE poleID = "+markerId);
-			    					
+			    	
+			    
 //--------------------TESTING------------------------------------------------------------------------------
-		 		cursor = myDB.rawQuery("SELECT * FROM sessionPole", null);	
+			    cursor = myDB.rawQuery("SELECT * FROM sessionPole", null);	
+
 			    while(cursor.moveToNext())	{
 			    	Log.d("ID: 			",cursor.getString(0));
 			    	Log.d("PoleID: 		",cursor.getString(1));
@@ -87,13 +91,6 @@ public class DialogActivity extends Activity {
 			
 
 		}
-	
 
-	
-	
-	
-	
-	
-	
 	
 }

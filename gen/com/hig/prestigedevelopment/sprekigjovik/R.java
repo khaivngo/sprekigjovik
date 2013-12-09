@@ -188,18 +188,22 @@ containing a value of this type.
         public static final int google_maps=0x7f02001b;
         public static final int ic_drawer=0x7f02001c;
         public static final int ic_launcher=0x7f02001d;
-        public static final int jupiter=0x7f02001e;
-        public static final int kart=0x7f02001f;
-        public static final int maps=0x7f020020;
-        public static final int maps2=0x7f020021;
-        public static final int mars=0x7f020022;
-        public static final int mercury=0x7f020023;
-        public static final int neptune=0x7f020024;
-        public static final int profile=0x7f020025;
-        public static final int saturn=0x7f020026;
-        public static final int sprekigjovik=0x7f020027;
-        public static final int uranus=0x7f020028;
-        public static final int venus=0x7f020029;
+        public static final int ic_plusone_medium_off_client=0x7f02001e;
+        public static final int ic_plusone_small_off_client=0x7f02001f;
+        public static final int ic_plusone_standard_off_client=0x7f020020;
+        public static final int ic_plusone_tall_off_client=0x7f020021;
+        public static final int jupiter=0x7f020022;
+        public static final int kart=0x7f020023;
+        public static final int maps=0x7f020024;
+        public static final int maps2=0x7f020025;
+        public static final int mars=0x7f020026;
+        public static final int mercury=0x7f020027;
+        public static final int neptune=0x7f020028;
+        public static final int profile=0x7f020029;
+        public static final int saturn=0x7f02002a;
+        public static final int sprekigjovik=0x7f02002b;
+        public static final int uranus=0x7f02002c;
+        public static final int venus=0x7f02002d;
     }
     public static final class id {
         public static final int action_maps=0x7f050032;
@@ -290,41 +294,41 @@ containing a value of this type.
     public static final class string {
         /**  Maps 
          */
-        public static final int action_dynamicTour=0x7f06001c;
-        public static final int action_forgot_password=0x7f060048;
+        public static final int action_dynamicTour=0x7f060020;
+        public static final int action_forgot_password=0x7f06004c;
         /**  Action Bar 
          */
-        public static final int action_maps=0x7f06001a;
-        public static final int action_profile=0x7f06001b;
-        public static final int action_settings=0x7f060016;
-        public static final int action_sign_in_register=0x7f060046;
-        public static final int action_sign_in_short=0x7f060047;
-        public static final int all_teams=0x7f06002f;
-        public static final int app_name=0x7f060015;
+        public static final int action_maps=0x7f06001e;
+        public static final int action_profile=0x7f06001f;
+        public static final int action_settings=0x7f06001a;
+        public static final int action_sign_in_register=0x7f06004a;
+        public static final int action_sign_in_short=0x7f06004b;
+        public static final int all_teams=0x7f060033;
+        public static final int app_name=0x7f060019;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
-        public static final int auth_client_needs_enabling_title=0x7f060010;
+        public static final int auth_client_needs_enabling_title=0x7f060014;
         /**   Title for notification shown when GooglePlayServices needs to be
         installed for a application to work. [CHAR LIMIT=70] 
          */
-        public static final int auth_client_needs_installation_title=0x7f060011;
+        public static final int auth_client_needs_installation_title=0x7f060015;
         /**   Title for notification shown when GooglePlayServices needs to be
         udpated for a application to work. [CHAR LIMIT=70] 
          */
-        public static final int auth_client_needs_update_title=0x7f060012;
+        public static final int auth_client_needs_update_title=0x7f060016;
         /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=42] 
          */
-        public static final int auth_client_play_services_err_notification_msg=0x7f060013;
+        public static final int auth_client_play_services_err_notification_msg=0x7f060017;
         /**   Requested by string saying which app requested the notification. [CHAR LIMIT=42] 
          */
-        public static final int auth_client_requested_by_msg=0x7f060014;
+        public static final int auth_client_requested_by_msg=0x7f060018;
         /**   Title for notification shown when a bad version of GooglePlayServices
         has been installed and needs correction for an application to work.
         [CHAR LIMIT=70] 
          */
-        public static final int auth_client_using_bad_version_title=0x7f06000f;
-        public static final int choose_poles=0x7f060023;
+        public static final int auth_client_using_bad_version_title=0x7f060013;
+        public static final int choose_poles=0x7f060027;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -353,19 +357,31 @@ containing a value of this type.
         Google Play services (from Play Store) [CHAR LIMIT=40] 
          */
         public static final int common_google_play_services_install_title=0x7f060000;
+        /**  Message in confirmation dialog informing the user that they provided an invalid account. [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_invalid_account_text=0x7f06000c;
+        /**  Title of confirmation dialog informing the user that they provided an invalid account. [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_invalid_account_title=0x7f06000b;
+        /**  Message in confirmation dialog informing the user that a network error occurred. [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_network_error_text=0x7f06000a;
+        /**  Title of confirmation dialog informing the user that a network error occurred. [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_network_error_title=0x7f060009;
         /**  Message in confirmation dialog informing user there is an unknown issue in Google Play
         services [CHAR LIMIT=NONE] 
          */
-        public static final int common_google_play_services_unknown_issue=0x7f060009;
+        public static final int common_google_play_services_unknown_issue=0x7f06000d;
         /**  Message in confirmation dialog informing user that Google Play services is not supported on their device [CHAR LIMIT=NONE] 
          */
-        public static final int common_google_play_services_unsupported_text=0x7f06000b;
+        public static final int common_google_play_services_unsupported_text=0x7f06000f;
         /**  Title of confirmation dialog informing user that Google Play services is not supported on their device [CHAR LIMIT=40] 
          */
-        public static final int common_google_play_services_unsupported_title=0x7f06000a;
+        public static final int common_google_play_services_unsupported_title=0x7f06000e;
         /**  Button in confirmation dialog for updating Google Play services [CHAR LIMIT=40] 
          */
-        public static final int common_google_play_services_update_button=0x7f06000c;
+        public static final int common_google_play_services_update_button=0x7f060010;
         /**  Message in confirmation dialog informing user that they need to update
         Google Play services (from Play Store) [CHAR LIMIT=NONE] 
          */
@@ -376,71 +392,71 @@ containing a value of this type.
         public static final int common_google_play_services_update_title=0x7f060007;
         /**  Sign-in button text [CHAR LIMIT=15] 
          */
-        public static final int common_signin_button_text=0x7f06000d;
+        public static final int common_signin_button_text=0x7f060011;
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
-        public static final int common_signin_button_text_long=0x7f06000e;
-        public static final int dialog_cancel=0x7f060026;
-        public static final int dialog_register=0x7f060025;
-        public static final int dialog_register_marker=0x7f060024;
-        public static final int drawer_close=0x7f060041;
+        public static final int common_signin_button_text_long=0x7f060012;
+        public static final int dialog_cancel=0x7f06002a;
+        public static final int dialog_register=0x7f060029;
+        public static final int dialog_register_marker=0x7f060028;
+        public static final int drawer_close=0x7f060045;
         /**  TEMP 
          */
-        public static final int drawer_open=0x7f060040;
-        public static final int enable_gps=0x7f06001e;
-        public static final int error_field_required=0x7f06004d;
-        public static final int error_incorrect_password=0x7f06004c;
-        public static final int error_invalid_password=0x7f06004b;
-        public static final int error_invalid_username=0x7f06004a;
+        public static final int drawer_open=0x7f060044;
+        public static final int enable_gps=0x7f060022;
+        public static final int error_field_required=0x7f060051;
+        public static final int error_incorrect_password=0x7f060050;
+        public static final int error_invalid_password=0x7f06004f;
+        public static final int error_invalid_username=0x7f06004e;
         /**  Login 
          */
-        public static final int error_register=0x7f06002c;
-        public static final int hello_world=0x7f060038;
-        public static final int highscore_name=0x7f060039;
-        public static final int join_successful=0x7f060036;
-        public static final int join_team=0x7f060031;
-        public static final int log_out=0x7f06002b;
-        public static final int login_progress_signing_in=0x7f060049;
-        public static final int no=0x7f06001f;
-        public static final int pole_hint=0x7f060027;
-        public static final int poles_prompt=0x7f060022;
-        public static final int preview_challenge=0x7f06003f;
-        public static final int prompt_password=0x7f060045;
+        public static final int error_register=0x7f060030;
+        public static final int hello_world=0x7f06003c;
+        public static final int highscore_name=0x7f06003d;
+        public static final int join_successful=0x7f06003a;
+        public static final int join_team=0x7f060035;
+        public static final int log_out=0x7f06002f;
+        public static final int login_progress_signing_in=0x7f06004d;
+        public static final int no=0x7f060023;
+        public static final int pole_hint=0x7f06002b;
+        public static final int poles_prompt=0x7f060026;
+        public static final int preview_challenge=0x7f060043;
+        public static final int prompt_password=0x7f060049;
         /**  Strings related to login 
          */
-        public static final int prompt_username=0x7f060044;
-        public static final int score=0x7f06003a;
-        public static final int search_teams=0x7f060032;
+        public static final int prompt_username=0x7f060048;
+        public static final int score=0x7f06003e;
+        public static final int search_teams=0x7f060036;
         /**  Challenges 
          */
-        public static final int select_challenge=0x7f06003b;
-        public static final int select_team=0x7f060033;
-        public static final int set_internet=0x7f060021;
-        public static final int show_highscores=0x7f06003c;
-        public static final int show_log=0x7f06003d;
-        public static final int start_challenge=0x7f06003e;
-        public static final int successful_register=0x7f06002d;
-        public static final int team_highscore=0x7f060030;
-        public static final int title_activity_challenges=0x7f060042;
-        public static final int title_activity_display_team=0x7f060034;
-        public static final int title_activity_dynamictour=0x7f060028;
-        public static final int title_activity_login=0x7f060043;
-        public static final int title_activity_maps=0x7f06001d;
-        public static final int title_activity_on_click_listener=0x7f060029;
+        public static final int select_challenge=0x7f06003f;
+        public static final int select_team=0x7f060037;
+        public static final int set_internet=0x7f060025;
+        public static final int show_highscores=0x7f060040;
+        public static final int show_log=0x7f060041;
+        public static final int start_challenge=0x7f060042;
+        public static final int successful_register=0x7f060031;
+        public static final int team_highscore=0x7f060034;
+        public static final int title_activity_challenges=0x7f060046;
+        public static final int title_activity_display_team=0x7f060038;
+        public static final int title_activity_dynamictour=0x7f06002c;
+        public static final int title_activity_login=0x7f060047;
+        public static final int title_activity_maps=0x7f060021;
+        public static final int title_activity_on_click_listener=0x7f06002d;
         /**  Profile 
          */
-        public static final int title_activity_profile=0x7f06002a;
-        public static final int title_activity_team_highscore=0x7f060037;
+        public static final int title_activity_profile=0x7f06002e;
+        public static final int title_activity_team_highscore=0x7f06003b;
         /**  MainActivity 
          */
-        public static final int title_section1=0x7f060017;
-        public static final int title_section2=0x7f060018;
-        public static final int title_section3=0x7f060019;
-        public static final int view_members=0x7f060035;
-        public static final int yes=0x7f060020;
+        public static final int title_section1=0x7f06001b;
+        public static final int title_section2=0x7f06001c;
+        public static final int title_section3=0x7f06001d;
+        public static final int view_members=0x7f060039;
+        public static final int yes=0x7f060024;
         /**  Teams 
          */
-        public static final int your_team=0x7f06002e;
+        public static final int your_team=0x7f060032;
     }
     public static final class style {
         /** 

@@ -1,29 +1,33 @@
 package com.hig.prestigedevelopment.sprekigjovik;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 public class DynamicTour extends Activity {
 
 	private Spinner polesSpinner;
 	private Button btnSubmit;
-	private SQLiteDatabase myDB = null ;
-	private static Context context;
-		 
+	private SQLiteDatabase poleDB = null ;
+	private SQLiteDatabase sessionDB = null ;
 
-	
+	private static Context context;
+	private Cursor poleCursor;
+	private Cursor sessionCursor;
+		 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,7 +52,9 @@ public class DynamicTour extends Activity {
 			polesSpinner = (Spinner) findViewById(R.id.poles_spinner);
 	  }
 	  
-	  
+	  /**
+	   * Listeing
+	   */
 		public void addListenerOnButton() {
 			
 			btnSubmit = (Button) findViewById(R.id.btnSubmit);
@@ -56,35 +62,41 @@ public class DynamicTour extends Activity {
 			btnSubmit.setOnClickListener(new OnClickListener() {
 		 
 			  @Override
-			  public void onClick(View v) {
-			    Toast.makeText(DynamicTour.this,
-				"OnClickListener : " + 
-		                "\nSpinner: "+ String.valueOf(polesSpinner.getSelectedItem()),
-					Toast.LENGTH_SHORT).show();
-			    
+			  public void onClick(View v) {		//displays spinner
+												//path to DB
+				String path = "/data/data/com.hig.prestigedevelopment.sprekigjovik/databases/";
+												//opening DB via SQLITE's own method
+				poleDB = SQLiteDatabase.openDatabase(path + "PoleDB", null,SQLiteDatabase.CREATE_IF_NECESSARY);
+				sessionDB = SQLiteDatabase.openDatabase(path + "PoleSession", null,SQLiteDatabase.CREATE_IF_NECESSARY);  
+				  		
 			    String selection = String.valueOf(polesSpinner.getSelectedItem());
-			    
-			    ArrayList<String> selectedPoles = new ArrayList<String>();
 				
-					//path to DB
-			    String path = "/data/data/com.hig.prestigedevelopment.sprekigjovik/databases/";
-			    		//opening DB via SQLITE's own method
-			    myDB = SQLiteDatabase.openDatabase(path + "PoleDB", null,SQLiteDatabase.CREATE_IF_NECESSARY);
+			    poleCursor = poleDB.rawQuery("SELECT name, longitude, latitude FROM pole ORDER BY random() LIMIT "+selection, null);
+			    sessionCursor = sessionDB.rawQuery("SELECT * FROM sessionPole", null);
 
-			    Cursor cursor = myDB.rawQuery("SELECT name, longitude, latitude FROM pole ORDER BY random() LIMIT "+selection, null);
+				
+			    ArrayList<String> selectedPoles = new ArrayList<String>();
+			    
+			    						//Query checking if table contains data
+		    	sessionCursor.moveToFirst();
+		    							//if table is empty
+			    if(sessionCursor == null && sessionCursor.getCount()>=0) {
+			    	Log.d("Setting start time", "File: DynamicTour line 80");
+			    	setStartTime();
+			    }
+			    
 
-			    while(cursor.moveToNext())	{
+			    while(poleCursor.moveToNext())	{
 //			    	Log.d("Pole ID: ",cursor.getString(0));
 //			    	Log.d("LONGITUDE: ",cursor.getString(1));
 //			    	Log.d("LATITUDE",cursor.getString(2));
 
-			    	selectedPoles.add(cursor.getString(0)+":"+cursor.getString(1)+":"+cursor.getString(2));
+			    	selectedPoles.add(poleCursor.getString(0)+":"+poleCursor.getString(1)+":"+poleCursor.getString(2));
 			    }
-
+			    					//sending a list fetched poles
 			    Intent intent = new Intent(DynamicTour.getContext(), Maps.class);
 			    intent.putStringArrayListExtra("selected", (ArrayList<String>) selectedPoles);
 			    startActivity(intent);
-
 			  }
 		 
 			});
@@ -96,33 +108,27 @@ public class DynamicTour extends Activity {
 			  return context;
 		}
 		
-//		public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
-//		
-//			String selection = parent.getItemAtPosition(pos).toString();		//getting spinner selection
-//			ArrayList<String> selectedPoles = new ArrayList<String>();
-//			
-//																	//path to DB
-//			String path = "/data/data/com.hig.prestigedevelopment.sprekigjovik/databases/";
-//															//opening DB via SQLITE's own method
-//			myDB = SQLiteDatabase.openDatabase(path + "PoleDB", null,SQLiteDatabase.CREATE_IF_NECESSARY);
-//		
-//			
-//			Cursor cursor = myDB.rawQuery("SELECT name, longitude, latitude FROM pole ORDER BY random() LIMIT "+selection, null);
-//
-//
-//			while(cursor.moveToNext())	{
-//				Log.d("Pole ID: ",cursor.getString(0));
-//				Log.d("LONGITUDE: ",cursor.getString(1));
-//				Log.d("LATITUDE",cursor.getString(2));
-//				
-//				selectedPoles.add(cursor.getString(0)+"?"+cursor.getString(1)+"?"+cursor.getString(2));
-//			}
-//			
-//			
-//			Intent intent = new Intent(this, Maps.class);
-//			intent.putStringArrayListExtra("selected", (ArrayList<String>) selectedPoles);
-//			startActivity(intent);
-//	  
-//			}
+		/**
+		 * Setting starting time for tour, the saved time is later
+		 * used for finding total used time for tour.
+		 * Then used for highscore.
+		 */
+		public void setStartTime()	{
+			
+			long time = System.currentTimeMillis();	
+			long timeSeconds = TimeUnit.MILLISECONDS.toSeconds(time);
+		    
+			String startTime = Long.toString(timeSeconds);
+			
+		    SharedPreferences sharedTime = getSharedPreferences("time", Context.MODE_PRIVATE);
+			SharedPreferences.Editor editor = sharedTime.edit();
+				
+			editor.putString("StartTime", startTime);
+			editor.commit();
+		    	
+		}
+		
 
+		
+		
 }
