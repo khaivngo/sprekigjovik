@@ -14,7 +14,33 @@
     <string name="action_profile">Profile</string>
 
     <!-- Maps -->
+    <string name="action_dynamicTour">Set tour criteria</string>
     <string name="title_activity_maps">Maps</string>
+    <string name="action_dynamicTour">Set tour criteria</string>
+    <string name="enable_gps">Would you like to enable GPS?</string>
+    <string name="no">I refuse</string>
+    <string name="yes">Gladly</string>
+    <string name="set_internet">Would you like to enable mobile data?</string>
+    <string name="poles_prompt">Choose number of poles</string>
+    <string name="choose_poles">Select the numbers of poles you wish to visit</string>
+    <string name="dialog_register_marker">What is code on pole?</string>
+    <string name="dialog_register">Submit</string>
+    <string name="dialog_cancel">Not there yet</string>
+    <string name="pole_hint">Code of pole</string>
+    <string-array name="poles_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+    <string name="title_activity_dynamictour">DynamicTour</string>
+    <string name="title_activity_on_click_listener">OnClickListener</string>
 
     <!-- Profile -->
     <string name="title_activity_profile">Profile</string>
@@ -39,21 +65,17 @@
     <string name="hello_world">Hello world!</string>
     <string name="highscore_name">Name</string>
     <string name="score">Score</string>
-    
+
+    <!-- Challenges -->
+    <string name="select_challenge">Select Challenge</string>
+    <string name="show_highscores">Highscores</string>
+    <string name="show_log">Log</string>
+    <string name="start_challenge">Start</string>
+    <string name="preview_challenge">Preview</string>
+
     <!-- TEMP -->
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="action_websearch">Web search</string>
-    <string name="app_not_available">Sorry, there\'s no web browser available</string>
-    <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-    </string-array>
+    <string name="title_activity_challenges">Challenges</string>
 
 </resources>

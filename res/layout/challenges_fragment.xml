@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <TextView
+            android:id="@+id/challengeDescription"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="challengeDescription" 
+            android:textSize="20sp"
+            android:padding="20dp" />
+    
+    <TextView
+            android:id="@+id/challengePoles"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="challengePoles"
+            android:textSize="14sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp" />
+    
+    <TextView
+            android:id="@+id/challengeDifficulty"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="challengeDifficulty"
+            android:textSize="14sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp" />
+    
+    <Button
+            android:id="@+id/startChallenge"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="startChallenge"
+            android:text="@string/start_challenge" />
+    
+    <Button
+            android:id="@+id/previewChallenge"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="previewChallenge"
+            android:text="@string/preview_challenge" />
+    
+    <Button
+            android:id="@+id/showHighscores"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="showHighscores"
+            android:text="@string/show_highscores" />
+
+</LinearLayout>

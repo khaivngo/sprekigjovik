@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -23,8 +23,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
@@ -44,6 +42,12 @@ public class MainActivity extends FragmentActivity {
 	 */
 	ViewPager mViewPager;
 	private SQLiteDatabase db;
+	private SQLiteDatabase myDB= null;
+	private SQLiteDatabase SessionDB= null;	
+	private final String tableNamePole			= 	"pole";
+	private final String tableNameArea			=	"area";
+	private final String tableNameChallengePole	=	"challengePole";
+	private final String tableNameChallenge		=	"challenge";
 	private static Context context;
 	 
 	@Override
@@ -52,7 +56,10 @@ public class MainActivity extends FragmentActivity {
 		context=this;
 		setContentView(R.layout.activity_main);
 		
+		//CheckEnableGPS();
+		
 		setUpDatabase();
+		createDB();
 		
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
@@ -264,12 +271,12 @@ public class MainActivity extends FragmentActivity {
 		dummyChallengePoles.add(new String[]{"3", "1"});
 		dummyChallengePoles.add(new String[]{"3", "2"});
 		
-		//---------------- ADDS TEMP POLES-------------------- --------------------//
-		List<String[]> dummyPoles = new ArrayList<String[]>();
-		dummyPoles.add(new String[]{"1", "1", "ABC"});
-		dummyPoles.add(new String[]{"2", "2", "DEF"});
-		dummyPoles.add(new String[]{"3", "1", "GHI"});
-		dummyPoles.add(new String[]{"4", "3", "JKL"});
+//		//---------------- ADDS TEMP POLES-------------------- --------------------//
+//		List<String[]> dummyPoles = new ArrayList<String[]>();
+//		dummyPoles.add(new String[]{"1", "1", "ABC"});
+//		dummyPoles.add(new String[]{"2", "2", "DEF"});
+//		dummyPoles.add(new String[]{"3", "1", "GHI"});
+//		dummyPoles.add(new String[]{"4", "3", "JKL"});
 		
 		
 		//---------------- OPENS/CREATES SPREKIGJOVIK & TABLES --------------------//
@@ -315,10 +322,10 @@ public class MainActivity extends FragmentActivity {
 		//---------------- OPENS/CREATES POLEDB & TABLES --------------------------//
 		db = openOrCreateDatabase("PoleDB", MODE_PRIVATE,null);
 		db.execSQL("CREATE TABLE IF NOT EXISTS challenges(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, difficulty INTEGER);");
-		db.execSQL("CREATE TABLE IF NOT EXISTS poles(id INTEGER PRIMARY KEY AUTOINCREMENT, poleId INTEGER, difficulty INTEGER, code TEXT);");
+//		db.execSQL("CREATE TABLE IF NOT EXISTS poles(id INTEGER PRIMARY KEY AUTOINCREMENT, poleId INTEGER, difficulty INTEGER, code TEXT);");
 		db.execSQL("CREATE TABLE IF NOT EXISTS challengePoles(id INTEGER PRIMARY KEY AUTOINCREMENT, challengeId INTEGER, poleId INTEGER);");
 		
-		//---------------- CHECKS/ADDS CHALLENGEPOLES -----------------------------//
+		//---------------- CHECKS/ADDS CHALLENGES -----------------------------//
 		cursor = db.rawQuery("SELECT * FROM challenges;" , null);
 		cursor.moveToFirst();
 		
@@ -329,16 +336,16 @@ public class MainActivity extends FragmentActivity {
 			}
 		}
 		
-		//---------------- CHECKS/ADDS CHALLENGEPOLES -----------------------------//
-		cursor = db.rawQuery("SELECT * FROM poles;" , null);
-		cursor.moveToFirst();
-		
-		if(cursor==null || cursor.getCount()==0){
-			for(String[] row : dummyPoles){
-				db.execSQL("INSERT INTO poles(poleId, difficulty, code) VALUES('"+ row[0]+ "','" + row[1] + 
-						"', '" + row[2] + "');");
-			}
-		}
+//		//---------------- CHECKS/ADDS POLES -----------------------------//
+//		cursor = db.rawQuery("SELECT * FROM poles;" , null);
+//		cursor.moveToFirst();
+//		
+//		if(cursor==null || cursor.getCount()==0){
+//			for(String[] row : dummyPoles){
+//				db.execSQL("INSERT INTO poles(poleId, difficulty, code) VALUES('"+ row[0]+ "','" + row[1] + 
+//						"', '" + row[2] + "');");
+//			}
+//		}
 		
 		//---------------- CHECKS/ADDS CHALLENGEPOLES -----------------------------//
 		cursor = db.rawQuery("SELECT * FROM challengePoles;" , null);
@@ -346,11 +353,197 @@ public class MainActivity extends FragmentActivity {
 		
 		if(cursor==null || cursor.getCount()==0){
 			for(String[] row : dummyChallengePoles){
-				db.execSQL("INSERT INTO poles(challengeId, poleId) VALUES('"+ row[0]+ "','" + row[1] + "');");
+				db.execSQL("INSERT INTO challengePoles(challengeId, poleId) VALUES('"+ row[0]+ "','" + row[1] + "');");
 			}
 		}
 		//-------------------------------------------------------------------------//
 	}
+	
+	/**
+	 * Creating or opening DB for creation and populating
+	 */
+	public void createDB()	{
+		
+		String tableNamePole			= 	"pole";				//contains all poles
+		String tableNameArea			=	"area";				//area for poles
+		String tableNameSessionPole		= 	"sessionPole";		//table for poles for each session
+		String tableNameChallengePole	=	"challengePole";	//challenges and belonging poles
+		String tableNameChallenge		=	"challenge";		//all available challenges
+		
+		myDB = this.openOrCreateDatabase("PoleDB", MODE_PRIVATE, null);		//database for poles
+		
+		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
+							+ tableNamePole
+							+"(id INTEGER PRIMARY KEY  AUTOINCREMENT, name TEXT, longitude TEXT, " +
+							"latitude TEXT, areaId INTEGER);");
+		
+		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
+							+ tableNameArea
+							+"(id INTEGER PRIMARY KEY  AUTOINCREMENT, name TEXT);");
+		
+		
+//			myDB.execSQL("CREATE TABLE IF NOT EXISTS "
+//								+ tableNameChallenge
+//								+"(id INTEGER PRIMARY KEY  AUTOINCREMENT, name TEXT);");
+		
+		SessionDB = this.openOrCreateDatabase("PoleSession", MODE_PRIVATE, null);	//database for session poles
+		SessionDB.execSQL("CREATE TABLE IF NOT EXISTS "
+								+ tableNameSessionPole
+								+"(id INTEGER PRIMARY KEY AUTOINCREMENT, poleId TEXT, isVisited TEXT);");
+
+		Cursor c = myDB.rawQuery("SELECT * FROM "+tableNamePole, null);
+		c.moveToFirst();
+
+							//checks if the table is containing any data, if not, populates them
+		if(c == null || c.getCount()==0)	{
+			insertDataDB();
+		}
+	}
+	
+	/**
+	 * If database for all poles is empty this functions populates the tables.
+	 */
+	
+	public void insertDataDB()	{
+		try	{
+			
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('1','10.671766', '60.797149');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('2','10.676271', '60.797796');");
+			
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('2','10.675777', '60.794528');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('3','10.671766', '60.797149');");
+
+				
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('4','10.677858', '60.793925');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('5','10.667082', '60.790810');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('6','10.661453', '60.792476');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('7','10.669674', '60.793058');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('11','10.685185', '60.793269');");
+			 
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('12','10.690588', '60.792518');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('13','10.689552', '60.794982');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('14','10.689520', '60.796357');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('15','10.686478', '60.797662');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('21','10.666328', '60.795006');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('22','10.667960', '60.795980');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('30','10.691870', '60.794231');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('31','10.687084', '60.794152');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('37','10.680915', '60.793652');");
+			 		 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('41','10.680501', '60.798851');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('46','10.698281', '60.798292');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('47','10.664888', '60.794479');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('48','10.672168', '60.795409');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude)"
+				     + " VALUES ('49','10.674817', '60.793038');");
+			 
+			 
+				Context context = getApplicationContext();
+				CharSequence text = "Insertion of data successfull";
+				int duration = Toast.LENGTH_SHORT;
+
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.show();
+			
+		}
+		catch	(Exception e)	{
+			e.printStackTrace();
+		}
+	}
+	
+	public void dynamicTour(View view)        {
+           Intent intent = new Intent(this, DynamicTour.class);
+           startActivity(intent);
+	}
+	
+	
 	/**
 	 * Static way to get context
 	 * @return MainActivity.context
@@ -373,4 +566,38 @@ public class MainActivity extends FragmentActivity {
 	   	intent.putExtra("team", cursor.getString(0)); 
    		startActivity(intent);	
 	}
+	
+	public void selectChallenge(View v){
+		Intent intent = new Intent(this, Challenges.class);
+		startActivity(intent);
+	}
+	
+	public void showHighscores(View v){
+		Intent intent = new Intent(this, TeamHighscore.class);
+		startActivity(intent);
+	}
+	
+	public void showLog(View v){
+		new SelectTeamDialogFragment().show(getFragmentManager(), "teams");
+	}
+	
+	
+	
+	//------------------GPS---------------------------------------------------------------------------------------------
+	
+	//check whether GPS is enabled and if not prompts user to activate it.
+	private void CheckEnableGPS()	{
+		String provider = Settings.Secure.getString(getContentResolver(),
+		Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+		if(!provider.equals("")){
+		   //GPS Enabled
+		Toast.makeText(getApplicationContext(), "GPS Enabled: " + provider,
+			Toast.LENGTH_LONG).show();
+		}else{
+			Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+			startActivity(intent);
+	}
+}
+	
+	
 }

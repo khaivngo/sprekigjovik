@@ -9,7 +9,7 @@ package com.hig.prestigedevelopment.sprekigjovik;
 
 public final class R {
     public static final class array {
-        public static final int planets_array=0x7f080000;
+        public static final int poles_array=0x7f080000;
     }
     public static final class attr {
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
@@ -189,94 +189,118 @@ containing a value of this type.
         public static final int ic_drawer=0x7f02001c;
         public static final int ic_launcher=0x7f02001d;
         public static final int jupiter=0x7f02001e;
-        public static final int maps=0x7f02001f;
-        public static final int maps2=0x7f020020;
-        public static final int mars=0x7f020021;
-        public static final int mercury=0x7f020022;
-        public static final int neptune=0x7f020023;
-        public static final int profile=0x7f020024;
-        public static final int saturn=0x7f020025;
-        public static final int sprekigjovik=0x7f020026;
-        public static final int uranus=0x7f020027;
-        public static final int venus=0x7f020028;
+        public static final int kart=0x7f02001f;
+        public static final int maps=0x7f020020;
+        public static final int maps2=0x7f020021;
+        public static final int mars=0x7f020022;
+        public static final int mercury=0x7f020023;
+        public static final int neptune=0x7f020024;
+        public static final int profile=0x7f020025;
+        public static final int saturn=0x7f020026;
+        public static final int sprekigjovik=0x7f020027;
+        public static final int uranus=0x7f020028;
+        public static final int venus=0x7f020029;
     }
     public static final class id {
-        public static final int action_maps=0x7f050022;
-        public static final int action_profile=0x7f050023;
-        public static final int action_settings=0x7f050020;
-        public static final int action_websearch=0x7f050021;
-        public static final int allTeams=0x7f050019;
-        public static final int cell_1=0x7f05001c;
-        public static final int cell_2=0x7f05001d;
-        public static final int cell_3=0x7f05001e;
-        public static final int content_frame=0x7f050015;
-        public static final int drawer_layout=0x7f050014;
+        public static final int action_maps=0x7f050032;
+        public static final int action_profile=0x7f050033;
+        public static final int action_settings=0x7f050031;
+        public static final int allTeams=0x7f05002a;
+        public static final int btnSubmit=0x7f050012;
+        public static final int cell_1=0x7f05002d;
+        public static final int cell_2=0x7f05002e;
+        public static final int cell_3=0x7f05002f;
+        public static final int challengeDescription=0x7f05001e;
+        public static final int challengeDifficulty=0x7f050020;
+        public static final int challengePoles=0x7f05001f;
+        public static final int content_frame=0x7f050006;
+        public static final int drawer_layout=0x7f050005;
         public static final int hybrid=0x7f050004;
-        public static final int joinTeam=0x7f05001a;
-        public static final int join_team=0x7f050007;
-        public static final int left_drawer=0x7f050016;
-        public static final int log_out=0x7f050013;
-        public static final int login=0x7f05000f;
-        public static final int login_form=0x7f05000c;
-        public static final int login_status=0x7f05000a;
-        public static final int login_status_message=0x7f05000b;
-        public static final int my_table=0x7f05001b;
+        public static final int joinTeam=0x7f05002b;
+        public static final int join_team=0x7f05000d;
+        public static final int left_drawer=0x7f050007;
+        public static final int log_out=0x7f05001d;
+        public static final int login=0x7f050018;
+        public static final int login_form=0x7f050015;
+        public static final int login_status=0x7f050013;
+        public static final int login_status_message=0x7f050014;
+        public static final int map=0x7f05001c;
+        public static final int message_text=0x7f050008;
+        public static final int my_table=0x7f05002c;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
-        public static final int pager=0x7f050011;
-        public static final int pager_title_strip=0x7f050012;
-        public static final int password=0x7f05000e;
+        public static final int number_poles=0x7f050010;
+        public static final int openDyanicTour=0x7f050027;
+        public static final int openMap=0x7f050026;
+        public static final int pager=0x7f05001a;
+        public static final int pager_title_strip=0x7f05001b;
+        public static final int password=0x7f050017;
+        public static final int pole_code=0x7f050009;
+        public static final int poles_spinner=0x7f050011;
+        public static final int previewChallenge=0x7f050022;
         public static final int satellite=0x7f050002;
-        public static final int section_label=0x7f050017;
-        public static final int sign_in_button=0x7f050010;
-        public static final int teamHighscore=0x7f050009;
-        public static final int team_description=0x7f050006;
-        public static final int team_name=0x7f050005;
+        public static final int section_label=0x7f050028;
+        public static final int selectChallenge=0x7f050024;
+        public static final int showHighscores=0x7f050023;
+        public static final int showLog=0x7f050025;
+        public static final int sign_in_button=0x7f050019;
+        public static final int startChallenge=0x7f050021;
+        public static final int submit=0x7f05000a;
+        public static final int teamHighscore=0x7f05000f;
+        public static final int team_description=0x7f05000c;
+        public static final int team_name=0x7f05000b;
         public static final int terrain=0x7f050003;
-        public static final int user_list=0x7f05001f;
-        public static final int username=0x7f05000d;
-        public static final int view_members=0x7f050008;
-        public static final int yourTeam=0x7f050018;
+        public static final int user_list=0x7f050030;
+        public static final int username=0x7f050016;
+        public static final int view_members=0x7f05000e;
+        public static final int yourTeam=0x7f050029;
     }
     public static final class layout {
-        public static final int activity_display_team=0x7f030000;
-        public static final int activity_login=0x7f030001;
-        public static final int activity_main=0x7f030002;
-        public static final int activity_maps=0x7f030003;
-        public static final int activity_profile=0x7f030004;
-        public static final int activity_team_highscore=0x7f030005;
-        public static final int fragment_challengemenu_main=0x7f030006;
-        public static final int fragment_dynamicmenu_main=0x7f030007;
-        public static final int fragment_main_dummy=0x7f030008;
-        public static final int fragment_memberteammenu_main=0x7f030009;
-        public static final int fragment_teammenu_main=0x7f03000a;
-        public static final int team_highscore_fragment=0x7f03000b;
-        public static final int team_highscore_list_item=0x7f03000c;
-        public static final int team_highscore_row_item=0x7f03000d;
-        public static final int team_members=0x7f03000e;
+        public static final int activity_challenges=0x7f030000;
+        public static final int activity_dialog=0x7f030001;
+        public static final int activity_display_team=0x7f030002;
+        public static final int activity_dynamic_tour=0x7f030003;
+        public static final int activity_highscore=0x7f030004;
+        public static final int activity_login=0x7f030005;
+        public static final int activity_main=0x7f030006;
+        public static final int activity_maps=0x7f030007;
+        public static final int activity_profile=0x7f030008;
+        public static final int challenges_fragment=0x7f030009;
+        public static final int fragment_challengemenu_main=0x7f03000a;
+        public static final int fragment_dynamicmenu_main=0x7f03000b;
+        public static final int fragment_main_dummy=0x7f03000c;
+        public static final int fragment_memberteammenu_main=0x7f03000d;
+        public static final int fragment_teammenu_main=0x7f03000e;
+        public static final int highscore_fragment=0x7f03000f;
+        public static final int highscore_list_item=0x7f030010;
+        public static final int highscore_row_item=0x7f030011;
+        public static final int team_members=0x7f030012;
     }
     public static final class menu {
-        public static final int display_team=0x7f0a0000;
-        public static final int main=0x7f0a0001;
-        public static final int main2=0x7f0a0002;
-        public static final int main_activity_actions=0x7f0a0003;
-        public static final int maps=0x7f0a0004;
-        public static final int profile=0x7f0a0005;
-        public static final int team_highscore=0x7f0a0006;
+        public static final int challenges=0x7f0a0000;
+        public static final int display_team=0x7f0a0001;
+        public static final int dynamic_tour=0x7f0a0002;
+        public static final int main=0x7f0a0003;
+        public static final int main_activity_actions=0x7f0a0004;
+        public static final int maps=0x7f0a0005;
+        public static final int on_click_listener=0x7f0a0006;
+        public static final int profile=0x7f0a0007;
+        public static final int team_highscore=0x7f0a0008;
     }
     public static final class string {
-        public static final int action_forgot_password=0x7f060037;
+        /**  Maps 
+         */
+        public static final int action_dynamicTour=0x7f06001c;
+        public static final int action_forgot_password=0x7f060048;
         /**  Action Bar 
          */
         public static final int action_maps=0x7f06001a;
         public static final int action_profile=0x7f06001b;
         public static final int action_settings=0x7f060016;
-        public static final int action_sign_in_register=0x7f060035;
-        public static final int action_sign_in_short=0x7f060036;
-        public static final int action_websearch=0x7f060030;
-        public static final int all_teams=0x7f060022;
+        public static final int action_sign_in_register=0x7f060046;
+        public static final int action_sign_in_short=0x7f060047;
+        public static final int all_teams=0x7f06002f;
         public static final int app_name=0x7f060015;
-        public static final int app_not_available=0x7f060031;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -300,6 +324,7 @@ containing a value of this type.
         [CHAR LIMIT=70] 
          */
         public static final int auth_client_using_bad_version_title=0x7f06000f;
+        public static final int choose_poles=0x7f060023;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -355,50 +380,67 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f06000e;
-        public static final int drawer_close=0x7f06002f;
+        public static final int dialog_cancel=0x7f060026;
+        public static final int dialog_register=0x7f060025;
+        public static final int dialog_register_marker=0x7f060024;
+        public static final int drawer_close=0x7f060041;
         /**  TEMP 
          */
-        public static final int drawer_open=0x7f06002e;
-        public static final int error_field_required=0x7f06003c;
-        public static final int error_incorrect_password=0x7f06003b;
-        public static final int error_invalid_password=0x7f06003a;
-        public static final int error_invalid_username=0x7f060039;
+        public static final int drawer_open=0x7f060040;
+        public static final int enable_gps=0x7f06001e;
+        public static final int error_field_required=0x7f06004d;
+        public static final int error_incorrect_password=0x7f06004c;
+        public static final int error_invalid_password=0x7f06004b;
+        public static final int error_invalid_username=0x7f06004a;
         /**  Login 
          */
-        public static final int error_register=0x7f06001f;
-        public static final int hello_world=0x7f06002b;
-        public static final int highscore_name=0x7f06002c;
-        public static final int join_successful=0x7f060029;
-        public static final int join_team=0x7f060024;
-        public static final int log_out=0x7f06001e;
-        public static final int login_progress_signing_in=0x7f060038;
-        public static final int prompt_password=0x7f060034;
+        public static final int error_register=0x7f06002c;
+        public static final int hello_world=0x7f060038;
+        public static final int highscore_name=0x7f060039;
+        public static final int join_successful=0x7f060036;
+        public static final int join_team=0x7f060031;
+        public static final int log_out=0x7f06002b;
+        public static final int login_progress_signing_in=0x7f060049;
+        public static final int no=0x7f06001f;
+        public static final int pole_hint=0x7f060027;
+        public static final int poles_prompt=0x7f060022;
+        public static final int preview_challenge=0x7f06003f;
+        public static final int prompt_password=0x7f060045;
         /**  Strings related to login 
          */
-        public static final int prompt_username=0x7f060033;
-        public static final int score=0x7f06002d;
-        public static final int search_teams=0x7f060025;
-        public static final int select_team=0x7f060026;
-        public static final int successful_register=0x7f060020;
-        public static final int team_highscore=0x7f060023;
-        public static final int title_activity_display_team=0x7f060027;
-        public static final int title_activity_login=0x7f060032;
-        /**  Maps 
+        public static final int prompt_username=0x7f060044;
+        public static final int score=0x7f06003a;
+        public static final int search_teams=0x7f060032;
+        /**  Challenges 
          */
-        public static final int title_activity_maps=0x7f06001c;
+        public static final int select_challenge=0x7f06003b;
+        public static final int select_team=0x7f060033;
+        public static final int set_internet=0x7f060021;
+        public static final int show_highscores=0x7f06003c;
+        public static final int show_log=0x7f06003d;
+        public static final int start_challenge=0x7f06003e;
+        public static final int successful_register=0x7f06002d;
+        public static final int team_highscore=0x7f060030;
+        public static final int title_activity_challenges=0x7f060042;
+        public static final int title_activity_display_team=0x7f060034;
+        public static final int title_activity_dynamictour=0x7f060028;
+        public static final int title_activity_login=0x7f060043;
+        public static final int title_activity_maps=0x7f06001d;
+        public static final int title_activity_on_click_listener=0x7f060029;
         /**  Profile 
          */
-        public static final int title_activity_profile=0x7f06001d;
-        public static final int title_activity_team_highscore=0x7f06002a;
+        public static final int title_activity_profile=0x7f06002a;
+        public static final int title_activity_team_highscore=0x7f060037;
         /**  MainActivity 
          */
         public static final int title_section1=0x7f060017;
         public static final int title_section2=0x7f060018;
         public static final int title_section3=0x7f060019;
-        public static final int view_members=0x7f060028;
+        public static final int view_members=0x7f060035;
+        public static final int yes=0x7f060020;
         /**  Teams 
          */
-        public static final int your_team=0x7f060021;
+        public static final int your_team=0x7f06002e;
     }
     public static final class style {
         /** 
