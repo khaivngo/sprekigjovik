@@ -1,0 +1,153 @@
+commit 97376db0172cfb237787b0873a6acf7845238c34
+Author: khaiern <khai.vngo@gmail.com>
+Date:   Wed Dec 4 21:00:06 2013 +0100
+
+    Added listener to markers info window
+    
+    Activity for checking in at pole
+    	When pole is checked in it is updated as visited in DB.
+    Added database for storing session poles
+
+commit 01988316d1d7b92c82d423a9ce9b379b1766e03f
+Author: khaiern <khai.vngo@gmail.com>
+Date:   Tue Dec 3 21:48:16 2013 +0100
+
+    *DB for poles created and populated
+    
+    *Added number of poles spinner
+    *Able to retreive poles from DB and displaying on Google maps
+
+commit f802ac8b5c741254020577007ea4a9ddc6214337
+Author: khaiern <khai.vngo@gmail.com>
+Date:   Fri Nov 15 13:44:03 2013 +0100
+
+    Successfully integrated maps
+    
+    Check if GPS is enable, if not prompts user to GPS settings
+
+commit 553a52d4485dc9da22668347d0a9144fd1518d78
+Merge: 68d7803 d35275d
+Author: khaiern <khai.vngo@gmail.com>
+Date:   Fri Nov 15 11:38:45 2013 +0100
+
+    Merge branch 'master' of https://github.com/hakkepakke/sprekigjovik into Maps
+    
+    Conflicts:
+    	src/com/hig/prestigedevelopment/sprekigjovik/MainActivity.java
+
+commit 68d780379f9ad48c5d14f58ea8e4dfc55cac28db
+Author: khaiern <khai.vngo@gmail.com>
+Date:   Fri Nov 15 11:37:04 2013 +0100
+
+    map class and map xml
+
+commit d35275d28bc90658b397dd47d41d1695e711a9cf
+Author: chrisdok <christopher.dokkeberg@gmail.com>
+Date:   Fri Nov 15 11:32:01 2013 +0100
+
+    added maps and profile activity
+    
+    bound to action bar buttons
+
+commit da0b5469578bbdb79610f6a374f0ddc98cc97c18
+Author: chrisdok <christopher.dokkeberg@gmail.com>
+Date:   Thu Nov 14 20:15:40 2013 +0100
+
+    added icons, actionbar, fixed tab layouts
+
+commit 0cfc7fc64bf6a707823d5d0d935327a9708e55bd
+Author: chrisdok <christopher.dokkeberg@gmail.com>
+Date:   Thu Nov 14 19:31:32 2013 +0100
+
+    small fixes
+    
+    removed a lot of unneed code, set second(middle) tab as default
+
+commit a7bf12c43424c79902391caaba63ea2f0b092c0b
+Author: chrisdok <christopher.dokkeberg@gmail.com>
+Date:   Thu Nov 14 19:21:38 2013 +0100
+
+    added all tabs with example content
+
+commit 2d2f6c25c4017ee96cbe62fc57de27ac090c1187
+Author: chrisdok <christopher.dokkeberg@gmail.com>
+Date:   Thu Nov 14 19:07:22 2013 +0100
+
+    fixed fragment to tab id 1
+
+commit 872b623df0c42503678f50f648f4c064058b8cd8
+Author: chrisdok <christopher.dokkeberg@gmail.com>
+Date:   Thu Nov 14 19:02:53 2013 +0100
+
+    added tab
+
+commit cd00f00cf0849a43cecf53950198b0df1ab676cf
+Author: chrisdok <christopher.dokkeberg@gmail.com>
+Date:   Thu Nov 14 18:36:02 2013 +0100
+
+    added mapsfragment
+
+commit 2fc32eb8c4e5d982ca7a4a1b0b8c88add496a65f
+Author: chrisdok <christopher.dokkeberg@gmail.com>
+Date:   Thu Nov 14 18:34:53 2013 +0100
+
+    added maps fragemtn
+
+commit 4cf0c81bfce8cd25efd00882bdb155dd9cb1ae50
+Author: chrisdok <christopher.dokkeberg@gmail.com>
+Date:   Thu Nov 14 18:06:05 2013 +0100
+
+    project files
+
+commit 5ea0935bd88abca085b3d4c698d246ccf54f72f0
+Author: chrisdok <christopher.dokkeberg@gmail.com>
+Date:   Thu Nov 14 18:00:00 2013 +0100
+
+    project files
+
+commit ab87191fa853fe2a1cc46be695832311630fdafc
+Author: chrisdok <christopher.dokkeberg@gmail.com>
+Date:   Thu Nov 14 17:59:20 2013 +0100
+
+    added project
+    
+    blank project
+
+commit 5e63ab3b3b5b008c2ad37e33ad3b727114fa4c22
+Merge: bbe2ef6 4cc65f2
+Author: chrisdok <christopher.dokkeberg@gmail.com>
+Date:   Thu Nov 14 17:50:24 2013 +0100
+
+    Merge branch 'master' of https://github.com/hakkepakke/sprekigjovik
+
+commit 4cc65f26c106716721669a4d272a30baf3354e69
+Author: khaiern <khai.vngo@gmail.com>
+Date:   Thu Nov 14 17:44:41 2013 +0100
+
+    removed project files
+
+commit bbe2ef65aaaef69f21ab4334e0e88098c2792c17
+Author: chrisdok <christopher.dokkeberg@gmail.com>
+Date:   Thu Nov 14 17:43:59 2013 +0100
+
+    added project
+    
+    simple activity with fixed tabs + swipe
+
+commit e13038b918324c4033b83347460b68d81876ae94
+Author: khaiern <khai.vngo@gmail.com>
+Date:   Thu Nov 14 17:34:27 2013 +0100
+
+    Master
+
+commit 01efaeba87425cba734afe928fda27012490cb1c
+Author: khaiern <khai.vngo@gmail.com>
+Date:   Thu Nov 14 17:30:41 2013 +0100
+
+    project files
+
+commit 01fde266324827f136f00ad035bb82e8bbcfe7da
+Author: khaiern <khai.vngo@gmail.com>
+Date:   Thu Nov 14 17:26:04 2013 +0100
+
+    first commit
