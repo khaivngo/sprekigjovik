@@ -57,6 +57,10 @@ public class TeamMembersDialogFragment extends DialogFragment{
 			strings.add(cursor.getString(0));
 		}
     	String[] array = strings.toArray(new String[0]);
+    	
+    	cursor.close();
+    	db.close();
+    	
     	return array;
     }
 }

@@ -52,6 +52,14 @@ public class DisplayTeam extends Activity {
 	   startActivity(intent);
 	}
 	
+    @Override
+    protected void onDestroy() {
+
+        db.close();
+
+        super.onDestroy();
+    }
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -95,6 +103,7 @@ public class DisplayTeam extends Activity {
 			
 			TextView tDescription = (TextView) findViewById(R.id.team_description);
 			tDescription.setText(cursor.getString(2));
+			cursor.close();
 		}
 		
 	}
@@ -140,6 +149,8 @@ public class DisplayTeam extends Activity {
 		TextView tv = (TextView) findViewById(R.id.leaveTeam);
 		tv.setVisibility(View.VISIBLE);
 		
+		cursor.close();
+		
 	}
 	
 	public String[] getMembers() {	    	
@@ -152,6 +163,9 @@ public class DisplayTeam extends Activity {
 				strings.add(cursor.getString(0));
 			}
 	    	String[] array = strings.toArray(new String[0]);
+	    	
+	    	cursor.close();
+	    	
 	    	return array;
 	}
 	
@@ -166,9 +180,12 @@ public class DisplayTeam extends Activity {
 			if(cursor.getString(0).equals(teamName)){
 				TextView tv = (TextView) findViewById(R.id.leaveTeam);
 				tv.setVisibility(View.VISIBLE);
+				cursor.close();
 				return true;
 			}
 		}
+		cursor.close();
+		
 		return false;
 	}
 	
@@ -226,5 +243,7 @@ public class DisplayTeam extends Activity {
 		tv.setVisibility(View.VISIBLE);
 		tv = (TextView) findViewById(R.id.leaveTeam);
 		tv.setVisibility(View.GONE);
+		
+		cursor.close();
 	}
 }

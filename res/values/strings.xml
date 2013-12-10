@@ -55,6 +55,7 @@
     <!-- Login -->
     <string name="error_register">Error registering new user, please try again</string>
     <string name="successful_register">Registration successful</string>
+    <string name="logged_in_as">Logged in as</string>
 
     <!-- Teams -->
     <string name="your_team">Your Team</string>

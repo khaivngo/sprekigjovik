@@ -49,8 +49,7 @@ public class MainActivity extends FragmentActivity {
 	private final String tableNameChallengePole	=	"challengePole";
 	private final String tableNameChallenge		=	"challenge";
 	private static Context context;
-	private SQLiteDatabase sessionDB = null;
-
+	private SQLiteDatabase sessionDB= null;
 	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +77,16 @@ public class MainActivity extends FragmentActivity {
 		//viewScores();
 	}
 
+    @Override
+    protected void onDestroy() {
+
+        db.close();
+        myDB.close();
+        sessionDB.close();
+
+        super.onDestroy();
+    }
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -220,65 +229,12 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	/**
-	 * Sets up and fills database with dummy data in teams table. For testing purposes.
+	 * Sets up and fills database with dummy data in teams, peeps, highscores tables in sprekIGjovik database, and challenges and challengepoles in 
+	 * PoleDB database. For testing purposes, until external server.
 	 */
 	public void setUpDatabase() {
 		
 		//CHECK DATABASE FIRST
-		
-		List<String[]> dummyTeams = new ArrayList<String[]>();
-		dummyTeams.add(new String[]{"Prestige Development", "Bedriftlaget til Prestige Development"});
-		dummyTeams.add(new String[]{"Gjøvik Orientering", "Orienteringsklubben i Gjøvik og omegn"});
-		
-		//---------------- ADDS TEMP PEOPLE -------------------------------------//
-		List<String[]> dummyPeeps = new ArrayList<String[]>();
-		//Adds members to Prestige Development team
-		dummyPeeps.add(new String[]{"Christopher", "1"});
-		dummyPeeps.add(new String[]{"Khai", "1"});
-		//Adds members to Gjøvik Orientering team
-		dummyPeeps.add(new String[]{"Jehans", "2"});
-		dummyPeeps.add(new String[]{"Røise", "2"});
-		dummyPeeps.add(new String[]{"Espen", "2"});
-		
-		//---------------- ADDS TEMP HIGHSCORES ----------------------------------//
-		List<String[]> dummyScores = new ArrayList<String[]>();
-		dummyScores.add(new String[]{"1", "1", "406"});
-		dummyScores.add(new String[]{"2", "1", "253"});
-		dummyScores.add(new String[]{"1", "3", "703"});
-		dummyScores.add(new String[]{"3", "2", "1504"});
-		dummyScores.add(new String[]{"1", "3", "4064"});
-		dummyScores.add(new String[]{"3", "2", "391"});
-		dummyScores.add(new String[]{"2", "1", "112"});
-		
-		//---------------- ADDS TEMP CHALLENGES -----------------------------------//
-		List<String[]> dummyChallenges = new ArrayList<String[]>();
-		dummyChallenges.add(new String[]{"Opp til toppen", "Ta alle postene opp til Gjøviktoppen.", "3"});
-		dummyChallenges.add(new String[]{"Langs Mjøsa", "Ta alle postene langs Mjøsa.", "2"});
-		dummyChallenges.add(new String[]{"Til sykehuset og tilbake", "Ta postene frem til sykehuset, og de samme postene tilbake.", "1"});
-		
-		//---------------- ADDS TEMP CHALLENGEPOLES -------------------------------//
-		List<String[]> dummyChallengePoles = new ArrayList<String[]>();
-		//Adds first challenge
-		dummyChallengePoles.add(new String[]{"1", "1"});
-		dummyChallengePoles.add(new String[]{"1", "2"});
-		dummyChallengePoles.add(new String[]{"1", "4"});
-		//Adds second challenge
-		dummyChallengePoles.add(new String[]{"2", "1"});
-		dummyChallengePoles.add(new String[]{"2", "2"});
-		dummyChallengePoles.add(new String[]{"2", "3"});
-		//Adds third challenge
-		dummyChallengePoles.add(new String[]{"3", "1"});
-		dummyChallengePoles.add(new String[]{"3", "2"});
-		dummyChallengePoles.add(new String[]{"3", "1"});
-		dummyChallengePoles.add(new String[]{"3", "2"});
-		
-//		//---------------- ADDS TEMP POLES-------------------- --------------------//
-//		List<String[]> dummyPoles = new ArrayList<String[]>();
-//		dummyPoles.add(new String[]{"1", "1", "ABC"});
-//		dummyPoles.add(new String[]{"2", "2", "DEF"});
-//		dummyPoles.add(new String[]{"3", "1", "GHI"});
-//		dummyPoles.add(new String[]{"4", "3", "JKL"});
-		
 		
 		//---------------- OPENS/CREATES SPREKIGJOVIK & TABLES --------------------//
 		db = openOrCreateDatabase("sprekIGjovik", MODE_PRIVATE,null);
@@ -293,6 +249,12 @@ public class MainActivity extends FragmentActivity {
 		cursor.moveToFirst();
 		
 		if(cursor==null || cursor.getCount()==0){
+			
+			//---------------- ADDS TEMP TEAMS --------------------------------------//
+			List<String[]> dummyTeams = new ArrayList<String[]>();
+			dummyTeams.add(new String[]{"Prestige Development", "Bedriftlaget til Prestige Development"});
+			dummyTeams.add(new String[]{"Gjøvik Orientering", "Orienteringsklubben i Gjøvik og omegn"});
+			
 			for(String[] row : dummyTeams){
 				db.execSQL("INSERT INTO teams(name, description) VALUES('"+ row[0]+ "','" + row[1] +
 						"');");
@@ -304,6 +266,17 @@ public class MainActivity extends FragmentActivity {
 		cursor.moveToFirst();
 		
 		if(cursor==null || cursor.getCount()==0){
+			
+			//---------------- ADDS TEMP PEOPLE -------------------------------------//
+			List<String[]> dummyPeeps = new ArrayList<String[]>();
+			//Adds members to Prestige Development team
+			dummyPeeps.add(new String[]{"Christopher", "1"});
+			dummyPeeps.add(new String[]{"Khai", "1"});
+			//Adds members to Gjøvik Orientering team
+			dummyPeeps.add(new String[]{"Jehans", "2"});
+			dummyPeeps.add(new String[]{"Røise", "2"});
+			dummyPeeps.add(new String[]{"Espen", "2"});
+			
 			for(String[] row : dummyPeeps){
 				db.execSQL("INSERT INTO peeps(username, password, teamId) VALUES('"+ row[0]+ "', '123456', '" + row[1] +
 						"');");
@@ -315,49 +288,75 @@ public class MainActivity extends FragmentActivity {
 		cursor.moveToFirst();
 		
 		if(cursor==null || cursor.getCount()==0){
+			
+			//---------------- ADDS TEMP HIGHSCORES ----------------------------------//
+			List<String[]> dummyScores = new ArrayList<String[]>();
+			dummyScores.add(new String[]{"1", "1", "406"});
+			dummyScores.add(new String[]{"2", "1", "253"});
+			dummyScores.add(new String[]{"1", "3", "703"});
+			dummyScores.add(new String[]{"3", "2", "1504"});
+			dummyScores.add(new String[]{"1", "3", "4064"});
+			dummyScores.add(new String[]{"3", "2", "391"});
+			dummyScores.add(new String[]{"2", "1", "112"});
+			
 			for(String[] row : dummyScores){
 				db.execSQL("INSERT INTO highscores(userId, challengeId, score) VALUES('"+ row[0]+ "','" + row[1] + 
 						"', '" + row[2] + "');");
 			}
 		}
+		
 		//---------------- OPENS/CREATES POLEDB & TABLES --------------------------//
 		db = openOrCreateDatabase("PoleDB", MODE_PRIVATE,null);
 		db.execSQL("CREATE TABLE IF NOT EXISTS challenges(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, difficulty INTEGER);");
-//		db.execSQL("CREATE TABLE IF NOT EXISTS poles(id INTEGER PRIMARY KEY AUTOINCREMENT, poleId INTEGER, difficulty INTEGER, code TEXT);");
+//				db.execSQL("CREATE TABLE IF NOT EXISTS poles(id INTEGER PRIMARY KEY AUTOINCREMENT, poleId INTEGER, difficulty INTEGER, code TEXT);");
 		db.execSQL("CREATE TABLE IF NOT EXISTS challengePoles(id INTEGER PRIMARY KEY AUTOINCREMENT, challengeId INTEGER, poleId INTEGER);");
+		
 		
 		//---------------- CHECKS/ADDS CHALLENGES -----------------------------//
 		cursor = db.rawQuery("SELECT * FROM challenges;" , null);
 		cursor.moveToFirst();
 		
 		if(cursor==null || cursor.getCount()==0){
+			
+			//---------------- ADDS TEMP CHALLENGES -----------------------------------//
+			List<String[]> dummyChallenges = new ArrayList<String[]>();
+			dummyChallenges.add(new String[]{"Opp til toppen", "Ta alle postene opp til Gjøviktoppen.", "3"});
+			dummyChallenges.add(new String[]{"Langs Mjøsa", "Ta alle postene langs Mjøsa.", "2"});
+			dummyChallenges.add(new String[]{"Til sykehuset og tilbake", "Ta postene frem til sykehuset, og de samme postene tilbake.", "1"});
+			
 			for(String[] row : dummyChallenges){
 				db.execSQL("INSERT INTO challenges(name, description, difficulty) VALUES('"+ row[0]+ "','" + row[1] + 
 						"', '" + row[2] + "');");
 			}
 		}
 		
-//		//---------------- CHECKS/ADDS POLES -----------------------------//
-//		cursor = db.rawQuery("SELECT * FROM poles;" , null);
-//		cursor.moveToFirst();
-//		
-//		if(cursor==null || cursor.getCount()==0){
-//			for(String[] row : dummyPoles){
-//				db.execSQL("INSERT INTO poles(poleId, difficulty, code) VALUES('"+ row[0]+ "','" + row[1] + 
-//						"', '" + row[2] + "');");
-//			}
-//		}
-		
 		//---------------- CHECKS/ADDS CHALLENGEPOLES -----------------------------//
 		cursor = db.rawQuery("SELECT * FROM challengePoles;" , null);
 		cursor.moveToFirst();
 		
 		if(cursor==null || cursor.getCount()==0){
+			
+			//---------------- ADDS TEMP CHALLENGEPOLES -------------------------------//
+			List<String[]> dummyChallengePoles = new ArrayList<String[]>();
+			//Adds first challenge
+			dummyChallengePoles.add(new String[]{"1", "1"});
+			dummyChallengePoles.add(new String[]{"1", "2"});
+			dummyChallengePoles.add(new String[]{"1", "4"});
+			//Adds second challenge
+			dummyChallengePoles.add(new String[]{"2", "1"});
+			dummyChallengePoles.add(new String[]{"2", "2"});
+			dummyChallengePoles.add(new String[]{"2", "3"});
+			//Adds third challenge
+			dummyChallengePoles.add(new String[]{"3", "1"});
+			dummyChallengePoles.add(new String[]{"3", "2"});
+			dummyChallengePoles.add(new String[]{"3", "1"});
+			dummyChallengePoles.add(new String[]{"3", "2"});
+			
 			for(String[] row : dummyChallengePoles){
 				db.execSQL("INSERT INTO challengePoles(challengeId, poleId) VALUES('"+ row[0]+ "','" + row[1] + "');");
 			}
 		}
-		//-------------------------------------------------------------------------//
+		cursor.close();
 	}
 	
 	/**
@@ -399,6 +398,7 @@ public class MainActivity extends FragmentActivity {
 		if(c == null || c.getCount()==0)	{
 			insertDataDB();
 		}
+		c.close();
 	}
 	
 	/**
@@ -540,9 +540,10 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	public void dynamicTour(View view)        {
-        checkLogin();   
-		Intent intent = new Intent(this, DynamicTour.class);
-        startActivity(intent);
+		if(checkLogin()){
+			Intent intent = new Intent(this, DynamicTour.class);
+	        startActivity(intent);
+		}
 	}
 	
 	
@@ -567,12 +568,14 @@ public class MainActivity extends FragmentActivity {
 		cursor.moveToFirst();
 	   	intent.putExtra("team", cursor.getString(0)); 
    		startActivity(intent);	
+   		cursor.close();
 	}
 	
 	public void selectChallenge(View v){
-		checkLogin();
-		Intent intent = new Intent(this, Challenges.class);
-		startActivity(intent);
+		if(checkLogin()){
+			Intent intent = new Intent(this, Challenges.class);
+			startActivity(intent);
+		}
 	}
 	
 	public void showHighscores(View v){
@@ -581,8 +584,9 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	public void showLog(View v){
-		checkLogin();
-		new SelectTeamDialogFragment().show(getFragmentManager(), "teams");
+		if(checkLogin()){
+			new SelectTeamDialogFragment().show(getFragmentManager(), "teams");
+		}
 	}
 	
 	
@@ -615,13 +619,15 @@ public class MainActivity extends FragmentActivity {
     }
 
 	
-	public void checkLogin(){
+	public Boolean checkLogin(){
 		SharedPreferences sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
 		String username = sharedPreferences.getString("UserName", "");
 		
 		if(username.equals("")){
 			Intent intent = new Intent(this, Login.class);
 			startActivity(intent);
+			return false;
 		}
+		return true;
 	}
 }

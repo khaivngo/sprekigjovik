@@ -151,6 +151,11 @@ public class TeamHighscore extends Activity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        db.close();
+        super.onDestroy();
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -345,6 +350,7 @@ public class TeamHighscore extends Activity {
     	while(cursor.moveToNext()){
     		names.add(cursor.getString(0));
     	}
+    	cursor.close();
     	
 		return names.toArray(new String[names.size()]);
 	}
@@ -394,6 +400,7 @@ public class TeamHighscore extends Activity {
     	while(cursor.moveToNext()){
     		highscores.add(cursor.getString(0) + ":" + cursor.getString(1));
     	}
+    	cursor.close();
     	
 		return highscores.toArray(new String[highscores.size()]);
     }

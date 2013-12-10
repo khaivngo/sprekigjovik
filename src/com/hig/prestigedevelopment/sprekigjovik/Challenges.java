@@ -82,6 +82,7 @@ public class Challenges extends Activity {
     private String[] mChallengeTitles;
     
     private SQLiteDatabase db;
+    
     private static Context context;
     
 //    private Boolean isTeam = false;
@@ -138,7 +139,15 @@ public class Challenges extends Activity {
         
         this.findViewById(R.id.left_drawer);
     }
+    
+    @Override
+    protected void onDestroy() {
 
+        db.close();
+
+        super.onDestroy();
+    }
+    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -277,6 +286,8 @@ public class Challenges extends Activity {
         	TextView difficulty = (TextView) view.findViewById(R.id.challengeDifficulty);
         	difficulty.setText("Difficulty level: " + cursor.getString(3));
         	
+        	cursor.close();
+        	
         }
     }
     
@@ -296,6 +307,8 @@ public class Challenges extends Activity {
     	while(cursor.moveToNext()){
     		names.add(cursor.getString(0));
     	}
+    	
+    	cursor.close();
     	
 		return names.toArray(new String[names.size()]);
 	}
@@ -328,7 +341,9 @@ public class Challenges extends Activity {
 	    while(cursor.moveToNext())	{
 	    	selectedPoles.add(cursor.getString(0)+":"+cursor.getString(1)+":"+cursor.getString(2));
 	    }
-
+	    
+	    cursor.close();
+	    
 	    SharedPreferences sharedTime = getSharedPreferences("time", Context.MODE_PRIVATE);
 	    SharedPreferences.Editor editor = sharedTime.edit();
 	     

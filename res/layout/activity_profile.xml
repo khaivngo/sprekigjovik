@@ -5,7 +5,11 @@
     android:orientation="horizontal" >
 
     
-
+	<TextField android:id="@+id/username"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:textSize="16sp"
+	    android:padding="10dp" />
     
     <Button android:id="@+id/log_out"
         android:layout_width="fill_parent"

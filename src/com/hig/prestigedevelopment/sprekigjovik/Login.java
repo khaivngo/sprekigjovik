@@ -74,6 +74,8 @@ public class Login extends Activity {
 			users.add(name);
 		} 
 		
+		db.close();
+		
 		// Set up the login form.
 		mUserName = getIntent().getStringExtra(EXTRA_USERNAME);
 		mUserNameView = (EditText) findViewById(R.id.username);
@@ -106,6 +108,14 @@ public class Login extends Activity {
 				});
 	}
 
+    @Override
+    protected void onDestroy() {
+
+        db.close();
+
+        super.onDestroy();
+    }
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
@@ -247,6 +257,7 @@ public class Login extends Activity {
 			
 			db.execSQL("INSERT INTO peeps(username, password) VALUES('"+ mUserName + "','" + mPassword +
 					"');");
+			db.close();
 
 			return true;
 
@@ -266,12 +277,10 @@ public class Login extends Activity {
 				editor.commit();
 				
 				
-//				Toast.makeText(getApplicationContext(), mUserName, 
-//						   Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), getString(R.string.logged_in_as) + mUserName, 
+						   Toast.LENGTH_LONG).show();
 				
-				Intent intent = new Intent(Login.this, Profile.class);
-				startActivity(intent);
-				//finish();
+				finish();
 			} else {
 				mPasswordView
 						.setError(getString(R.string.error_incorrect_password));
