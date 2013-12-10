@@ -331,5 +331,4 @@ public class Challenges extends Activity {
 	    intent.putStringArrayListExtra("selected", (ArrayList<String>) selectedPoles);
 	    startActivity(intent);
     }
-
 }

@@ -217,3 +217,7 @@ pip-log.txt
 .mr.developer.cfg
 gen/com/example/lufteapp/R.java
 gen/com/google/android/gms/R.java
+gen/*
+bin/*
+bin\*
+
