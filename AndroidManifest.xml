@@ -70,8 +70,6 @@
             android:label="@string/title_activity_dynamictour" >
         </activity>
 
-        
-		
         <activity
             android:name="com.hig.prestigedevelopment.sprekigjovik.DialogActivity"
             android:label="@string/title_activity_on_click_listener" >

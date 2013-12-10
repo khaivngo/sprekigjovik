@@ -217,16 +217,13 @@ pip-log.txt
 .mr.developer.cfg
 gen/com/example/lufteapp/R.java
 gen/com/google/android/gms/R.java
+<<<<<<< HEAD
 gen/*
 bin/*
 bin/
 bin\*
 *.bin
 *.gen
-*.class
-
-=======
-*.class
 *.class
 
 #ignore thumbnails created by windows
@@ -251,6 +248,7 @@ bin/classes/com/hig/prestigedevelopment/sprekigjovik/R$menu.class
 bin/classes/com/hig/prestigedevelopment/sprekigjovik/R$string.class
 bin/resources.ap_
 gen/com/hig/prestigedevelopment/sprekigjovik/R.java
+<<<<<<< HEAD
 bin/*
 gen/*
 *.class
