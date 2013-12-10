@@ -25,6 +25,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -322,11 +323,18 @@ public class Challenges extends Activity {
 	    Cursor cursor = db.rawQuery("SELECT name, longitude, latitude FROM pole p " +
 	    							"JOIN challengePoles c ON c.poleId = p.name " +
 	    							"WHERE c.challengeId = (SELECT id FROM challenges WHERE name LIKE ?);", new String[] {mTitle.toString()});
-
+	    
+	    
 	    while(cursor.moveToNext())	{
 	    	selectedPoles.add(cursor.getString(0)+":"+cursor.getString(1)+":"+cursor.getString(2));
 	    }
 
+	    SharedPreferences sharedTime = getSharedPreferences("time", Context.MODE_PRIVATE);
+	    SharedPreferences.Editor editor = sharedTime.edit();
+	     
+	    editor.putString("ChallengeName", mTitle.toString());
+	    editor.commit();
+	    
 	    Intent intent = new Intent(this, Maps.class);
 	    intent.putStringArrayListExtra("selected", (ArrayList<String>) selectedPoles);
 	    startActivity(intent);

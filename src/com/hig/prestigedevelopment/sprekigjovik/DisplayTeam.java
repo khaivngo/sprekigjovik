@@ -44,6 +44,14 @@ public class DisplayTeam extends Activity {
 		displayTeamInfo();
 	}
 
+	
+	//Allows mainactivity to refresh buttons like "Your team"
+	@Override
+	public void onBackPressed() {
+	   Intent intent = new Intent(this, MainActivity.class);
+	   startActivity(intent);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -129,6 +137,8 @@ public class DisplayTeam extends Activity {
 			 Toast.makeText(DisplayTeam.this, getString(R.string.join_successful),
 					     Toast.LENGTH_SHORT).show();
 		}
+		TextView tv = (TextView) findViewById(R.id.leaveTeam);
+		tv.setVisibility(View.VISIBLE);
 		
 	}
 	
@@ -154,6 +164,8 @@ public class DisplayTeam extends Activity {
 		
 		if(cursor!=null && cursor.getCount()>0){
 			if(cursor.getString(0).equals(teamName)){
+				TextView tv = (TextView) findViewById(R.id.leaveTeam);
+				tv.setVisibility(View.VISIBLE);
 				return true;
 			}
 		}
@@ -186,5 +198,33 @@ public class DisplayTeam extends Activity {
 			return true;
 		}
 		return false;
+	}
+	
+	public void leaveTeam(View v){
+		
+		SharedPreferences sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
+		String username = sharedPreferences.getString("UserName", "");
+		String teamId = null;
+		
+		db = openOrCreateDatabase("sprekIGjovik", MODE_PRIVATE, null);
+		
+		Cursor cursor = db.rawQuery("SELECT id FROM teams WHERE name LIKE '" + teamName + "';", null);
+		cursor.moveToFirst();
+		teamId = cursor.getString(0);
+		
+		db.execSQL("UPDATE peeps SET teamId=NULL WHERE username LIKE '" + username + "';");
+		
+		cursor = db.rawQuery("SELECT teamId FROM peeps WHERE teamId IS NULL AND username LIKE '" + username + "';", null);
+		cursor.moveToFirst();
+		if(cursor != null && cursor.getCount() > 0){
+			hideJoin();
+			 Toast.makeText(DisplayTeam.this, getString(R.string.leave_successful),
+					     Toast.LENGTH_SHORT).show();
+		}
+		
+		TextView tv = (TextView) findViewById(R.id.join_team);
+		tv.setVisibility(View.VISIBLE);
+		tv = (TextView) findViewById(R.id.leaveTeam);
+		tv.setVisibility(View.GONE);
 	}
 }

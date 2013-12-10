@@ -65,6 +65,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="highscore_name">Name</string>
     <string name="score">Score</string>
+    <string name="leave_team">Leave Team</string>
+    <string name="leave_successful">You left the team!</string>
 
     <!-- Challenges -->
     <string name="select_challenge">Select Challenge</string>

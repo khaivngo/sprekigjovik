@@ -38,5 +38,13 @@
         android:layout_height="wrap_content"
         android:onClick="teamHighscore"
         android:text="@string/team_highscore" />
+    
+    <Button
+        android:id="@+id/leaveTeam"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="leaveTeam"
+        android:text="@string/leave_team" 
+        android:visibility="gone" />
 
 </LinearLayout>

@@ -5,13 +5,6 @@
     android:orientation="vertical" >
     
     	<Button
-            android:id="@+id/joinTeam"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="checkIn"
-            android:text="@string/join_team" />
-    	
-    	<Button
             android:id="@+id/allTeams"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

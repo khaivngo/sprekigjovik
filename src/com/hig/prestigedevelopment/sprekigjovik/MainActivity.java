@@ -74,8 +74,6 @@ public class MainActivity extends FragmentActivity {
 		
 		//viewScores();
 	}
-	
-	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -539,8 +537,9 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	public void dynamicTour(View view)        {
-           Intent intent = new Intent(this, DynamicTour.class);
-           startActivity(intent);
+        checkLogin();   
+		Intent intent = new Intent(this, DynamicTour.class);
+        startActivity(intent);
 	}
 	
 	
@@ -568,6 +567,7 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	public void selectChallenge(View v){
+		checkLogin();
 		Intent intent = new Intent(this, Challenges.class);
 		startActivity(intent);
 	}
@@ -578,6 +578,7 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	public void showLog(View v){
+		checkLogin();
 		new SelectTeamDialogFragment().show(getFragmentManager(), "teams");
 	}
 	
@@ -596,8 +597,17 @@ public class MainActivity extends FragmentActivity {
 		}else{
 			Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
 			startActivity(intent);
+		}	
 	}
-}
 	
+	public void checkLogin(){
 	
+		SharedPreferences sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
+		String username = sharedPreferences.getString("UserName", "");
+		
+		if(username.equals("")){
+			Intent intent = new Intent(this, Login.class);
+			startActivity(intent);
+		}
+	}
 }
