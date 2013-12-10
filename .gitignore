@@ -219,5 +219,9 @@ gen/com/example/lufteapp/R.java
 gen/com/google/android/gms/R.java
 gen/*
 bin/*
+bin/
 bin\*
+*.bin
+*.gen
+*.class
 
