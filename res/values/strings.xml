@@ -41,6 +41,12 @@
     </string-array>
     <string name="title_activity_dynamictour">DynamicTour</string>
     <string name="title_activity_on_click_listener">OnClickListener</string>
+    <string name="dialog_time">Results</string>
+    <string name="message_time">Your time was</string>
+    <string name="dialog_done">OK</string>
+    
+    
+    
 
     <!-- Profile -->
     <string name="title_activity_profile">Profile</string>

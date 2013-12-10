@@ -49,6 +49,8 @@ public class MainActivity extends FragmentActivity {
 	private final String tableNameChallengePole	=	"challengePole";
 	private final String tableNameChallenge		=	"challenge";
 	private static Context context;
+	private SQLiteDatabase sessionDB = null;
+
 	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class MainActivity extends FragmentActivity {
 		
 		setUpDatabase();
 		createDB();
+		clearSessionDB();			//TESTING, clearing data from session poles
 		
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
@@ -598,6 +601,16 @@ public class MainActivity extends FragmentActivity {
 			startActivity(intent);
 	}
 }
+	
+    public void clearSessionDB()	{
+        sessionDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
+	    sessionDB.execSQL("DELETE FROM sessionPole");
+	    sessionDB.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='sessionPole'");
+	    
+	    Log.d("Clearing session table", "Maps: line 274");
+
+
+    }
 	
 	
 }

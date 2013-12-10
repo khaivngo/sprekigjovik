@@ -80,9 +80,8 @@ public class DynamicTour extends Activity {
 			    						//Query checking if table contains data
 		    	sessionCursor.moveToFirst();
 		    							//if table is empty
-			    if(sessionCursor == null && sessionCursor.getCount()>=0) {
+			    if(sessionCursor == null || sessionCursor.getCount()==0) {
 			    	Log.d("Setting start time", "File: DynamicTour line 80");
-			    	setStartTime();
 			    }
 			    
 
@@ -107,28 +106,5 @@ public class DynamicTour extends Activity {
 		public static Context getContext() {
 			  return context;
 		}
-		
-		/**
-		 * Setting starting time for tour, the saved time is later
-		 * used for finding total used time for tour.
-		 * Then used for highscore.
-		 */
-		public void setStartTime()	{
-			
-			long time = System.currentTimeMillis();	
-			long timeSeconds = TimeUnit.MILLISECONDS.toSeconds(time);
-		    
-			String startTime = Long.toString(timeSeconds);
-			
-		    SharedPreferences sharedTime = getSharedPreferences("time", Context.MODE_PRIVATE);
-			SharedPreferences.Editor editor = sharedTime.edit();
-				
-			editor.putString("StartTime", startTime);
-			editor.commit();
-		    	
-		}
-		
-
-		
 		
 }
