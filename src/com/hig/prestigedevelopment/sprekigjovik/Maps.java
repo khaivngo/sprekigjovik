@@ -13,6 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -249,64 +250,60 @@ public class Maps extends FragmentActivity {
      * and showed to user as popup, if current session is a challenge
      * time is posted as highscore
      */
-    
     public void isFinished()	{
+    	
+   		poleDB = openOrCreateDatabase("PoleDB", MODE_PRIVATE, null);		//database for poles
+		challengeDB = openOrCreateDatabase("sprekIGjovik", MODE_PRIVATE, null);		//database for poles
+    	
+										//getting data about time and challenge name for later use
     	SharedPreferences spTime = getSharedPreferences("time", Context.MODE_PRIVATE);
     	String initialTime = spTime.getString("StartTime", "" );
-    	String challengeId = spTime.getString("challengeName", "");
+    	String challengeName = spTime.getString("ChallengeName", "");
     	
+    									//getting
     	SharedPreferences spName = getSharedPreferences("Login", Context.MODE_PRIVATE);
     	String userName = spName.getString("UserName", "");
     	
+    									//finding userid by searching for username
+    	Cursor uId = challengeDB.rawQuery("SELECT id FROM peeps WHERE username LIKE "+"'"+userName+"'", null);
+    	uId.moveToFirst();
+    	Log.d("Petter Northugs id is: ",uId.getString(0));
 
-    	
     	Log.d("InitialTime", initialTime);
     	
+    									//converting time to a more readable format
     	long startTime = Long.parseLong(initialTime);
     	long currentTime = System.currentTimeMillis();
     	long currentTimeToSeconds = TimeUnit.MILLISECONDS.toSeconds(currentTime); 	
     	long totalTime = currentTimeToSeconds - startTime;
    	 
     	String s = String.valueOf(totalTime);
-        	
-    	if(challengeId.equals(""))	{
+		Log.d("Found challenge name: ", challengeName);
+	
+    	if(challengeName.equals(""))	{	//if challenge name is empty do nothing
 
     	}
-    	else	{
-    		Log.d("Found challenge name: ", challengeId);
-    		
-    		poleDB = openOrCreateDatabase("PoleDB", MODE_PRIVATE, null);		//database for poles
-    		challengeDB = openOrCreateDatabase("spekIGjovik", MODE_PRIVATE, null);		//database for poles
-
-		    Cursor cId = poleDB.rawQuery("SELECT id FROM challenges WHERE name ="+challengeId, null);
+    	else	{				//challenge name exist
+    		Log.d("Inside else: ", "Maps: Line 275");
+    		Log.d("Found challenge name: ", challengeName);
+    										//finding challenge's id
+		    Cursor cId = poleDB.rawQuery("SELECT id FROM challenges WHERE name LIKE "+"'"+challengeName+"'", null);
 		    cId.moveToFirst();
 		    
-		    if(cId != null && cId.getCount() > 0)	{
-		    	if(!userName.equals(""))	{
-		    		challengeDB.execSQL("INSERT INTO highscores(userId,challengeId,score) VALUES("+userName+","+challengeId+","+totalTime+")");
-		    		Log.d("Found username", "Maps: Line 285");
+		    if(cId != null && cId.getCount() > 0)	{		//if able to find challenge id
+		    	if(uId != null && uId.getCount() > 0)	{	//if able to find user id
+		    		challengeDB.execSQL("INSERT INTO highscores(userId,challengeId,score) VALUES("+"'"+uId.getString(0)+"'"+","+cId.getString(0)+","+totalTime+")");
+		    		Log.d("Found username", "Maps: Line 294");
 		    	}
 		    }
-    		
-    		
-			//sessionDB.execSQL("INSERT INTO sessionPole(poleId) VALUES ("+ID+");");
-
-
-
     	}
     	
-    	
-
-    	
-    	Log.d("Total time used: ", s);
     	Toast.makeText(getApplicationContext(), "Hurray, you are done!!", Toast.LENGTH_SHORT).show();
-    	showDialog();
-    	clearSessionDB();
-		
+    	
 
     	
-    	
-    	
+    	showDialog(s);
+    	clearSessionDB();
     	
     }
     /**
@@ -325,18 +322,20 @@ public class Maps extends FragmentActivity {
      * If current session have all poles visited, table holding poles
      * is cleared.
      */
-    
     public void clearSessionDB()	{
         sessionDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
 	    sessionDB.execSQL("DELETE FROM sessionPole");
 	    sessionDB.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='sessionPole'");
 	    
-	    Log.d("Clearing session table", "Maps: line 274");
-
+	    Log.d("Clearing session table", "Maps: line 331");
+	    
     }
     
     @SuppressWarnings("deprecation")
-	public void showDialog()	{
+	public void showDialog(String totalTime)	{
+    	InputMethodManager imm = (InputMethodManager) getSystemService(Maps.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+    	
         AlertDialog alertDialog1 = new AlertDialog.Builder(Maps.this).create();
 
         // Setting Dialog Title
@@ -345,7 +344,10 @@ public class Maps extends FragmentActivity {
 
         // Setting Dialog Message
         String message = getResources().getString(R.string.message_time);
-        alertDialog1.setMessage(message);
+        String messageSeconds = getResources().getString(R.string.message_seconds);
+        String congrats = getResources().getString(R.string.message_congrats);
+
+        alertDialog1.setMessage(message+": "+totalTime+" "+messageSeconds+"\n\n"+congrats);
 
         // Setting Icon to Dialog
         //alertDialog1.setIcon(R.drawable.tick);

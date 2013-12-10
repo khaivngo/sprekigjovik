@@ -99,6 +99,7 @@ public class DynamicTour extends Activity {
 			  }
 		 
 			});
+			
 		}
 									//a way to get a static context
 		public static Context getContext() {

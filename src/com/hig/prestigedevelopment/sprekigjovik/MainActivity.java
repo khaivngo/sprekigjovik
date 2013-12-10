@@ -43,7 +43,6 @@ public class MainActivity extends FragmentActivity {
 	ViewPager mViewPager;
 	private SQLiteDatabase db;
 	private SQLiteDatabase myDB= null;
-	private SQLiteDatabase SessionDB= null;	
 	private final String tableNamePole			= 	"pole";
 	private final String tableNameArea			=	"area";
 	private final String tableNameChallengePole	=	"challengePole";
@@ -375,7 +374,7 @@ public class MainActivity extends FragmentActivity {
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
 							+ tableNamePole
 							+"(id INTEGER PRIMARY KEY  AUTOINCREMENT, name TEXT, longitude TEXT, " +
-							"latitude TEXT, areaId INTEGER);");
+							"latitude TEXT, areaId INTEGER, level INTEGER);");
 		
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
 							+ tableNameArea
@@ -386,8 +385,8 @@ public class MainActivity extends FragmentActivity {
 //								+ tableNameChallenge
 //								+"(id INTEGER PRIMARY KEY  AUTOINCREMENT, name TEXT);");
 		
-		SessionDB = this.openOrCreateDatabase("PoleSession", MODE_PRIVATE, null);	//database for session poles
-		SessionDB.execSQL("CREATE TABLE IF NOT EXISTS "
+		sessionDB = this.openOrCreateDatabase("PoleSession", MODE_PRIVATE, null);	//database for session poles
+		sessionDB.execSQL("CREATE TABLE IF NOT EXISTS "
 								+ tableNameSessionPole
 								+"(id INTEGER PRIMARY KEY AUTOINCREMENT, poleId TEXT, isVisited TEXT);");
 
@@ -613,7 +612,7 @@ public class MainActivity extends FragmentActivity {
 	    sessionDB.execSQL("DELETE FROM sessionPole");
 	    sessionDB.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='sessionPole'");
 	    
-	    Log.d("Clearing session table", "Maps: line 274");
+	    Log.d("Clearing session table", "MainActivity: line 611");
 
 
     }
