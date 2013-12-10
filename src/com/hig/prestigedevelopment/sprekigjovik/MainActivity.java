@@ -602,18 +602,8 @@ public class MainActivity extends FragmentActivity {
 			startActivity(intent);
 		}	
 	}
+
 	
-
-	public void checkLogin(){
-		SharedPreferences sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
-		String username = sharedPreferences.getString("UserName", "");
-		
-		if(username.equals("")){
-			Intent intent = new Intent(this, Login.class);
-			startActivity(intent);
-		}
-	}
-
     public void clearSessionDB()	{
         sessionDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
 	    sessionDB.execSQL("DELETE FROM sessionPole");
@@ -623,4 +613,14 @@ public class MainActivity extends FragmentActivity {
 
 
     }
+	
+	public void checkLogin(){
+		SharedPreferences sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
+		String username = sharedPreferences.getString("UserName", "");
+		
+		if(username.equals("")){
+			Intent intent = new Intent(this, Login.class);
+			startActivity(intent);
+		}
+	}
 }
