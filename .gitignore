@@ -219,6 +219,7 @@ gen/com/example/lufteapp/R.java
 gen/com/google/android/gms/R.java
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 gen/*
 bin/*
 bin/
@@ -227,6 +228,7 @@ bin\*
 *.gen
 
 *.class
+
 
 #ignore thumbnails created by windows
 #Ignore files build by Visual Studio
@@ -250,6 +252,7 @@ bin/classes/com/hig/prestigedevelopment/sprekigjovik/R$menu.class
 bin/classes/com/hig/prestigedevelopment/sprekigjovik/R$string.class
 bin/resources.ap_
 gen/com/hig/prestigedevelopment/sprekigjovik/R.java
+
 
 bin/*
 gen/*

@@ -613,6 +613,7 @@ public class MainActivity extends FragmentActivity {
 
 
     }
+
 	
 	public void checkLogin(){
 		SharedPreferences sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);

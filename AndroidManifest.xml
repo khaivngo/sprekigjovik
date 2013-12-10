@@ -69,6 +69,14 @@
             android:name="com.hig.prestigedevelopment.sprekigjovik.DynamicTour"
             android:label="@string/title_activity_dynamictour" >
         </activity>
+
+
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDp7j2F8JEd6bwBLOxciOKIid7B7R1Lzks" />
+
+
         <activity
             android:name="com.hig.prestigedevelopment.sprekigjovik.DialogActivity"
             android:label="@string/title_activity_on_click_listener" >
