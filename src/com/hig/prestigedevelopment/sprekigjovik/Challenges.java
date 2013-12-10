@@ -134,6 +134,8 @@ public class Challenges extends Activity {
         if (savedInstanceState == null) {
             selectItem(0);
         }
+        
+        this.findViewById(R.id.left_drawer);
     }
 
     @Override
@@ -309,6 +311,25 @@ public class Challenges extends Activity {
     	Intent intent = new Intent(this, TeamHighscore.class);
     	intent.putExtra("challengeName", mTitle.toString());
     	startActivityForResult(intent, 500);
+    }
+    
+    public void startChallenge(View v){
+    	
+    	List<String> selectedPoles = new ArrayList<String>();
+    	
+    	db = openOrCreateDatabase("PoleDB", MODE_PRIVATE,null);
+    	Log.d("heiheiheiehie", mTitle.toString());
+	    Cursor cursor = db.rawQuery("SELECT name, longitude, latitude FROM pole p " +
+	    							"JOIN challengePoles c ON c.poleId = p.name " +
+	    							"WHERE c.challengeId = (SELECT id FROM challenges WHERE name LIKE ?);", new String[] {mTitle.toString()});
+
+	    while(cursor.moveToNext())	{
+	    	selectedPoles.add(cursor.getString(0)+":"+cursor.getString(1)+":"+cursor.getString(2));
+	    }
+
+	    Intent intent = new Intent(this, Maps.class);
+	    intent.putStringArrayListExtra("selected", (ArrayList<String>) selectedPoles);
+	    startActivity(intent);
     }
 
 }
