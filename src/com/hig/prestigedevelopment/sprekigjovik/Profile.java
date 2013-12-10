@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Profile extends Activity {
@@ -20,19 +21,15 @@ public class Profile extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
 		
-		SharedPreferences sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
-		String textValue = sharedPreferences.getString("UserName", "");
-//		EditText text = (EditText)findViewById(R.id.edit_message);
-//		text.setText(textValue);
-		
-		Toast.makeText(getApplicationContext(), textValue, 
-				   Toast.LENGTH_LONG).show();
-		
-		
 		if(!checkLogin()){
 			Intent intent = new Intent(this, Login.class);
 			startActivity(intent);
-		} 
+		} else {
+			SharedPreferences sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
+			String textValue = sharedPreferences.getString("UserName", "");
+			TextView text = (TextView)findViewById(R.id.username);
+			text.setText(getString(R.string.logged_in_as)+ " " + textValue);
+		}
 	}
 
 	@Override

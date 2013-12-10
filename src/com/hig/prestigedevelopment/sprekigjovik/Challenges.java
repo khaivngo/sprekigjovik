@@ -139,14 +139,7 @@ public class Challenges extends Activity {
         
         this.findViewById(R.id.left_drawer);
     }
-    
-    @Override
-    protected void onDestroy() {
-
-        db.close();
-
-        super.onDestroy();
-    }
+  
     
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)

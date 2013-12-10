@@ -151,12 +151,6 @@ public class TeamHighscore extends Activity {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        db.close();
-        super.onDestroy();
-    }
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

@@ -32,7 +32,7 @@ public class Login extends Activity {
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
 	 */
-	private ArrayList<String> users = new ArrayList();
+	private ArrayList<String> users = new ArrayList<String>();
 	private SQLiteDatabase db;
 	
 	/**
@@ -107,14 +107,6 @@ public class Login extends Activity {
 					}
 				});
 	}
-
-    @Override
-    protected void onDestroy() {
-
-        db.close();
-
-        super.onDestroy();
-    }
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
