@@ -8,12 +8,21 @@
     <string name="title_section1">Challenges</string>
     <string name="title_section2">Dynamic View</string>
     <string name="title_section3">Teams</string>
+    <string name="message_delete">Delete current tour?</string>
+    <string name="enable_gps">GPS is deactivated</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">OK</string>
+    <string name="confirm_gps">Activate</string>
 
     <!-- Action Bar -->
     <string name="action_profile">Profile</string>
 
     <!-- Maps -->
     <string name="action_dynamicTour">Set tour criteria</string>
+    <string name="action_currentTour">Resume tour</string>
+    <string name="action_deleteSession">Discard current tour</string>
+    
+    
     <string name="title_activity_maps">Maps</string>
     <string name="action_dynamicTour">Set tour criteria</string>
     <string name="enable_gps">Would you like to enable GPS?</string>
@@ -69,6 +78,8 @@
     <string name="dialog_time">Results</string>
     <string name="message_time">Your time was</string>
     <string name="dialog_done">OK</string>
+    <string name="message_hours">Hours</string>
+    <string name="message_minutes">minutes</string>
     <string name="message_seconds">seconds</string>
     <string name="message_congrats">Congratulations!</string>
     

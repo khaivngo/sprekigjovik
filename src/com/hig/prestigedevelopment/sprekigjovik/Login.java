@@ -153,7 +153,7 @@ public class Login extends Activity {
 			mUserNameView.setError(getString(R.string.error_field_required));
 			focusView = mUserNameView;
 			cancel = true;
-		} else if (mUserName.length() < 4) {
+		} else if (mUserName.length() < 3) {
 			mUserNameView.setError(getString(R.string.error_invalid_username));
 			focusView = mUserNameView;
 			cancel = true;

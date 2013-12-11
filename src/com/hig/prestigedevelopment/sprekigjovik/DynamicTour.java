@@ -23,6 +23,9 @@ import android.widget.Toast;
 /**
  * 
  * @author KhaiVanNgo
+ * 
+ * Prompts user with menu for choosing number of poles
+ * and the desired level of them.
  *
  */
 
@@ -38,7 +41,6 @@ public class DynamicTour extends Activity {
 
 	private static Context context;
 
-		 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,13 +54,13 @@ public class DynamicTour extends Activity {
 	}
 
 	
-	  public void addListenerOnPoleSpinnerItemSelection() {
-		  	polesSpinner = (Spinner) findViewById(R.id.poles_spinner);
-			levelSpinner = (Spinner) findViewById(R.id.level_spinner);
-	  }
+	public void addListenerOnPoleSpinnerItemSelection() {
+		 polesSpinner = (Spinner) findViewById(R.id.poles_spinner);			//spinner for number of poles
+		 levelSpinner = (Spinner) findViewById(R.id.level_spinner);			//spinner for level on poles
+	}
 
 	  /**
-	   * Listening
+	   * Listening for user choosing difficulty level and number of poles
 	   */
 		public void addListenerOnButton() {
 			
@@ -87,8 +89,6 @@ public class DynamicTour extends Activity {
 		    	 
 		    	 String[] parts = level.split("\\:");
 		    	 int selectedLevel = Integer.parseInt(parts[0]);
-
-
 
 		    	//------------------------ GETS USER LOCATION ------------------------------------------------------------//
 		    	LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -126,8 +126,9 @@ public class DynamicTour extends Activity {
 		    	} else {
 		    		//------------------------ GETS THE REST OF POLES BASED ON LAST POLE LOCATION ------------------------------//
 			    	for(int i = 0; i < numberOfSelectedPoles-1; i++){
-				    	
-			    		cursor = db.rawQuery("SELECT name, longitude, latitude FROM pole WHERE level <= "+selectedLevel+" ORDER BY random();", null);
+				    													//selects poles from highest chosen diffiulty and lower
+			    														// and den orders from highest to lowest
+			    		cursor = db.rawQuery("SELECT name, longitude, latitude FROM pole WHERE level <= "+selectedLevel+" ORDER BY level;", null);
 				   
 				    	while(cursor.moveToNext()){ 		
 				    		int distance = Math.round(distance(f1, f2, cursor.getFloat(2), cursor.getFloat(1)));

@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -54,10 +53,10 @@ public class Maps extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
- 
+        
+       setStartTime();
       setUpMapIfNeeded();
       groundOverlay();
-      setStartTime();
       
     }
 
@@ -66,27 +65,13 @@ public class Maps extends FragmentActivity {
         super.onResume();
         setUpMapIfNeeded();
         nextPole();
-        
-//        
-//       sessionDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
-//       cursorResume = sessionDB.rawQuery("SELECT poleId, isVisited FROM sessionPole WHERE poleId = "+currentMarker, null);
-//       cursorResume.moveToFirst(); 
-//       
-//       if(cursorResume != null && cursorResume.getCount() > 0){
-//    	   Log.d("Inside first resume if", "heihew");
-//    	 
-//    	   if(cursorResume.getString(1) == null)
-//    		   Log.d("Pole visited", "pole null");
-//
-//    	   if()	{
-//        	   Log.d("Inside second resume if", "heihew");
-//
-
-//            
-//    		   nextPole();
-//    	   }
-//       }
      
+    }
+    
+    @Override
+    public void onBackPressed() {
+     Intent intent = new Intent(this, MainActivity.class);
+     startActivity(intent);
     }
     
 
@@ -107,12 +92,12 @@ public class Maps extends FragmentActivity {
      */
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
-       // if (mMap == null) {
+      //  if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
             // Check if we were successful in obtaining the map.
-         //   if (mMap != null) {
+        //    if (mMap != null) {
                 setUpMap();
           //  }
        // }
@@ -124,50 +109,37 @@ public class Maps extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        
-    	ArrayList<String> selection = new ArrayList<String>();		//storing retrieved strings about DB data.
-    	Intent i = getIntent();										
-    	selection = i.getStringArrayListExtra("selected");			//getting intent data
+    	sessionDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
 
-        sessionDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
-		Cursor loopCursor = sessionDB.rawQuery("SELECT * FROM sessionPole", null);	//checking if database contains data
+    	if(getSP())	{	
+    		Log.d("Inside if","found shared preferences");
+    		ArrayList<String> selection = new ArrayList<String>();		//storing retrieved strings about DB data.
+    		Intent i = getIntent();										
+    		selection = i.getStringArrayListExtra("selected");			//getting intent data
+
+			Cursor loopCursor = sessionDB.rawQuery("SELECT * FROM sessionPole", null);	//checking if database contains data
         
-    	for(String s : selection)	{						//loops through all fetched poles
-    		String[] parts = s.split(":");					//splits/explodes each string on :
-    		String ID = parts[0];							//saving 1/3 of the string into variable
-    		
-//    		String lon = parts[1];							//saving 2/3 of string
-//    		double doubleLon = Double.parseDouble(lon);		//converting string to double for LatLng constructor
-//    		
-//    		String lat = parts[2];							//saving 3/3 of string
-//    		double doubleLat = Double.parseDouble(lat);		//converting string to double for LatLng constructor
+    		for(String s : selection)	{						//loops through all fetched poles
+    			String[] parts = s.split(":");					//splits/explodes each string on :
+    			String ID = parts[0];							//saving 1/3 of the string into variable
     							
-    		if(loopCursor == null || loopCursor.getCount() == 0)	{	//checks if cursor contains any data -> table empty -> populate
-    			sessionDB.execSQL("INSERT INTO sessionPole(poleId) VALUES ("+ID+");");
-    			//TESTING
-    			Log.d("Each list item ID: ", ID);
-//    			Log.d("Each list item LON: ",lon);
-//    			Log.d("Each list item LAT: ",lat);
+    			if(loopCursor == null || loopCursor.getCount() == 0)	{	//checks if cursor contains any data -> table empty -> populate
+    				sessionDB.execSQL("INSERT INTO sessionPole(poleId) VALUES ("+ID+");");
+    			}	
     		}
-    		
     	}
     	
         Cursor polesCursor = sessionDB.rawQuery("SELECT * FROM sessionPole WHERE isVisited is NULL LIMIT 1", null);
         polesCursor.moveToFirst();
     									//all poles have been visited
     	if(polesCursor == null || polesCursor.getCount() == 0){
-    			Log.d("Is done", "setUpMap line 155");
     			isFinished();
     	}
     	else	{			//there is unvisited poles left
-			Log.d("Not done", "setUpMap line 159");
-
-    	nextPole();
-				
+    		nextPole();		
     	}
-
-    	mMap.setMyLocationEnabled(true);		//changed out authors implementation for showing location.
-        										// is now able to locate users position.    
+    		mMap.setMyLocationEnabled(true);		//changed out authors implementation for showing location.
+    												// is now able to locate users position.    
     }
     
     /**
@@ -202,7 +174,6 @@ public class Maps extends FragmentActivity {
 		    	String LON 	= poleCursor.getString(0);
 	    		double doubleLon = Double.parseDouble(LON);		//converting string to double for LatLng constructor
 	    											
-	    		
 	    									//creating new marker
 	    		marker = mMap.addMarker(new MarkerOptions().position(new LatLng(doubleLat, doubleLon))
 	        			.title(ID)
@@ -210,9 +181,6 @@ public class Maps extends FragmentActivity {
 	        	mMarkerArray.add(marker);			//adding marker to a list array
 	        	
 	        	moveToCurrentLocation(new LatLng(doubleLat, doubleLon));
-	        	
-	        	Log.d("Current pole: ", ID);
-	        	
 	        	
 	        							//listen for when a user clicks on a markers infowindow
 	          	 mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
@@ -234,15 +202,13 @@ public class Maps extends FragmentActivity {
     public void groundOverlay()	{
     	
     	LatLng northeast = new LatLng(60.798367, 10.70415);
-    	LatLng southwest = new LatLng(60.786517, 10.66005);
-    	
+    	LatLng southwest = new LatLng(60.786517, 10.66005);    	
         LatLngBounds bounds = new LatLngBounds(southwest, northeast);
 
-
-    	GroundOverlayOptions newarkMap = new GroundOverlayOptions()
+    	GroundOverlayOptions groundOverlay = new GroundOverlayOptions()
     	        .image(BitmapDescriptorFactory.fromResource(R.drawable.kart))
     	        .positionFromBounds(bounds);
-    	mMap.addGroundOverlay(newarkMap);	
+    	mMap.addGroundOverlay(groundOverlay);	
     }
     
     /**
@@ -267,9 +233,6 @@ public class Maps extends FragmentActivity {
     									//finding userid by searching for username
     	Cursor uId = challengeDB.rawQuery("SELECT id FROM peeps WHERE username LIKE "+"'"+userName+"'", null);
     	uId.moveToFirst();
-    	Log.d("Petter Northugs id is: ",uId.getString(0));
-
-    	Log.d("InitialTime", initialTime);
     	
     									//converting time to a more readable format
     	long startTime = Long.parseLong(initialTime);
@@ -278,14 +241,11 @@ public class Maps extends FragmentActivity {
     	long totalTime = currentTimeToSeconds - startTime;
    	 
     	String s = String.valueOf(totalTime);
-		Log.d("Found challenge name: ", challengeName);
 	
     	if(challengeName.equals(""))	{	//if challenge name is empty do nothing
 
     	}
     	else	{				//challenge name exist
-    		Log.d("Inside else: ", "Maps: Line 275");
-    		Log.d("Found challenge name: ", challengeName);
     										//finding challenge's id
 		    Cursor cId = poleDB.rawQuery("SELECT id FROM challenges WHERE name LIKE "+"'"+challengeName+"'", null);
 		    cId.moveToFirst();
@@ -293,19 +253,17 @@ public class Maps extends FragmentActivity {
 		    if(cId != null && cId.getCount() > 0)	{		//if able to find challenge id
 		    	if(uId != null && uId.getCount() > 0)	{	//if able to find user id
 		    		challengeDB.execSQL("INSERT INTO highscores(userId,challengeId,score) VALUES("+"'"+uId.getString(0)+"'"+","+cId.getString(0)+","+totalTime+")");
-		    		Log.d("Found username", "Maps: Line 294");
 		    	}
 		    }
     	}
     	
-    	Toast.makeText(getApplicationContext(), "Hurray, you are done!!", Toast.LENGTH_SHORT).show();
-    	
-
-    	
     	showDialog(s);
-    	clearSessionDB();
+    	clearSessionDB();   
     	
+    	SharedPreferences sharedPreferences = getSharedPreferences("time", Context.MODE_PRIVATE);
+    	sharedPreferences.edit().clear().commit();
     }
+    
     /**
      * Zooming screen to current visible marker.
      * @param currentLocation containts coordinates to current marker
@@ -326,46 +284,39 @@ public class Maps extends FragmentActivity {
         sessionDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
 	    sessionDB.execSQL("DELETE FROM sessionPole");
 	    sessionDB.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='sessionPole'");
-	    
-	    Log.d("Clearing session table", "Maps: line 331");
-	    
     }
     
     @SuppressWarnings("deprecation")
-	public void showDialog(String totalTime)	{
+	public void showDialog(String totalSecs)	{
     	InputMethodManager imm = (InputMethodManager) getSystemService(Maps.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     	
-        AlertDialog alertDialog1 = new AlertDialog.Builder(Maps.this).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(Maps.this).create();
 
-        // Setting Dialog Title
         String window = getResources().getString(R.string.dialog_time);
-        alertDialog1.setTitle(window);
+        alertDialog.setTitle(window);
 
-        // Setting Dialog Message
         String message = getResources().getString(R.string.message_time);
+        String messageHours = getResources().getString(R.string.message_hours);
+        String messageMinutes = getResources().getString(R.string.message_minutes);
         String messageSeconds = getResources().getString(R.string.message_seconds);
+
         String congrats = getResources().getString(R.string.message_congrats);
+        
+        int intSecs = Integer.parseInt(totalSecs);
+        
+        int hours = intSecs / 3600;
+        int minutes = (intSecs%3600)/60;
+        
+        alertDialog.setMessage(message+":\n"+messageHours+": "+hours+" "+messageMinutes+" "+minutes+" "+messageSeconds+" "+intSecs+"\n\n"+congrats);
 
-        alertDialog1.setMessage(message+": "+totalTime+" "+messageSeconds+"\n\n"+congrats);
-
-        // Setting Icon to Dialog
-        //alertDialog1.setIcon(R.drawable.tick);
-
-        // Setting OK Button
-        alertDialog1.setButton("OK", new DialogInterface.OnClickListener() {
+        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
-                // Write your code here to execute after dialog
-                // closed
-                Toast.makeText(getApplicationContext(),
-                        "You clicked on OK", Toast.LENGTH_SHORT).show();
+            	
             }
         });
-
-        // Showing Alert Message
-        alertDialog1.show();
-    	
+        alertDialog.show();
     }
     
 	/**
@@ -384,8 +335,14 @@ public class Maps extends FragmentActivity {
 		SharedPreferences.Editor editor = sharedTime.edit();
 			
 		editor.putString("StartTime", startTime);
-		editor.commit();
-	    	
+		editor.commit();	
+	}
+	
+	public Boolean getSP()	{
+		SharedPreferences sharedPreferences = getSharedPreferences("time", Context.MODE_PRIVATE);
+		String textValue = sharedPreferences.getString("StartTime", "");
+		
+		return textValue.isEmpty()? true : false;
 	}
 
 }
