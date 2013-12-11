@@ -78,9 +78,8 @@ public class DialogActivity extends Activity {
 			    }			    
 			    
 			    Toast.makeText(DialogActivity.this,
-				"OnClickListener : " + 
-		                "\nMarkerId: "+ markerId,
-					Toast.LENGTH_SHORT).show();
+				"OnClickListener : " + "\nMarkerId: "+ markerId,
+				Toast.LENGTH_SHORT).show();
 			    
 			    DialogActivity.this.finish();
 			    
@@ -88,8 +87,6 @@ public class DialogActivity extends Activity {
 			}
 		 
 			});
-			
-
 		}
 
 	

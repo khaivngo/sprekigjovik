@@ -9,28 +9,49 @@
     tools:context=".DynamicTour" >
 
     
-     <TextView
+      <TextView
        	android:id="@+id/number_poles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/choose_poles" />
+        android:textSize="20sp"
+        android:text="@string/choose_poles"/>
 
     <Spinner
     	android:id="@+id/poles_spinner"
-    	android:layout_width="fill_parent"
+    	android:layout_width="match_parent"
     	android:layout_height="wrap_content"
         android:entries="@array/poles_array"
         android:drawSelectorOnTop="true"
-        android:layout_toRightOf="@id/number_poles"
+        android:spinnerMode="dialog"
+       	android:layout_below="@id/number_poles"
         android:prompt="@string/poles_prompt" />
+       	
+
     
+      <TextView
+       android:id="@+id/level"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"       
+       android:layout_below="@id/poles_spinner"
+       android:textSize="20sp"
+       android:text="@string/choose_level" />
     
-       <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/poles_spinner"
-        android:text="Submit" />
+     <Spinner
+    	android:id="@+id/level_spinner"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+        android:entries="@array/level_array"
+        android:drawSelectorOnTop="true"
+       	android:spinnerMode="dialog"
+       	android:layout_below="@id/level"       	
+        android:prompt="@string/choose_level" />
+     
+     <Button
+       android:id="@+id/btnSubmit"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/level_spinner"
+       android:text="Submit" />
 
    
 

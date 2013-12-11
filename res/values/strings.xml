@@ -23,6 +23,8 @@
     <string name="set_internet">Would you like to enable mobile data?</string>
     <string name="poles_prompt">Choose number of poles</string>
     <string name="choose_poles">Select the numbers of poles you wish to visit</string>
+    <string name="choose_level">Select difficulty level</string>
+    
     <string name="dialog_register_marker">What is code on pole?</string>
     <string name="dialog_register">Submit</string>
     <string name="dialog_cancel">Not there yet</string>
@@ -38,7 +40,31 @@
         <item>8</item>
         <item>9</item>
         <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        
     </string-array>
+    
+   <string-array name="level_array">
+        <item>1: Green</item>
+        <item>2: Blue</item>
+        <item>3: Red</item>
+        <item>4: Black</item>
+    </string-array>
+    
+    
     <string name="title_activity_dynamictour">DynamicTour</string>
     <string name="title_activity_on_click_listener">OnClickListener</string>
     <string name="dialog_time">Results</string>

@@ -396,126 +396,119 @@ public class MainActivity extends FragmentActivity {
 	/**
 	 * If database for all poles is empty this functions populates the tables.
 	 */
-	
 	public void insertDataDB()	{
 		try	{
 			
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('1','10.671766', '60.797149');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('1','10.671766', '60.797149', '1');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('2','10.676271', '60.797796');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('2','10.676271', '60.797796', '1');");
 			
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('2','10.675777', '60.794528');");
-			 
-			 myDB.execSQL("INSERT INTO "
-				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('3','10.671766', '60.797149');");
-
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('3','10.675777', '60.794528', '1');");
 				
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('4','10.677858', '60.793925');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('4','10.677858', '60.793925', '1');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('5','10.667082', '60.790810');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('5','10.667082', '60.790810', '1');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('6','10.661453', '60.792476');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('6','10.661453', '60.792476', '1');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('7','10.669674', '60.793058');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('7','10.669674', '60.793058', '1');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('11','10.685185', '60.793269');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('11','10.685185', '60.793269', '1');");
 			 
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('12','10.690588', '60.792518');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('12','10.690588', '60.792518', '1');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('13','10.689552', '60.794982');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('13','10.689552', '60.794982', '1');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('14','10.689520', '60.796357');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('14','10.689520', '60.796357', '1');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('15','10.686478', '60.797662');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('15','10.686478', '60.797662', '1');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('21','10.666328', '60.795006');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('21','10.666328', '60.795006', '1');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('22','10.667960', '60.795980');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('22','10.667960', '60.795980', '2');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('30','10.691870', '60.794231');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('30','10.691870', '60.794231', '2');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('31','10.687084', '60.794152');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('31','10.687084', '60.794152', '2');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('37','10.680915', '60.793652');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('37','10.680915', '60.793652', '3');");
 			 		 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('41','10.680501', '60.798851');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('41','10.680501', '60.798851', '3');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('46','10.698281', '60.798292');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('46','10.698281', '60.798292', '4');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('47','10.664888', '60.794479');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('47','10.664888', '60.794479', '4');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('48','10.672168', '60.795409');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('48','10.672168', '60.795409', '4');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
-				     + " (name, longitude, latitude)"
-				     + " VALUES ('49','10.674817', '60.793038');");
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('49','10.674817', '60.793038', '4');");
 			 
 			 
 				Context context = getApplicationContext();
@@ -623,95 +616,9 @@ public class MainActivity extends FragmentActivity {
 		return true;
 	}
 	
-	public void dynamicTest(View v){
-		final int MAXDISTANCE = 10000;
-		final int MINDISTANCE = 50;
-		int amount = 5; // amount of poles
-		float currentLat = 0;
-		float currentLon = 0;
-		Float f1 = null;
-		Float f2 = null;
-		List<String> selectedPoles = new ArrayList<String>();
-    	List<String> selectedIds = new ArrayList<String>();
-    	
-    	
-    	//------------------------ GETS USER LOCATION ------------------------------------------------------------//
-    	LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-    	Criteria criteria = new Criteria();
-    	String provider = locationManager.getBestProvider(criteria, false);
-    	Location location = locationManager.getLastKnownLocation(provider);
-    	
-    	if(location != null) {
-    		currentLat = (float) location.getLatitude();
-    		currentLon = (float) location.getLongitude();
-    	}
-    	
-    	//------------------------ GETS FIRST POLE BASED ON YOUR LOCATION -----------------------------------------//
-    	db = openOrCreateDatabase("PoleDB", MODE_PRIVATE,null);
-    	Cursor cursor = db.rawQuery("SELECT name, longitude, latitude FROM pole ORDER BY random() LIMIT 1;", null);
-    	
-    	while(cursor.moveToNext()){
-    		
-    		int distance = Math.round(distance(currentLat, currentLon, cursor.getFloat(2), cursor.getFloat(1)));
-    		
-    		if(distance < MAXDISTANCE && distance > MINDISTANCE){
-    			Log.d("Distance", distance(currentLat, currentLon, cursor.getFloat(2), cursor.getFloat(1)) + "");
-    			selectedPoles.add(cursor.getString(0)+":"+cursor.getString(1)+":"+cursor.getString(2));
-    			selectedIds.add(cursor.getString(0));
-    			f1 = cursor.getFloat(2);
-    	    	f2 = cursor.getFloat(1);
-    			break;
-    		}
-    	}	
-    	if(cursor == null || cursor.getCount() == 0){
-    		 Toast.makeText(MainActivity.this,
-    				    "Could not find any poles on this location! Please try again to refresh coordinates.",
-    				     Toast.LENGTH_SHORT).show();
-    	} else {
-    		
-    	//------------------------ GETS THE REST OF POLES BASED ON LAST POLE LOCATION ------------------------------//
-	    	for(int i = 0; i < amount; i++){
-		    	cursor = db.rawQuery("SELECT name, longitude, latitude FROM pole ORDER BY random();", null);
-		    	
-		    	while(cursor.moveToNext()){
-		    		
-		    		int distance = Math.round(distance(f1, f2, cursor.getFloat(2), cursor.getFloat(1)));
-		    		
-		    		if(distance < MAXDISTANCE && distance > MINDISTANCE && !selectedIds.contains(cursor.getString(0))){
-		    			Log.d("Distance", distance(f1, f2, cursor.getFloat(2), cursor.getFloat(1)) + "");
-		    			selectedPoles.add(cursor.getString(0)+":"+cursor.getString(1)+":"+cursor.getString(2));
-		    			selectedIds.add(cursor.getString(0));
-		    			
-		    			f1 = cursor.getFloat(2);
-		    			f2 = cursor.getFloat(1);
-		    			break;
-		    		}
-		    	}		
-	    	}
-	
-		    cursor.close();
-		    
-		    Intent intent = new Intent(this, Maps.class);
-		    intent.putStringArrayListExtra("selected", (ArrayList<String>) selectedPoles);
-		    startActivity(intent);
-	    }
-    }
-	
-	// Source http://stackoverflow.com/questions/8832071/how-can-i-get-the-distance-between-two-point-by-latlng
-	public Float distance (float lat_a, float lng_a, float lat_b, float lng_b ) {
-	    double earthRadius = 3958.75;
-	    double latDiff = Math.toRadians(lat_b-lat_a);
-	    double lngDiff = Math.toRadians(lng_b-lng_a);
-	    double a = Math.sin(latDiff /2) * Math.sin(latDiff /2) +
-	    Math.cos(Math.toRadians(lat_a)) * Math.cos(Math.toRadians(lat_b)) *
-	    Math.sin(lngDiff /2) * Math.sin(lngDiff /2);
-	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-	    double distance = earthRadius * c;
 
-	    int meterConversion = 1609;
+	
 
-	    return new Float(distance * meterConversion).floatValue();
-	}
 }
 
 
