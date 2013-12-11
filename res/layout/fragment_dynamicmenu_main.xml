@@ -5,12 +5,8 @@
     android:orientation="vertical" >
     
     
-        <Button
-        android:id="@+id/openMap" 
-   		android:layout_width="fill_parent"  
-   		android:layout_height="wrap_content"
 
-   		android:onClick="dynamicTest"/>
+
         
         <Button
         android:id="@+id/openDyanicTour" 

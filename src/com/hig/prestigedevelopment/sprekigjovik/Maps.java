@@ -40,7 +40,6 @@ public class Maps extends FragmentActivity {
 	Marker marker;
 	ArrayList<Marker> mMarkerArray = new ArrayList<Marker>();
 
-	private long start = 0;
 
 	
 	/**
@@ -54,9 +53,9 @@ public class Maps extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         
-       setStartTime();
-      setUpMapIfNeeded();
-      groundOverlay();
+        setStartTime();
+        setUpMapIfNeeded();
+        groundOverlay();
       
     }
 
@@ -124,6 +123,8 @@ public class Maps extends FragmentActivity {
     			String ID = parts[0];							//saving 1/3 of the string into variable
     							
     			if(loopCursor == null || loopCursor.getCount() == 0)	{	//checks if cursor contains any data -> table empty -> populate
+    	    		Log.d("Session table is empty","Inserts poles");	
+
     				sessionDB.execSQL("INSERT INTO sessionPole(poleId) VALUES ("+ID+");");
     			}	
     		}
@@ -133,9 +134,12 @@ public class Maps extends FragmentActivity {
         polesCursor.moveToFirst();
     									//all poles have been visited
     	if(polesCursor == null || polesCursor.getCount() == 0){
-    			isFinished();
+    		Log.d("presumed finished","thinks it's finished")	;
+    		isFinished();
     	}
     	else	{			//there is unvisited poles left
+    		Log.d("not finished","not finished");	
+
     		nextPole();		
     	}
     		mMap.setMyLocationEnabled(true);		//changed out authors implementation for showing location.
@@ -341,8 +345,7 @@ public class Maps extends FragmentActivity {
 	public Boolean getSP()	{
 		SharedPreferences sharedPreferences = getSharedPreferences("time", Context.MODE_PRIVATE);
 		String textValue = sharedPreferences.getString("StartTime", "");
-		
-		return textValue.isEmpty()? true : false;
+		return textValue.isEmpty() ? true : false;
 	}
 
 }

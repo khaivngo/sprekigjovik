@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -66,11 +65,8 @@ public class MainActivity extends FragmentActivity {
 		context=this;
 		setContentView(R.layout.activity_main);
 		
-		//CheckEnableGPS();
-		
 		setUpDatabase();
 		createDB();
-		clearSessionDB();			//TESTING, clearing data from session poles
 		
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
@@ -92,6 +88,11 @@ public class MainActivity extends FragmentActivity {
 		MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.main_activity_actions, menu);
 	    return true;
+	}
+	
+	public void onResume(){
+	    super.onResume();
+	    CheckEnableGPS();
 	}
 	
 	@Override
@@ -128,7 +129,11 @@ public class MainActivity extends FragmentActivity {
 			
 			switch(position){
 				case 0: return new ChallengeMenu();
-				case 1: return new DynamicMenu();
+				case 1: if(getSP()== true)	{	
+							return new currentTour();
+						}else	{
+							return new DynamicMenu();
+						}
 				case 2: if(getUserTeam() == true){
 							return new MemberTeamMenu();
 						} else {
@@ -177,6 +182,13 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 	
+	public Boolean getSP()	{
+		SharedPreferences sharedPreferences = getSharedPreferences("time", Context.MODE_PRIVATE);
+		String textValue = sharedPreferences.getString("StartTime", "");
+		
+		return textValue.isEmpty()? false : true;
+	}
+	
 	public static class DynamicMenu extends Fragment {
 		
 		@Override
@@ -221,6 +233,25 @@ public class MainActivity extends FragmentActivity {
 			        container, false);
 	        return view;
 	    }
+	}
+	
+	public static class currentTour extends Fragment {
+		
+		@Override
+	    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	            Bundle savedInstanceState) {
+			
+			View view = inflater.inflate(R.layout.fragment__current_dynamicmenu_main,
+			        container, false);
+	        return view;
+	    }
+	}
+	
+	public void currentTour(View view)        {
+		if(checkLogin()){
+			Intent intent = new Intent(this, Maps.class);
+	        startActivity(intent);
+		}
 	}
 	
 	/**
@@ -585,16 +616,37 @@ public class MainActivity extends FragmentActivity {
 	private void CheckEnableGPS()	{
 		String provider = Settings.Secure.getString(getContentResolver(),
 		Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+		
 		if(!provider.equals("")){
-		   //GPS Enabled
-		Toast.makeText(getApplicationContext(), "GPS Enabled: " + provider,
-			Toast.LENGTH_LONG).show();
+
 		}else{
-			Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-			startActivity(intent);
+			
+			AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+	        String GPSMessage = getResources().getString(R.string.enable_gps);
+	        String cancel = getResources().getString(R.string.cancel);
+	        String confirm = getResources().getString(R.string.confirm_gps);
+			
+	        builder.setMessage(GPSMessage);
+			  
+			builder.setPositiveButton(confirm ,new DialogInterface.OnClickListener() {
+					
+				//Clearing sharedpreferences and table storing poles for current session
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+					startActivity(intent);
+				}
+			});
+
+			builder.setNegativeButton(cancel, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					  //Nothing is done if user cancels the delete
+				}
+			});
+			builder.show();
 		}	
 	}
-
 	
     public void clearSessionDB()	{
         sessionDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
@@ -602,8 +654,6 @@ public class MainActivity extends FragmentActivity {
 	    sessionDB.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='sessionPole'");
 	    
 	    Log.d("Clearing session table", "MainActivity: line 611");
-
-
     }
 
 	
@@ -617,6 +667,44 @@ public class MainActivity extends FragmentActivity {
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * If there is a current session user is able
+	 * to delete current tour and start new one
+	 * @param view
+	 */
+	public void deleteSession(View view)        {
+		
+			AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+	        String deleteMessage = getResources().getString(R.string.message_delete);
+	        String cancel = getResources().getString(R.string.cancel);
+	        String confirm = getResources().getString(R.string.confirm);
+			
+	        builder.setMessage(deleteMessage);
+			  
+			builder.setPositiveButton(confirm ,new DialogInterface.OnClickListener() {
+					
+				//Clearing sharedpreferences and table storing poles for current session
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					SharedPreferences sharedPreferences = getSharedPreferences("time", Context.MODE_PRIVATE);
+					sharedPreferences.edit().clear().commit();
+					clearSessionDB();
+					
+					//refreshing main activity reloading another layout
+					finish();
+					startActivity(getIntent());
+				}
+			});
+
+			builder.setNegativeButton(cancel, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					  //Nothing is done if user cancels the delete
+				}
+			});
+			builder.show();
 	}
 }
 
