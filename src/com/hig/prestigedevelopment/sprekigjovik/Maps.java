@@ -111,21 +111,22 @@ public class Maps extends FragmentActivity {
     	sessionDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
 
     	if(getSP())	{	
-    		Log.d("Inside if","found shared preferences");
     		ArrayList<String> selection = new ArrayList<String>();		//storing retrieved strings about DB data.
     		Intent i = getIntent();										
     		selection = i.getStringArrayListExtra("selected");			//getting intent data
 
 			Cursor loopCursor = sessionDB.rawQuery("SELECT * FROM sessionPole", null);	//checking if database contains data
-        
-    		for(String s : selection)	{						//loops through all fetched poles
-    			String[] parts = s.split(":");					//splits/explodes each string on :
-    			String ID = parts[0];							//saving 1/3 of the string into variable
+			loopCursor.moveToFirst();
+			
+			if(loopCursor == null || loopCursor.getCount() == 0)	{
+				for(String s : selection)	{						//loops through all fetched poles
+					String[] parts = s.split(":");					//splits/explodes each string on :
+					String ID = parts[0];							//saving 1/3 of the string into variable
     							
-    			if(loopCursor == null || loopCursor.getCount() == 0)	{	//checks if cursor contains any data -> table empty -> populate
-    	    		Log.d("Session table is empty","Inserts poles");	
-
-    				sessionDB.execSQL("INSERT INTO sessionPole(poleId) VALUES ("+ID+");");
+    						//checks if cursor contains any data -> table empty -> populate
+					Log.d("Session table is empty","Inserts poles");	
+    	    	
+					sessionDB.execSQL("INSERT INTO sessionPole(poleId) VALUES ("+ID+");");
     			}	
     		}
     	}
@@ -139,7 +140,7 @@ public class Maps extends FragmentActivity {
     	}
     	else	{			//there is unvisited poles left
     		Log.d("not finished","not finished");	
-
+    		
     		nextPole();		
     	}
     		mMap.setMyLocationEnabled(true);		//changed out authors implementation for showing location.

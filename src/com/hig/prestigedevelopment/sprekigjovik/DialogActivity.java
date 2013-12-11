@@ -64,8 +64,7 @@ public class DialogActivity extends Activity {
 			    Log.d("MarkerID", markerId);
 			    
 			    myDB.execSQL("UPDATE sessionPole SET isVisited = "+visited+" WHERE poleID = "+markerId);
-			    	
-			    
+
 			    DialogActivity.this.finish();
 			}
 		 

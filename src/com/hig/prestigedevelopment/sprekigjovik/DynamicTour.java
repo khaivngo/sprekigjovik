@@ -119,7 +119,7 @@ public class DynamicTour extends Activity {
 		    		}
 		    	}
 		    	
-		    	if(cursor == null || cursor.getCount() == 0){
+		    	if(cursor == null || cursor.getCount() == 0 || f1 == null){
 		    		 Toast.makeText(DynamicTour.this,
 		    				    "Could not find any poles on this location! Please try again to refresh coordinates.",
 		    				     Toast.LENGTH_SHORT).show();
