@@ -259,3 +259,5 @@ gen/*
 *.class
 *classpath*
 
+gen/com/hig/prestigedevelopment/sprekigjovik/R.java
+.settings/org.eclipse.jdt.core.prefs

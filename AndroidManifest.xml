@@ -26,7 +26,7 @@
     
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -69,26 +69,18 @@
             android:name="com.hig.prestigedevelopment.sprekigjovik.DynamicTour"
             android:label="@string/title_activity_dynamictour" >
         </activity>
-
-
-
-        <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDp7j2F8JEd6bwBLOxciOKIid7B7R1Lzks" />
-
-
         <activity
             android:name="com.hig.prestigedevelopment.sprekigjovik.DialogActivity"
             android:label="@string/title_activity_on_click_listener" >
         </activity>
         
-        <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCo03I0xnZlUucOGNyE1yUMlOhiR8FwnuA" />
 		<meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value="com.hig.prestigedevelopment.sprekigjovik" />
 		
+		<meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDp7j2F8JEd6bwBLOxciOKIid7B7R1Lzks" />		
     </application>
 
 </manifest>

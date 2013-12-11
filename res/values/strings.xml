@@ -21,6 +21,8 @@
     <string name="action_dynamicTour">Set tour criteria</string>
     <string name="action_currentTour">Resume tour</string>
     <string name="action_deleteSession">Discard current tour</string>
+    <string name="action_maps">Open map</string>
+    
     
     
     <string name="title_activity_maps">Maps</string>

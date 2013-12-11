@@ -12,7 +12,7 @@
             android:textSize="20sp"
             android:padding="20dp" />
     
-    <TextView
+   <TextView
             android:id="@+id/challengePoles"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -38,13 +38,7 @@
             android:layout_height="wrap_content"
             android:onClick="startChallenge"
             android:text="@string/start_challenge" />
-    
-    <Button
-            android:id="@+id/previewChallenge"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="previewChallenge"
-            android:text="@string/preview_challenge" />
+
     
     <Button
             android:id="@+id/showHighscores"

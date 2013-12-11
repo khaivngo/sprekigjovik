@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Sprek i Gjøvik</string>
+    <string name="action_settings">Innstillinger</string>
+
+    <!-- MainActivity -->
+    <string name="title_section1">Utfordringer</string>
+    <string name="title_section2">Dynamisk visning</string>
+    <string name="title_section3">Lag</string>
+    <string name="message_delete">Slett nåværende tur?</string>
+    <string name="cancel">Nei</string>
+    <string name="confirm">Ja</string>
+
+    <!-- Action Bar -->
+    <string name="action_maps">Åpne kart</string>
+    <string name="action_profile">Profil</string>
+
+    <!-- Maps -->
+    <string name="action_dynamicTour">Turvalg</string>
+	<string name="action_currentTour">Slett nåværende tur</string>
+    <string name="title_activity_maps">Kart</string>
+    <string name="enable_gps">Aktivere GPS?</string>
+    <string name="no">Ja</string>
+    <string name="yes">Nei</string>
+    <string name="set_internet">Aktivere mobildata?</string>
+    <string name="poles_prompt">Velg antallet stolper</string>
+    <string name="choose_poles">Velg antallet stolper</string>
+    <string name="choose_level">Velg vanskelighetsnivå</string>
+    
+    <string name="dialog_register_marker">Kode på stolpe</string>
+    <string name="dialog_register">Ok</string>
+    <string name="dialog_cancel">Ikke helt fremme</string>
+    <string name="pole_hint">Kode på stolpe</string>
+    <string-array name="poles_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        
+    </string-array>
+    
+   <string-array name="level_array">
+        <item>1: Grønn</item>
+        <item>2: Blå</item>
+        <item>3: Rød</item>
+        <item>4: Sort</item>
+    </string-array>
+    
+    
+    <string name="title_activity_dynamictour">Dynamisk Tur</string>
+    <string name="title_activity_on_click_listener">OnClickListener</string>
+    <string name="dialog_time">Resultat</string>
+    <string name="message_time">Din tid var</string>
+    <string name="dialog_done">OK</string>
+    <string name="message_hours">timer</string>
+    <string name="message_minutes">minutter</string>
+    <string name="message_seconds">sekunder</string>
+    <string name="message_congrats">Du klarte det!</string>
+    
+    
+    
+    
+
+    <!-- Profile -->
+    <string name="title_activity_profile">Profil</string>
+    <string name="log_out">Logg ut</string>
+
+    <!-- Login -->
+    <string name="error_register">Problem ved registrering av bruker, vennligst prøv igjen</string>
+    <string name="successful_register">Vellykket registrering av bruker</string>
+    <string name="logged_in_as">Logget inn som</string>
+
+    <!-- Teams -->
+    <string name="your_team">Ditt lag</string>
+    <string name="all_teams">Alle lag</string>
+    <string name="team_highscore">Lag toppscore</string>
+    <string name="join_team">Bli med i lag</string>
+    <string name="search_teams">Søk etter lag</string>
+    <string name="select_team">Velg lag</string>
+    <string name="title_activity_display_team">Vislag</string>
+    <string name="view_members">Lagmedlemmer</string>
+    <string name="join_successful">Join successful!</string>
+    <string name="title_activity_team_highscore">LagToppscore</string>
+    <string name="highscore_name">Navn</string>
+    <string name="score">Score</string>
+    <string name="leave_team">Forlat laget</string>
+    <string name="leave_successful">Du er ikke lenger medlem av laget!</string>
+
+    <!-- Challenges -->
+    <string name="select_challenge">Velg utfordring</string>
+    <string name="show_highscores">Toppscore</string>
+    <string name="show_log">Logg</string>
+    <string name="start_challenge">Start</string>
+    <string name="preview_challenge">Forhåndsvis</string>
+
+    <!-- TEMP -->
+    <string name="drawer_open">Åpen navigasjonsskuffe</string>
+    <string name="drawer_close">Lukk navigasjonsskuffe</string>
+    <string name="title_activity_challenges">Utfordringer</string>
+
+</resources>
