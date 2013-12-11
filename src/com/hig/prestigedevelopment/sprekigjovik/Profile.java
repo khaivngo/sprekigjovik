@@ -1,6 +1,10 @@
 package com.hig.prestigedevelopment.sprekigjovik;
 
-
+/**
+ * @author Chris
+ * Displays userinformation and logout button. User needs to be logged in, or he will be sent to the 
+ * login activity
+ */
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,7 +16,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class Profile extends Activity {
 
@@ -21,9 +24,11 @@ public class Profile extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
 		
+		//Starts login activity if user isn't logged in
 		if(!checkLogin()){
 			Intent intent = new Intent(this, Login.class);
 			startActivity(intent);
+		//Displays userinformation if user is logged in
 		} else {
 			SharedPreferences sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
 			String textValue = sharedPreferences.getString("UserName", "");
@@ -39,6 +44,10 @@ public class Profile extends Activity {
 	    return true;
 	}
 	
+	/**
+	 * Starts new mainactivity instance on back press, to refresh buttons 
+	 * now that user is logged in
+	 */
 	@Override
     public void onBackPressed() {
 		Intent intent = new Intent(this, MainActivity.class);
@@ -47,6 +56,7 @@ public class Profile extends Activity {
         super.onBackPressed();   
     }
 	
+	//Action bar
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		
@@ -65,7 +75,10 @@ public class Profile extends Activity {
 	    return true;
 	  } 
 	
-	
+	/**
+	 * Checks if user is logged in.
+	 * @return boolean if user is logged in or not
+	 */
 	public Boolean checkLogin(){
 		SharedPreferences sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
 		String userName = sharedPreferences.getString("UserName", "");
@@ -73,6 +86,10 @@ public class Profile extends Activity {
 		return (userName != "") ? true : false;
 	}
 	
+	/**
+	 * Logs out user by clearing sharedpreferences.
+	 * @param view Current view
+	 */
 	public void logOut(View view) {
 		SharedPreferences sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
 		sharedPreferences.edit().clear().commit();

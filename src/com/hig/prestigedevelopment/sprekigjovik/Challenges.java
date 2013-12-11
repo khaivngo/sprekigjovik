@@ -46,31 +46,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 /**
- * This example illustrates a common usage of the DrawerLayout widget
- * in the Android support library.
- * <p/>
- * <p>When a navigation (left) drawer is present, the host activity should detect presses of
- * the action bar's Up affordance as a signal to open and close the navigation drawer. The
- * ActionBarDrawerToggle facilitates this behavior.
- * Items within the drawer should fall into one of two categories:</p>
- * <p/>
- * <ul>
- * <li><strong>View switches</strong>. A view switch follows the same basic policies as
- * list or tab navigation in that a view switch does not create navigation history.
- * This pattern should only be used at the root activity of a task, leaving some form
- * of Up navigation active for activities further down the navigation hierarchy.</li>
- * <li><strong>Selective Up</strong>. The drawer allows the user to choose an alternate
- * parent for Up navigation. This allows a user to jump across an app's navigation
- * hierarchy at will. The application should treat this as it treats Up navigation from
- * a different task, replacing the current task stack using TaskStackBuilder or similar.
- * This is the only form of navigation drawer that should be used outside of the root
- * activity of a task.</li>
- * </ul>
- * <p/>
- * <p>Right side drawers should be used for actions, not navigation. This follows the pattern
- * established by the Action Bar that navigation should be to the left and actions to the right.
- * An action should be an operation performed on the current contents of the window,
- * for example enabling or disabling a data overlay on top of the current content.</p>
+ * Displays all challenges through a navigation drawer, displays challenge
+ * information like description, amount of poles, difficulty.
+ * Displays buttons for highscore and start challenge 
+ * @author Chris
+ * 
  */
 public class Challenges extends Activity {
     private DrawerLayout mDrawerLayout;
@@ -91,8 +71,6 @@ public class Challenges extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
-        
-        Intent intent = getIntent();
         
         setContentView(R.layout.activity_challenges);
         
@@ -137,6 +115,8 @@ public class Challenges extends Activity {
             selectItem(0);
         }
         
+        //Starts with drawer open
+        mDrawerLayout.openDrawer(findViewById(R.id.left_drawer));
         this.findViewById(R.id.left_drawer);
     }
   
@@ -146,14 +126,9 @@ public class Challenges extends Activity {
     {
         super.onActivityResult(requestCode, resultCode, data);
         
+        //Displays the right challenge if user presses back on a different highscore
         if(resultCode == Activity.RESULT_OK){
-//        	if(resultCode == RESULT_OK){
-        
-	        Log.d("hei2", data.getStringExtra("title"));
 	        selectItem(Arrays.asList(mChallengeTitles).indexOf(data.getStringExtra("title")));
-//        	}	
-        } else {
-        	Log.d("Fail", resultCode + "");
         }
     }
     
@@ -169,19 +144,20 @@ public class Challenges extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		
 		Intent intent;
-		
+		//Profile button on action bar
 	    switch (item.getItemId()) {
 	    case R.id.action_profile:
 	    	intent = new Intent(this, Profile.class);
 	    	startActivity(intent);
 	    	break;
-	    case R.id.action_maps:
-	    	intent = new Intent(this, Maps.class);
-	    	startActivity(intent);
-	    	break;
 	    default:
 	      break;
 	    }
+	    //Opens drawer if user presses app icon
+	    if (mDrawerToggle.onOptionsItemSelected(item)) {
+	         return true;
+	    }
+	    
 	    return true;
 	}	    
 
@@ -192,7 +168,7 @@ public class Challenges extends Activity {
             selectItem(position);
         }
     }
-
+    
     private void selectItem(int position) {
         // update the main content by replacing fragments
         Fragment fragment = new ChallengeFragment();
@@ -257,6 +233,11 @@ public class Challenges extends Activity {
             return rootView;
         }
         
+        /**
+         * Displays challenge data on the layout. Displays total poles, description and difficulty
+         * @param view Current view
+         * @param name Name of the challenge
+         */
         public static void setUpChallengeData(View view, String name) {
         	
         	String [] queryCName = { name };
@@ -267,15 +248,18 @@ public class Challenges extends Activity {
         	Cursor cursor = db.rawQuery("SELECT Count(*) FROM challengePoles WHERE challengeId = (SELECT id FROM challenges WHERE name = ?);)", queryCName);
         	cursor.moveToFirst();
         	
+        	//Displays amount of poles
         	TextView poles = (TextView) view.findViewById(R.id.challengePoles);
         	poles.setText(cursor.getString(0) + " total poles.");
         	
         	cursor = db.rawQuery("SELECT * FROM challenges WHERE name LIKE ? ;)", queryCName);
         	cursor.moveToFirst();
-        	Log.d(cursor.getString(2), cursor.getString(3));
+        	
+        	//Displays description
         	TextView description = (TextView) view.findViewById(R.id.challengeDescription);
         	description.setText(cursor.getString(2));
         	
+        	//Displays difficulty level
         	TextView difficulty = (TextView) view.findViewById(R.id.challengeDifficulty);
         	difficulty.setText("Difficulty level: " + cursor.getString(3));
         	
@@ -297,6 +281,7 @@ public class Challenges extends Activity {
     	SQLiteDatabase sdb = SQLiteDatabase.openDatabase(path + "PoleDB", null, SQLiteDatabase.CREATE_IF_NECESSARY);
     	Cursor cursor = sdb.rawQuery("SELECT name FROM challenges", null);
     	
+    	//Populates list with challenge names
     	while(cursor.moveToNext()){
     		names.add(cursor.getString(0));
     	}
@@ -314,29 +299,39 @@ public class Challenges extends Activity {
     	return context;
     }
     
+    /**
+     * Starts a highscore activity on the challenge name
+     * @param v Current view
+     */
     public void showHighscores(View v){
     	Intent intent = new Intent(this, TeamHighscore.class);
     	intent.putExtra("challengeName", mTitle.toString());
     	startActivityForResult(intent, 500);
     }
     
+    /**
+     * Starts the current challenge on the map activity.
+     * @param v Current view
+     */
     public void startChallenge(View v){
     	
     	List<String> selectedPoles = new ArrayList<String>();
     	
     	db = openOrCreateDatabase("PoleDB", MODE_PRIVATE,null);
-    	Log.d("heiheiheiehie", mTitle.toString());
+
 	    Cursor cursor = db.rawQuery("SELECT name, longitude, latitude FROM pole p " +
 	    							"JOIN challengePoles c ON c.poleId = p.name " +
 	    							"WHERE c.challengeId = (SELECT id FROM challenges WHERE name LIKE ?);", new String[] {mTitle.toString()});
 	    
-	    
+	    //Populates the list with poles
 	    while(cursor.moveToNext())	{
 	    	selectedPoles.add(cursor.getString(0)+":"+cursor.getString(1)+":"+cursor.getString(2));
 	    }
 	    
 	    cursor.close();
 	    
+	    //Adds challenge name to sharedpreferences - for Maps activity to know this is a challenge
+	    // and not a dynamic tour.
 	    SharedPreferences sharedTime = getSharedPreferences("time", Context.MODE_PRIVATE);
 	    SharedPreferences.Editor editor = sharedTime.edit();
 	     

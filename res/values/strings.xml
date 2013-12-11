@@ -10,7 +10,6 @@
     <string name="title_section3">Teams</string>
 
     <!-- Action Bar -->
-    <string name="action_maps">Open map</string>
     <string name="action_profile">Profile</string>
 
     <!-- Maps -->
@@ -73,10 +72,6 @@
     <string name="message_seconds">seconds</string>
     <string name="message_congrats">Congratulations!</string>
     
-    
-    
-    
-
     <!-- Profile -->
     <string name="title_activity_profile">Profile</string>
     <string name="log_out">Log Out</string>

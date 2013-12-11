@@ -30,14 +30,6 @@ public class DialogActivity extends Activity {
 		addListenerOnButton();
 	}
 	
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.dynamic_tour, menu);
-		return true;
-	}
-	
 	/**
 	 * Listen for users pole code input, if submit pole is 
 	 * checked as visited and returning to host activity.					

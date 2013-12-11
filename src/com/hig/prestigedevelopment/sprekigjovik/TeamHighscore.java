@@ -48,31 +48,13 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 /**
- * This example illustrates a common usage of the DrawerLayout widget
- * in the Android support library.
- * <p/>
- * <p>When a navigation (left) drawer is present, the host activity should detect presses of
- * the action bar's Up affordance as a signal to open and close the navigation drawer. The
- * ActionBarDrawerToggle facilitates this behavior.
- * Items within the drawer should fall into one of two categories:</p>
- * <p/>
- * <ul>
- * <li><strong>View switches</strong>. A view switch follows the same basic policies as
- * list or tab navigation in that a view switch does not create navigation history.
- * This pattern should only be used at the root activity of a task, leaving some form
- * of Up navigation active for activities further down the navigation hierarchy.</li>
- * <li><strong>Selective Up</strong>. The drawer allows the user to choose an alternate
- * parent for Up navigation. This allows a user to jump across an app's navigation
- * hierarchy at will. The application should treat this as it treats Up navigation from
- * a different task, replacing the current task stack using TaskStackBuilder or similar.
- * This is the only form of navigation drawer that should be used outside of the root
- * activity of a task.</li>
- * </ul>
- * <p/>
- * <p>Right side drawers should be used for actions, not navigation. This follows the pattern
- * established by the Action Bar that navigation should be to the left and actions to the right.
- * An action should be an operation performed on the current contents of the window,
- * for example enabling or disabling a data overlay on top of the current content.</p>
+ * Displays a higscore list for the user, containing all score from all users unless teamname is set.
+ * If teamname is set, it will only display highscores from team members. 
+ * On back button the activity will return to the challenge the user is currently viewing highscores
+ * from, if the user came from challenges.
+ * 
+ * Challengenames is displayed in a navigation drawer, and will display the current highscores of the 
+ * challenge if pressed
  */
 public class TeamHighscore extends Activity {
     private DrawerLayout mDrawerLayout;
@@ -95,12 +77,11 @@ public class TeamHighscore extends Activity {
         super.onCreate(savedInstanceState);
         context = this;
         
+        //Checks if intent extras is set
         Intent intent = getIntent();
         teamName = intent.getStringExtra("teamName");
         challengeName = intent.getStringExtra("challengeName");
-//        if(!teamName.equals("")){
-//        	isTeam = true;
-//        }
+
         
         setContentView(R.layout.activity_highscore);
         
@@ -140,7 +121,8 @@ public class TeamHighscore extends Activity {
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
+        
+        //Opens the right highscore if challengename is set
         if (savedInstanceState == null) {
             List<String> list = Arrays.asList(mChallengeTitles);
         	if(challengeName != null && list.contains(challengeName)) {
@@ -148,6 +130,11 @@ public class TeamHighscore extends Activity {
             } else {
             	selectItem(0);
             }
+        }
+        
+        //Opens drawer on startup if no challengename is set
+        if(challengeName == null){
+	        mDrawerLayout.openDrawer( findViewById(R.id.left_drawer));
         }
     }
 
@@ -172,6 +159,7 @@ public class TeamHighscore extends Activity {
 	    super.onBackPressed();
 	}
 	
+	//Action bar
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		
@@ -182,14 +170,10 @@ public class TeamHighscore extends Activity {
 	    	intent = new Intent(this, Profile.class);
 	    	startActivity(intent);
 	    	break;
-	    case R.id.action_maps:
-	    	intent = new Intent(this, Maps.class);
-	    	startActivity(intent);
-	    	break;
 	    default:
 	    	break;
 	    }
-	    
+	    //Opens action bar if app icon is pressed
 	    if (mDrawerToggle.onOptionsItemSelected(item)) {
 	         return true;
 	    }
@@ -211,7 +195,7 @@ public class TeamHighscore extends Activity {
         Bundle args = new Bundle();
         args.putInt(ChallengeFragment.ARG_HIGHSCORE_NUMBER, position);
         fragment.setArguments(args);
-
+        
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
@@ -231,7 +215,7 @@ public class TeamHighscore extends Activity {
      * When using the ActionBarDrawerToggle, you must call it during
      * onPostCreate() and onConfigurationChanged()...
      */
-
+   
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -264,20 +248,24 @@ public class TeamHighscore extends Activity {
             String title = getChallengeNames()[i];
 
             getActivity().setTitle(title);
-            Log.i("heei", i+ "");
+            
+            //Gets highscores
             String[] highscores = getHighscores(title);
             TextView tv;
             
-            //Adds first row, showing column-names
+            //----------------------------- SETS FIRST ROW WITH METADATA ----------------------------//
             final TableLayout t = (TableLayout) rootView.findViewById(R.id.my_table);
             final TableRow row = (TableRow) inflater.inflate(R.layout.highscore_row_item, null);
             
+            //Cell 1 "#"
             tv = (TextView) row.findViewById(R.id.cell_1);
             tv.setText("#");
             
+            //Cell 2 "NAME"
             tv = (TextView) row.findViewById(R.id.cell_2);
             tv.setText(getString(R.string.highscore_name));
             
+            //Cell 3 "SCORE"
             tv = (TextView) row.findViewById(R.id.cell_3);
             tv.setText(getString(R.string.score));
             t.addView(row);
@@ -288,18 +276,21 @@ public class TeamHighscore extends Activity {
             t.addView(tv);
             registerForContextMenu(row);
             
-            //Adds highscore-data in rows
+          //----------------------------- SETS HIGHSCORE DATA ----------------------------//
             for(int j = 0; j < highscores.length; j++){
             	String[] s = highscores[j].split(":");
             	final TableLayout table = (TableLayout) rootView.findViewById(R.id.my_table);
                 final TableRow tr = (TableRow) inflater.inflate(R.layout.highscore_row_item, null);
             	
+                //Cell 1 "NUMBER"
             	tv = (TextView) tr.findViewById(R.id.cell_1);
                 tv.setText(Integer.toString(j+1));
                 
+                //Cell 2 "NAME"
                 tv = (TextView) tr.findViewById(R.id.cell_2);
                 tv.setText(s[0]);
                 
+                //Cell 3 "SCORE"
                 tv = (TextView) tr.findViewById(R.id.cell_3);
                 tv.setText(mod(Integer.parseInt(s[1])));
                 table.addView(tr);
@@ -309,7 +300,7 @@ public class TeamHighscore extends Activity {
                 tv.setHeight(2);
                 table.addView(tv);
 
-                // If you use context menu it should be registered for each table row
+                //Register row
                 registerForContextMenu(tr);
             }
 
@@ -341,6 +332,7 @@ public class TeamHighscore extends Activity {
     	SQLiteDatabase sdb = SQLiteDatabase.openDatabase(path + "PoleDB", null, SQLiteDatabase.CREATE_IF_NECESSARY);
     	Cursor cursor = sdb.rawQuery("SELECT name FROM challenges", null);
     	
+    	//Populates list with challengenames
     	while(cursor.moveToNext()){
     		names.add(cursor.getString(0));
     	}
@@ -350,7 +342,8 @@ public class TeamHighscore extends Activity {
 	}
     /**
      * Static function to return highscores as a string array
-     * Has to be static for fragment-implementations
+     * Has to be static for fragment-implementations.
+     * Will get team data if team is set.
      * @param i name of the highscore
      * @return
      */
@@ -368,29 +361,34 @@ public class TeamHighscore extends Activity {
     	
     	sdb = SQLiteDatabase.openDatabase(path + "sprekIGjovik", null, SQLiteDatabase.CREATE_IF_NECESSARY);
     	
+    	//Starts query with a join
     	String query = "SELECT p.username, h.score FROM highscores h " +
     			"INNER JOIN peeps p ON h.userId=p.id ";
     	//!teamName.equals("") && 
     	if(teamName != null){		//Adds join on team if team is set
     		if(!teamName.equals("")){
     				//Adds teamname to bind value
-    			query = query + "INNER JOIN teams t ON p.teamId=t.id ";
+    			query += "INNER JOIN teams t ON p.teamId=t.id ";
     		}
     	}		
-    	query = query +	"WHERE h.challengeId LIKE ? ";
+    	query += "WHERE h.challengeId LIKE ? ";
     	
     	if(teamName != null){		//Adds team check if team is set
     		if(!teamName.equals("")){
-    			query = query + "AND t.name LIKE ? ";
+    			query += "AND t.name LIKE ? ";
     		}
     	}
-    	query = query + "ORDER BY h.score ASC ";
+    	query += "ORDER BY h.score ASC ";
+    	
+    	//Performs the query with the right data based on if team is set or
+    	// not
     	if(teamName == null){
     		cursor = sdb.rawQuery(query, new String[] {queryData[0]});
     	} else {
     		cursor = sdb.rawQuery(query, queryData);
     	}
     	
+    	//Populates list with highscore data
     	while(cursor.moveToNext()){
     		highscores.add(cursor.getString(0) + ":" + cursor.getString(1));
     	}

@@ -51,13 +51,6 @@ public class DynamicTour extends Activity {
 		addListenerOnPoleSpinnerItemSelection();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.dynamic_tour, menu);
-		return true;
-	}
-
 	
 	  public void addListenerOnPoleSpinnerItemSelection() {
 		  	polesSpinner = (Spinner) findViewById(R.id.poles_spinner);

@@ -16,6 +16,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 /**
+ * Displays a list containging all teams.
+ * Pressing on a team will open the displayteam activity on the selected team
  * @author Chris
  *
  */
@@ -39,16 +41,21 @@ public class SelectTeamDialogFragment extends DialogFragment{
         return builder.create();
     }
     
+    /**
+     * Gets all team names.
+     * @return Team names in a string array
+     */
     public String[] getTeams() {
     	
     	String path = "/data/data/com.hig.prestigedevelopment.sprekigjovik/databases/";
-    	
+    	//Gets all team names
     	db = SQLiteDatabase.openDatabase(path + "sprekIGjovik", null, SQLiteDatabase.CREATE_IF_NECESSARY);
 		db.execSQL("CREATE TABLE IF NOT EXISTS teams(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, " +
 				"description TEXT);");
 		Cursor cursor = db.rawQuery("SELECT name FROM teams", null);
     	
 		List<String> strings = new ArrayList<String>();
+		//Populates list with team names
 		while(cursor.moveToNext()){
 			strings.add(cursor.getString(0));
 		}

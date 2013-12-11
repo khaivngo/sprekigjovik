@@ -26,12 +26,10 @@ import android.widget.Toast;
 /**
  * Activity which displays a login screen to the user, offering registration as
  * well.
+ * @author Chris
  */
 public class Login extends Activity {
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
-	 */
+
 	private ArrayList<String> users = new ArrayList<String>();
 	private SQLiteDatabase db;
 	
@@ -62,6 +60,8 @@ public class Login extends Activity {
 
 		setContentView(R.layout.activity_login);
 
+		
+		//Populate list with usernames
 		db = openOrCreateDatabase("sprekIGjovik", MODE_PRIVATE,null);
 		db.execSQL("CREATE TABLE IF NOT EXISTS peeps(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, " +
 				"password TEXT, teamId INTEGER);");
@@ -74,7 +74,7 @@ public class Login extends Activity {
 			users.add(name);
 		} 
 		
-		db.close();
+		cursor.close();
 		
 		// Set up the login form.
 		mUserName = getIntent().getStringExtra(EXTRA_USERNAME);
@@ -107,14 +107,9 @@ public class Login extends Activity {
 					}
 				});
 	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		getMenuInflater().inflate(R.menu.profile, menu);
-		return true;
-	}
-	
+	/**
+	 * Navigates to MainActivity on back, so it won't go to profile
+	 */
 	@Override
 	public void onBackPressed() {
 		Intent intent = new Intent(this, MainActivity.class);
@@ -153,7 +148,7 @@ public class Login extends Activity {
 			cancel = true;
 		}
 
-		// Check for a valid UserName address.
+		// Check for a valid UserName.
 		if (TextUtils.isEmpty(mUserName)) {
 			mUserNameView.setError(getString(R.string.error_field_required));
 			focusView = mUserNameView;
@@ -261,15 +256,15 @@ public class Login extends Activity {
 			showProgress(false);
 
 			if (success) {
-				
+				//Saves login-state as a sharedpreference
 				SharedPreferences sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
 				SharedPreferences.Editor editor = sharedPreferences.edit();
 				
 				editor.putString("UserName", mUserName);
 				editor.commit();
 				
-				
-				Toast.makeText(getApplicationContext(), getString(R.string.logged_in_as) + mUserName, 
+				//Displays feedback to user, ends activity
+				Toast.makeText(getApplicationContext(), getString(R.string.logged_in_as) + " " + mUserName, 
 						   Toast.LENGTH_LONG).show();
 				
 				finish();

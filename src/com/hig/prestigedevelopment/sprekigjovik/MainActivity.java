@@ -28,6 +28,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+/**
+ * Displays 3 tabs to the user, each containing buttons for challenges, dynamic tour and teams.
+ * On the top there is a action bar with button for the profile
+ * @author Chris
+ *
+ */
+
 public class MainActivity extends FragmentActivity {
 
 	/**
@@ -95,10 +102,6 @@ public class MainActivity extends FragmentActivity {
 	    switch (item.getItemId()) {
 	    case R.id.action_profile:
 	    	intent = new Intent(this, Profile.class);
-	    	startActivity(intent);
-	    	break;
-	    case R.id.action_maps:
-	    	intent = new Intent(this, Maps.class);
 	    	startActivity(intent);
 	    	break;
 	    default:
@@ -615,10 +618,6 @@ public class MainActivity extends FragmentActivity {
 		}
 		return true;
 	}
-	
-
-	
-
 }
 
 
