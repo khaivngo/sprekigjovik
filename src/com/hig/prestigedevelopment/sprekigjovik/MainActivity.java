@@ -53,9 +53,7 @@ public class MainActivity extends FragmentActivity {
 	private SQLiteDatabase db;
 	private SQLiteDatabase myDB= null;
 	private final String tableNamePole			= 	"pole";
-	private final String tableNameArea			=	"area";
-	private final String tableNameChallengePole	=	"challengePole";
-	private final String tableNameChallenge		=	"challenge";
+
 	private static Context context;
 	private SQLiteDatabase sessionDB= null;
 	 
@@ -393,8 +391,6 @@ public class MainActivity extends FragmentActivity {
 		String tableNamePole			= 	"pole";				//contains all poles
 		String tableNameArea			=	"area";				//area for poles
 		String tableNameSessionPole		= 	"sessionPole";		//table for poles for each session
-		String tableNameChallengePole	=	"challengePole";	//challenges and belonging poles
-		String tableNameChallenge		=	"challenge";		//all available challenges
 		
 		myDB = this.openOrCreateDatabase("PoleDB", MODE_PRIVATE, null);		//database for poles
 		
@@ -406,11 +402,6 @@ public class MainActivity extends FragmentActivity {
 		myDB.execSQL("CREATE TABLE IF NOT EXISTS "
 							+ tableNameArea
 							+"(id INTEGER PRIMARY KEY  AUTOINCREMENT, name TEXT);");
-		
-		
-//			myDB.execSQL("CREATE TABLE IF NOT EXISTS "
-//								+ tableNameChallenge
-//								+"(id INTEGER PRIMARY KEY  AUTOINCREMENT, name TEXT);");
 		
 		sessionDB = this.openOrCreateDatabase("PoleSession", MODE_PRIVATE, null);	//database for session poles
 		sessionDB.execSQL("CREATE TABLE IF NOT EXISTS "
@@ -527,7 +518,12 @@ public class MainActivity extends FragmentActivity {
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
 				     + " (name, longitude, latitude, level)"
-				     + " VALUES ('46','10.698281', '60.798292', '4');");
+				     + " VALUES ('42','10.698281', '60.798292', '4');");
+			 
+			 myDB.execSQL("INSERT INTO "
+				     + tableNamePole
+				     + " (name, longitude, latitude, level)"
+				     + " VALUES ('46','10.662968', '60.796467', '4');");
 			 
 			 myDB.execSQL("INSERT INTO "
 				     + tableNamePole
@@ -652,8 +648,7 @@ public class MainActivity extends FragmentActivity {
         sessionDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
 	    sessionDB.execSQL("DELETE FROM sessionPole");
 	    sessionDB.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name='sessionPole'");
-	    
-	    Log.d("Clearing session table", "MainActivity: line 611");
+
     }
 
 	

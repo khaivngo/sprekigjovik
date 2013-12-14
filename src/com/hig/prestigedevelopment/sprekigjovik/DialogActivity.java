@@ -56,12 +56,9 @@ public class DialogActivity extends Activity {
 			
 			@Override
 			  public void onClick(View v) {
-			    Toast.makeText(DialogActivity.this, "\nTextView: "+ mEdit.getText().toString(),
-			    Toast.LENGTH_SHORT).show();
 			    		
 			    String markerId = i.getStringExtra("markerId");		//getting data from intent
 			    													//query updating visited pole
-			    Log.d("MarkerID", markerId);
 			    
 			    myDB.execSQL("UPDATE sessionPole SET isVisited = "+visited+" WHERE poleID = "+markerId);
 

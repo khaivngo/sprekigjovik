@@ -73,7 +73,7 @@ public class DynamicTour extends Activity {
 												//path to DB
 				String path = "/data/data/com.hig.prestigedevelopment.sprekigjovik/databases/";
 				
-				final int MAXDISTANCE = 5000;
+				final int MAXDISTANCE = 10000;
 				final int MINDISTANCE = 50;
 				float currentLat = 0;
 				float currentLon = 0;
@@ -110,7 +110,6 @@ public class DynamicTour extends Activity {
 		    		int distance = Math.round(distance(currentLat, currentLon, cursor.getFloat(2), cursor.getFloat(1)));
 		    		
 		    		if(distance < MAXDISTANCE && distance > MINDISTANCE){
-		    			Log.d("Distance", distance(currentLat, currentLon, cursor.getFloat(2), cursor.getFloat(1)) + "");
 		    			selectedPoles.add(cursor.getString(0)+":"+cursor.getString(1)+":"+cursor.getString(2));
 		    			selectedIds.add(cursor.getString(0));
 		    			f1 = cursor.getFloat(2);
@@ -134,7 +133,6 @@ public class DynamicTour extends Activity {
 				    		int distance = Math.round(distance(f1, f2, cursor.getFloat(2), cursor.getFloat(1)));
 				    		
 				    		if(distance < MAXDISTANCE && distance > MINDISTANCE && !selectedIds.contains(cursor.getString(0))){
-				    			Log.d("Distance", distance(f1, f2, cursor.getFloat(2), cursor.getFloat(1)) + "");
 				    			selectedPoles.add(cursor.getString(0)+":"+cursor.getString(1)+":"+cursor.getString(2));
 				    			selectedIds.add(cursor.getString(0));
 				    			

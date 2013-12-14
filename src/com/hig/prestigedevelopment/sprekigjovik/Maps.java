@@ -10,9 +10,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,6 +32,7 @@ public class Maps extends FragmentActivity {
 	private SQLiteDatabase poleDB = null;
 	private SQLiteDatabase sessionDB = null;
 	private SQLiteDatabase challengeDB = null;
+	private static Context context;
 
 
 	String currentMarker = null;
@@ -39,7 +40,6 @@ public class Maps extends FragmentActivity {
 	Marker testMarker = null;
 	Marker marker;
 	ArrayList<Marker> mMarkerArray = new ArrayList<Marker>();
-
 
 	
 	/**
@@ -53,7 +53,11 @@ public class Maps extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         
-        setStartTime();
+        
+        if(!getSP())	{
+        	setStartTime();
+        }
+        
         setUpMapIfNeeded();
         groundOverlay();
       
@@ -91,15 +95,15 @@ public class Maps extends FragmentActivity {
      */
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
-      //  if (mMap == null) {
+       // if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
             // Check if we were successful in obtaining the map.
-        //    if (mMap != null) {
+         //   if (mMap != null) {
                 setUpMap();
           //  }
-       // }
+        //}
     }
 
     /**
@@ -110,7 +114,8 @@ public class Maps extends FragmentActivity {
     private void setUpMap() {
     	sessionDB = openOrCreateDatabase("PoleSession", MODE_PRIVATE,null);		//opening database for saving poles for current session
 
-    	if(getSP())	{	
+    	if(getSP())	{
+    			
     		ArrayList<String> selection = new ArrayList<String>();		//storing retrieved strings about DB data.
     		Intent i = getIntent();										
     		selection = i.getStringArrayListExtra("selected");			//getting intent data
@@ -124,8 +129,6 @@ public class Maps extends FragmentActivity {
 					String ID = parts[0];							//saving 1/3 of the string into variable
     							
     						//checks if cursor contains any data -> table empty -> populate
-					Log.d("Session table is empty","Inserts poles");	
-    	    	
 					sessionDB.execSQL("INSERT INTO sessionPole(poleId) VALUES ("+ID+");");
     			}	
     		}
@@ -133,17 +136,16 @@ public class Maps extends FragmentActivity {
     	
         Cursor polesCursor = sessionDB.rawQuery("SELECT * FROM sessionPole WHERE isVisited is NULL LIMIT 1", null);
         polesCursor.moveToFirst();
+        
     									//all poles have been visited
     	if(polesCursor == null || polesCursor.getCount() == 0){
-    		Log.d("presumed finished","thinks it's finished")	;
     		isFinished();
     	}
     	else	{			//there is unvisited poles left
-    		Log.d("not finished","not finished");	
-    		
     		nextPole();		
     	}
-    		mMap.setMyLocationEnabled(true);		//changed out authors implementation for showing location.
+    
+    	mMap.setMyLocationEnabled(true);		//changed out authors implementation for showing location.
     												// is now able to locate users position.    
     }
     
@@ -238,7 +240,6 @@ public class Maps extends FragmentActivity {
     									//finding userid by searching for username
     	Cursor uId = challengeDB.rawQuery("SELECT id FROM peeps WHERE username LIKE "+"'"+userName+"'", null);
     	uId.moveToFirst();
-    	
     									//converting time to a more readable format
     	long startTime = Long.parseLong(initialTime);
     	long currentTime = System.currentTimeMillis();
@@ -318,7 +319,9 @@ public class Maps extends FragmentActivity {
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
-            	
+            	Intent intent = new Intent(Maps.this, MainActivity.class);
+            	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);   
+            	startActivity(intent);
             }
         });
         alertDialog.show();
@@ -345,8 +348,9 @@ public class Maps extends FragmentActivity {
 	
 	public Boolean getSP()	{
 		SharedPreferences sharedPreferences = getSharedPreferences("time", Context.MODE_PRIVATE);
-		String textValue = sharedPreferences.getString("StartTime", "");
-		return textValue.isEmpty() ? true : false;
+		String textValue = sharedPreferences.getString("StartTime", "");	
+
+		return textValue.isEmpty() ? false : true;
 	}
 
 }
