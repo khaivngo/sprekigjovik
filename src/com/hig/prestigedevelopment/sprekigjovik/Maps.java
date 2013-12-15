@@ -314,7 +314,7 @@ public class Maps extends FragmentActivity {
         int hours = intSecs / 3600;
         int minutes = (intSecs%3600)/60;
         
-        alertDialog.setMessage(message+":\n"+messageHours+": "+hours+" "+messageMinutes+" "+minutes+" "+messageSeconds+" "+intSecs+"\n\n"+congrats);
+        alertDialog.setMessage(message+":\n"+messageHours+": "+hours+" "+messageMinutes+": "+minutes+" "+messageSeconds+": "+intSecs+"\n\n"+congrats);
 
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 
@@ -331,6 +331,7 @@ public class Maps extends FragmentActivity {
 	 * Setting starting time for tour, the saved time is later
 	 * used for finding total used time for tour.
 	 * Then used for highscore.
+	 * @return 
 	 */
 	public void setStartTime()	{
 		
@@ -352,5 +353,6 @@ public class Maps extends FragmentActivity {
 
 		return textValue.isEmpty() ? false : true;
 	}
+	
 
 }

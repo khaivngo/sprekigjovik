@@ -22,9 +22,6 @@
     <string name="action_currentTour">Resume tour</string>
     <string name="action_deleteSession">Discard current tour</string>
     <string name="action_maps">Open map</string>
-    
-    
-    
     <string name="title_activity_maps">Maps</string>
     <string name="action_dynamicTour">Set tour criteria</string>
     <string name="enable_gps">Would you like to enable GPS?</string>
@@ -34,11 +31,11 @@
     <string name="poles_prompt">Choose number of poles</string>
     <string name="choose_poles">Select the numbers of poles you wish to visit</string>
     <string name="choose_level">Select difficulty level</string>
-    
-    <string name="dialog_register_marker">What is code on pole?</string>
-    <string name="dialog_register">Submit</string>
+    <string name="dialog_register_marker">Check in at pole:</string>
+    <string name="dialog_register">Check in</string>
     <string name="dialog_cancel">Not there yet</string>
     <string name="pole_hint">Code of pole</string>
+
     <string-array name="poles_array">
         <item>1</item>
         <item>2</item>
@@ -64,17 +61,14 @@
         <item>22</item>
         <item>23</item>
         <item>24</item>
-        
     </string-array>
-    
-   <string-array name="level_array">
+    <string-array name="level_array">
         <item>1: Green</item>
         <item>2: Blue</item>
         <item>3: Red</item>
         <item>4: Black</item>
     </string-array>
-    
-    
+
     <string name="title_activity_dynamictour">DynamicTour</string>
     <string name="title_activity_on_click_listener">OnClickListener</string>
     <string name="dialog_time">Results</string>
@@ -84,7 +78,7 @@
     <string name="message_minutes">minutes</string>
     <string name="message_seconds">seconds</string>
     <string name="message_congrats">Congratulations!</string>
-    
+
     <!-- Profile -->
     <string name="title_activity_profile">Profile</string>
     <string name="log_out">Log Out</string>
@@ -118,10 +112,14 @@
     <string name="show_log">Log</string>
     <string name="start_challenge">Start</string>
     <string name="preview_challenge">Preview</string>
-
+    <string name="challenge_top">Up to the top</string>
+    <string name="challenge_mjosa">Along Mjøsa</string>
+    <string name="challenge_hospital">To the hospital and back</string>
+    
     <!-- TEMP -->
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="title_activity_challenges">Challenges</string>
+    <string name="title_activity_launch_activity_test">LaunchActivityTest</string>
 
 </resources>

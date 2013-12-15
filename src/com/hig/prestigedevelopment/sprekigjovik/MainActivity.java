@@ -540,13 +540,6 @@ public class MainActivity extends FragmentActivity {
 				     + " (name, longitude, latitude, level)"
 				     + " VALUES ('49','10.674817', '60.793038', '4');");
 			 
-			 
-				Context context = getApplicationContext();
-				CharSequence text = "Insertion of data successfull";
-				int duration = Toast.LENGTH_SHORT;
-
-				Toast toast = Toast.makeText(context, text, duration);
-				toast.show();
 			
 		}
 		catch	(Exception e)	{
@@ -555,10 +548,8 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	public void dynamicTour(View view)        {
-		if(checkLogin()){
 			Intent intent = new Intent(this, DynamicTour.class);
 	        startActivity(intent);
-		}
 	}
 	
 	

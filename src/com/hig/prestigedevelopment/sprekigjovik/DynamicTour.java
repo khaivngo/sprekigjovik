@@ -10,10 +10,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -29,7 +29,7 @@ import android.widget.Toast;
  *
  */
 
-public class DynamicTour extends Activity {
+public class DynamicTour extends Activity implements LocationListener {
 
 	private Spinner polesSpinner;
 	private Spinner levelSpinner;
@@ -40,12 +40,32 @@ public class DynamicTour extends Activity {
 	private SQLiteDatabase db = null ;
 
 	private static Context context;
-
+	private Location location;
+	private LocationManager locationManager; 
+	private float currentLat = 0;
+	private float currentLon = 0;
+	private String provider;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dynamic_tour);
 		
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1,
+                1, this);
+    	locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null);
+		
+    	provider = locationManager.getBestProvider(new Criteria(), true);
+    	location = locationManager.getLastKnownLocation(provider);
+    	
+    	if(location != null) {
+    		currentLat = (float) location.getLatitude();
+    		currentLon = (float) location.getLongitude();
+    		Log.d("heihei", "heihei");
+    	}
+    	Log.d("heihei2", "heihei2");
+    	
 		context = this;
 		
 		//addItemsOnSpinner2();
@@ -53,6 +73,19 @@ public class DynamicTour extends Activity {
 		addListenerOnPoleSpinnerItemSelection();
 	}
 
+	@Override 
+	public void onPause()
+	{
+	    super.onPause();
+	    locationManager.removeUpdates(this);
+	}
+	
+	@Override 
+	public void onResume()
+	{
+	    super.onResume();
+	    locationManager.requestLocationUpdates(provider, 2000, 10, this);
+	}
 	
 	public void addListenerOnPoleSpinnerItemSelection() {
 		 polesSpinner = (Spinner) findViewById(R.id.poles_spinner);			//spinner for number of poles
@@ -75,8 +108,6 @@ public class DynamicTour extends Activity {
 				
 				final int MAXDISTANCE = 10000;
 				final int MINDISTANCE = 50;
-				float currentLat = 0;
-				float currentLon = 0;
 				Float f1 = null;
 				Float f2 = null;
 				List<String> selectedPoles = new ArrayList<String>();
@@ -90,16 +121,6 @@ public class DynamicTour extends Activity {
 		    	 String[] parts = level.split("\\:");
 		    	 int selectedLevel = Integer.parseInt(parts[0]);
 
-		    	//------------------------ GETS USER LOCATION ------------------------------------------------------------//
-		    	LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		    	Criteria criteria = new Criteria();
-		    	String provider = locationManager.getBestProvider(criteria, false);
-		    	Location location = locationManager.getLastKnownLocation(provider);
-		    	
-		    	if(location != null) {
-		    		currentLat = (float) location.getLatitude();
-		    		currentLon = (float) location.getLongitude();
-		    	}
 		    	
 		    	//------------------------ GETS FIRST POLE BASED ON YOUR LOCATION -----------------------------------------//
 		    	db = openOrCreateDatabase("PoleDB", MODE_PRIVATE,null);
@@ -110,6 +131,7 @@ public class DynamicTour extends Activity {
 		    		int distance = Math.round(distance(currentLat, currentLon, cursor.getFloat(2), cursor.getFloat(1)));
 		    		
 		    		if(distance < MAXDISTANCE && distance > MINDISTANCE){
+		    			Log.d("Distance", distance(currentLat, currentLon, cursor.getFloat(2), cursor.getFloat(1)) + "");
 		    			selectedPoles.add(cursor.getString(0)+":"+cursor.getString(1)+":"+cursor.getString(2));
 		    			selectedIds.add(cursor.getString(0));
 		    			f1 = cursor.getFloat(2);
@@ -118,7 +140,7 @@ public class DynamicTour extends Activity {
 		    		}
 		    	}
 		    	
-		    	if(cursor == null || cursor.getCount() == 0 || f1 == null){
+		    	if(cursor == null || cursor.getCount() == 0 || location == null){
 		    		 Toast.makeText(DynamicTour.this,
 		    				    "Could not find any poles on this location! Please try again to refresh coordinates.",
 		    				     Toast.LENGTH_SHORT).show();
@@ -133,6 +155,7 @@ public class DynamicTour extends Activity {
 				    		int distance = Math.round(distance(f1, f2, cursor.getFloat(2), cursor.getFloat(1)));
 				    		
 				    		if(distance < MAXDISTANCE && distance > MINDISTANCE && !selectedIds.contains(cursor.getString(0))){
+				    			Log.d("Distance", distance(f1, f2, cursor.getFloat(2), cursor.getFloat(1)) + "");
 				    			selectedPoles.add(cursor.getString(0)+":"+cursor.getString(1)+":"+cursor.getString(2));
 				    			selectedIds.add(cursor.getString(0));
 				    			
@@ -171,6 +194,36 @@ public class DynamicTour extends Activity {
 		    int meterConversion = 1609;
 
 		    return new Float(distance * meterConversion).floatValue();
+		}
+
+
+		@Override
+		public void onLocationChanged(Location mLocation) {
+			
+    		currentLat = (float) mLocation.getLatitude();
+    		currentLon = (float) mLocation.getLongitude();
+			
+		}
+
+
+		@Override
+		public void onProviderDisabled(String provider) {
+			// TODO Auto-generated method stub
+			
+		}
+			
+
+		@Override
+		public void onProviderEnabled(String provider) {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+			// TODO Auto-generated method stub
+			
 		}
 		
 }

@@ -3,10 +3,16 @@
     package="com.hig.prestigedevelopment.sprekigjovik"
     android:versionCode="1"
     android:versionName="1.0" >
+    
+
+    
 
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="17" />
+    
+                <instrumentation android:name="android.test.InstrumentationTestRunner"
+       android:targetPackage="com.hig.prestigedevelopment.sprekigjovik" android:label="Tests for My App" />
 
     <permission
         android:name="com.hig.prestigedevelopment.sprekigjovik.permission.MAPS_RECEIVE"
@@ -18,13 +24,15 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.pemission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    
+
     <uses-feature
-		android:glEsVersion="0x00020000"
-		android:required="true"/>
-    
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
     <application
+
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
@@ -38,6 +46,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+              
+       <uses-library android:name="android.test.runner" />
+        
+        
         <activity
             android:name="com.hig.prestigedevelopment.sprekigjovik.Login"
             android:label="@string/title_activity_profile"
@@ -73,14 +86,22 @@
             android:name="com.hig.prestigedevelopment.sprekigjovik.DialogActivity"
             android:label="@string/title_activity_on_click_listener" >
         </activity>
-        
-		<meta-data
+
+        <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value="com.hig.prestigedevelopment.sprekigjovik" />
-		
-		<meta-data
+        <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDp7j2F8JEd6bwBLOxciOKIid7B7R1Lzks" />		
+            android:value="AIzaSyDp7j2F8JEd6bwBLOxciOKIid7B7R1Lzks" />
+
+        <activity
+            android:name="com.hig.prestigedevelopment.sprekigjovik.LaunchActivityTest"
+            android:label="@string/title_activity_launch_activity_test" >
+        </activity>
+        
+
     </application>
+    
+
 
 </manifest>

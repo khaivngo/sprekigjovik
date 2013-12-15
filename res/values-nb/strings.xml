@@ -28,7 +28,7 @@
     <string name="choose_poles">Velg antallet stolper</string>
     <string name="choose_level">Velg vanskelighetsnivå</string>
     
-    <string name="dialog_register_marker">Kode på stolpe</string>
+    <string name="dialog_register_marker">Tast inn bokstavkombinasjonen på stolpe:</string>
     <string name="dialog_register">Ok</string>
     <string name="dialog_cancel">Ikke helt fremme</string>
     <string name="pole_hint">Kode på stolpe</string>
@@ -113,6 +113,9 @@
     <string name="show_log">Logg</string>
     <string name="start_challenge">Start</string>
     <string name="preview_challenge">Forhåndsvis</string>
+    <string name="challenge_top">Opp til toppen</string>
+    <string name="challenge_mjosa">Langs Mjøsa</string>
+    <string name="challenge_hospital">Til sykehuset og tilbake</string>
 
     <!-- TEMP -->
     <string name="drawer_open">Åpen navigasjonsskuffe</string>
